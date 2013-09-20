@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>logging</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="logs.css" type="text/css" /> <!-- Here is dave's style sheet for his custom python logs -->
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative|Inder|Acme|Loved+by+the+King' rel='stylesheet' type='text/css'>   <!-- Google Web Font Integration -->
+</head>
+
+<body id="log">
+	<div id="wrapper">
+
+    <!-- [SET WHICH FILE YOU WANT TO SEE HERE - LOG OR DEBUGGER] -->
+		<!-- <div id="replace" title="log.html"></div> -->
+    <div id="replace" title="project_log.html"></div>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> <!-- jquery -->
+<script>
+
+$("#replace").each(function(){
+    var inc=$(this);
+    $.get(inc.attr("title"), function(data){
+        inc.replaceWith(data);
+
+			$("div#row").click(function(){
+				var row = $(this);
+				lineno = row.find("span.lineno").text();
+				filepath = row.find("span.pathname").text();
+				filepath = filepath.replace(/\/files\/pessto_code\/svnrelease\/marshall/, "/Users/Dave/Dropbox/bitbucket_projects/pessto_marshall");
+				link = "subl://open/?url=file://"+filepath+"&line="+lineno;
+		    	// alert(link);
+				window.location=link;
+		    	return false;
+		    });
+    });
+});
+
+// setTimeout(function () { location.reload(1); }, 5000);
+
+
+</script>
+</body>
+
+</html>
+

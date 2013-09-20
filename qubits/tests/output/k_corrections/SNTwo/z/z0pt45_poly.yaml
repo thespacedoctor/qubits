@@ -1,0 +1,4 @@
+{polyCoeffs: !!python/object/apply:numpy.core.multiarray._reconstruct {args: [!!python/name:numpy.ndarray '',
+      !!python/tuple [0], b], state: !!python/tuple [1, !!python/tuple [7], !!python/object/apply:numpy.dtype {
+        args: [f8, 0, 1], state: !!python/tuple [3, <, null, null, null, -1, -1, 0]},
+      false, !!binary "tZzO46v/rDyIgQ71x7M+vfp5YbGb2+i9sznZV94UhT6679gL5qP2vm0v2/L/a3O/QP/zqhFX3z8=\n"]}}

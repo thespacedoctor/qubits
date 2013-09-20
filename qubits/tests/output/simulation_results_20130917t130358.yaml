@@ -1,0 +1,2299 @@
+CCSN Progenitor Population Fraction of IMF: 0.007
+Cadence Dictionary:
+  g:
+  - 1
+  - 4
+  - 7
+  - 13
+  - 19
+  - 31
+  - 37
+  - 43
+  - 49
+  - 61
+  - 67
+  - 70
+  - 73
+  - 76
+  - 91
+  - 97
+  - 100
+  - 103
+  - 124
+  - 127
+  - 130
+  - 133
+  - 136
+  - 148
+  - 154
+  - 157
+  - 160
+  - 163
+  - 166
+  i:
+  - 2
+  - 8
+  - 11
+  - 17
+  - 20
+  - 32
+  - 35
+  - 50
+  - 62
+  - 65
+  - 68
+  - 74
+  - 77
+  - 89
+  - 92
+  - 95
+  - 98
+  - 101
+  - 104
+  - 119
+  - 125
+  - 128
+  - 137
+  - 146
+  - 149
+  - 152
+  - 155
+  - 158
+  - 164
+  r:
+  - 1
+  - 4
+  - 7
+  - 10
+  - 13
+  - 16
+  - 31
+  - 37
+  - 40
+  - 43
+  - 46
+  - 58
+  - 67
+  - 73
+  - 79
+  - 88
+  - 91
+  - 97
+  - 106
+  - 118
+  - 124
+  - 127
+  - 133
+  - 151
+  - 157
+  - 160
+  - 163
+  - 175
+  z:
+  - 6
+  - 15
+  - 18
+  - 33
+  - 36
+  - 39
+  - 42
+  - 48
+  - 60
+  - 63
+  - 66
+  - 69
+  - 72
+  - 75
+  - 78
+  - 87
+  - 90
+  - 99
+  - 102
+  - 105
+  - 108
+  - 117
+  - 123
+  - 129
+  - 132
+  - 147
+  - 156
+  - 159
+  - 165
+Campaign Length:
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 87.0
+  max: 438.6
+  r: 96.0
+  z: 438.6
+- g: false
+  i: 152.99999999999997
+  max: 393.6
+  r: 159.0
+  z: 393.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 375.6
+  r: 116.99999999999999
+  z: 375.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 27.000000000000004
+  max: 384.6
+  r: 41.999999999999986
+  z: 384.6
+- g: false
+  i: false
+  max: 366.6
+  r: 144.0
+  z: 366.6
+- g: false
+  i: 9.000000000000004
+  max: 360.6
+  r: 18.0
+  z: 360.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: 105.0
+  i: 453.6
+  max: 453.6
+  r: 399.6
+  z: 450.6
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 559.2
+  max: 559.2
+  r: 270.6
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: 162.0
+  max: 174.0
+  r: 174.0
+  z: 159.0
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 384.6
+  max: 384.6
+  r: 72.0
+  z: 159.0
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 159.0
+  r: 6.0
+  z: 159.0
+- g: false
+  i: 27.000000000000007
+  max: 369.6
+  r: 249.60000000000005
+  z: 369.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 27.000000000000007
+  max: 369.6
+  r: 24.0
+  z: 369.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 156.0
+  max: 444.6
+  r: 168.00000000000003
+  z: 444.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 159.0
+  r: 105.0
+  z: 159.0
+- g: false
+  i: false
+  max: 366.6
+  r: 57.000000000000014
+  z: 366.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 44.99999999999999
+  max: 399.6
+  r: 56.999999999999986
+  z: 399.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: 75.0
+  i: 357.6
+  max: 357.6
+  r: 30.0
+  z: 12.0
+- g: 75.0
+  i: 426.6
+  max: 426.6
+  r: false
+  z: 41.999999999999986
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: 513.6
+  max: 513.6
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 159.0
+  r: 15.0
+  z: 159.0
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 357.6
+  r: 69.0
+  z: 357.6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Discoveries Relative to Peak Magnitudes:
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -8.992522650084792
+  r: -97.53252265008479
+  z: -288.7235226500848
+- any: true
+  g: false
+  i: 41.704678582823384
+  r: -30.868321417176617
+  z: -267.5423214171766
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: -44.306556803435896
+  z: -332.5585568034359
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 5.260581583141228
+  r: -63.654418416858775
+  z: -324.3164184168588
+- any: true
+  g: false
+  i: false
+  r: -52.88302651572743
+  z: -330.44102651572746
+- any: true
+  g: false
+  i: 1.6882356851457094
+  r: -61.22676431485429
+  z: -321.8887643148543
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: -237.7472742096835
+  i: -236.7472742096835
+  r: -240.7472742096835
+  z: -238.7472742096835
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -328.4578445576509
+  r: -332.4578445576509
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -317.81719472747045
+  r: -22.27619472747044
+  z: -313.81719472747045
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -193.00572862986252
+  r: 86.0212713701375
+  z: -189.00572862986252
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 112.58247784543045
+  z: -161.97552215456957
+- any: true
+  g: false
+  i: -8.324173693952991
+  r: -107.80017369395298
+  z: -268.449173693953
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -1.7353990591748323
+  r: -59.30839905917483
+  z: -304.9823990591748
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -0.8169229904024213
+  r: -73.38992299040243
+  z: -316.0639229904024
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 5.0943641520138385
+  z: -268.15763584798617
+- any: true
+  g: false
+  i: false
+  r: -48.124378344692175
+  z: -327.37637834469217
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 3.796111403733369
+  r: -68.77688859626663
+  z: -311.4508885962666
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: -28.153281791923547
+  i: -134.20728179192355
+  r: 152.35671820807647
+  z: 148.81471820807647
+- any: true
+  g: -59.75081879201966
+  i: -213.10081879201965
+  r: false
+  z: 98.99618120798034
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: -315.01765678967934
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 125.01665961772179
+  z: -156.07334038227822
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: -51.90438663349604
+  z: -325.74938663349604
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Discoveries Relative to Survey Year:
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 77
+  r: 79
+  z: 78
+- any: true
+  g: false
+  i: 2
+  r: 1
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 58
+  z: 48
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 137
+  r: 133
+  z: 132
+- any: true
+  g: false
+  i: false
+  r: 31
+  z: 33
+- any: true
+  g: false
+  i: 155
+  r: 157
+  z: 156
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: 61
+  i: 62
+  r: 58
+  z: 60
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 164
+  r: 160
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 2
+  r: 1
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 2
+  r: 1
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 1
+  z: 6
+- any: true
+  g: false
+  i: 137
+  r: 133
+  z: 147
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 137
+  r: 151
+  z: 147
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 8
+  r: 7
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 1
+  z: 6
+- any: true
+  g: false
+  i: false
+  r: 118
+  z: 117
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 119
+  r: 118
+  z: 117
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: 1
+  i: 2
+  r: 1
+  z: 6
+- any: true
+  g: 1
+  i: 2
+  r: false
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: 2
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 1
+  z: 6
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: true
+  g: false
+  i: false
+  r: 106
+  z: 102
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Extinctions:
+  constant E(b-v): 0.023
+  constant or random: constant
+  galactic: null
+  host: null
+Extra Survey Constraints:
+  Faint-Limit of Peak Magnitude: 21.5
+  Observable for at least ? number of days: 100
+K-correction temporal resolution (days): 4.0
+Lightcurves:
+  SNOne:
+    End of lightcurve relative to peak: 250
+  SNThree:
+    End of lightcurve relative to peak: 250
+  SNTwo:
+    End of lightcurve relative to peak: 280
+Limiting Magnitudes:
+  g: 23.3
+  i: 23.3
+  r: 23.3
+  z: 21.7
+Observed Frame Filter for K-corrections: i
+Transient to CCSN Ratio: 10e-5
+Peak Apparent Magnitudes:
+- g: 34.83940608395733
+  i: 28.346745746597662
+  r: 27.789062856531928
+  z: 26.199276014792304
+- g: 29.04733525293159
+  i: 22.55467491557215
+  r: 21.99699202550255
+  z: 20.407205183784072
+- g: 29.565270794513708
+  i: 23.072610457128576
+  r: 22.51492756706193
+  z: 20.925140725344136
+- g: 31.710242283530533
+  i: 25.21758194360882
+  r: 24.659899074584246
+  z: 23.07011221256107
+- g: 31.710762271657586
+  i: 25.218101960606873
+  r: 24.660419105552137
+  z: 23.070632273331285
+- g: 29.86178168767583
+  i: 23.369121350329806
+  r: 22.81143846024679
+  z: 21.22165161853627
+- g: 33.61498184708216
+  i: 27.12232150971235
+  r: 26.56463861964309
+  z: 24.974851777926716
+- g: 29.720243692248914
+  i: 23.227583354876515
+  r: 22.66990046480805
+  z: 21.080113623093894
+- g: 29.864103282125143
+  i: 23.371442944791852
+  r: 22.81376005472157
+  z: 21.223973212998317
+- g: 29.718815101594373
+  i: 23.226154764241073
+  r: 22.668471874161696
+  z: 21.07868503244663
+- g: 31.71060494892299
+  i: 25.217944568954408
+  r: 24.66026173438877
+  z: 23.07047490682453
+- g: 32.56136120901897
+  i: 26.068700871639017
+  r: 25.51101798157079
+  z: 23.92123113985403
+- g: 28.550523841944823
+  i: 25.8073293356847
+  r: 27.769557837957564
+  z: 26.38735369844062
+- g: 21.895976398965388
+  i: 19.15278189270289
+  r: 21.115010394980345
+  z: 19.73280625546856
+- g: 24.70513582811691
+  i: 21.961941323592328
+  r: 23.924169833306223
+  z: 22.54196567076724
+- g: 24.90072388073895
+  i: 22.157529422547668
+  r: 24.119757936918177
+  z: 22.737553774612024
+- g: 28.548716320307676
+  i: 25.805521814048006
+  r: 27.76775031633042
+  z: 26.385546176815296
+- g: 23.872404376486884
+  i: 21.12920987022335
+  r: 23.091438372501216
+  z: 21.709234232987
+- g: 28.54694818298276
+  i: 25.8037536767215
+  r: 27.765982178994363
+  z: 26.383778039481058
+- g: 28.549824990365096
+  i: 25.806630484103607
+  r: 27.76885898638784
+  z: 26.386654846870897
+- g: 28.84759150323589
+  i: 26.104396996976902
+  r: 28.06662549923476
+  z: 26.684421359738735
+- g: 24.26324011842371
+  i: 21.520045616984135
+  r: 23.482274092559237
+  z: 22.100069967389572
+- g: 24.9011675901711
+  i: 22.157973129767925
+  r: 24.120201629470102
+  z: 22.73799747764133
+- g: 25.717258189804852
+  i: 22.9740637158975
+  r: 24.936292161233723
+  z: 23.554088108241558
+- g: 26.497070364421234
+  i: 23.192875692853704
+  r: 23.95296396012418
+  z: 22.145679115783423
+- g: 25.28196926896635
+  i: 21.977774577484524
+  r: 22.737862874277198
+  z: 20.930577996223292
+- g: 30.11093792521217
+  i: 26.806743233727047
+  r: 27.566831530499257
+  z: 25.759546652462177
+- g: 30.257574151807603
+  i: 26.95337946032396
+  r: 27.713467757114813
+  z: 25.906182879081825
+- g: 26.827382718212903
+  i: 23.523188007995486
+  r: 24.283276297617704
+  z: 22.475991401355714
+- g: 26.8282302278094
+  i: 23.524035504553467
+  r: 24.28412381745875
+  z: 22.476838915608823
+- g: 27.126220704056323
+  i: 23.822025899775326
+  r: 24.582114223390818
+  z: 22.774829232133925
+- g: 26.982415402308106
+  i: 23.678220690228045
+  r: 24.438309097662568
+  z: 22.631024121306837
+- g: 25.134596430358215
+  i: 21.83040173885456
+  r: 22.590490035649964
+  z: 20.783205157595148
+- g: 30.112472527383716
+  i: 26.808277835910303
+  r: 27.568366132685696
+  z: 25.761081254636338
+- g: 27.125839468091726
+  i: 23.821644694544375
+  r: 24.581733053550124
+  z: 22.774448075331748
+- g: 26.982205010950565
+  i: 23.678010276518762
+  r: 24.43809869233519
+  z: 22.630813750438392
+- g: 31.250439557712525
+  i: 24.757779226405546
+  r: 24.200096280081198
+  z: 22.61030946066603
+- g: 34.20755422160255
+  i: 27.714893884241178
+  r: 27.1572109941701
+  z: 25.567424152456056
+- g: 34.84172796762596
+  i: 28.34906763024992
+  r: 27.791384740178728
+  z: 26.20159789846184
+- g: 31.708983533084393
+  i: 25.21632316801697
+  r: 24.658640325069427
+  z: 23.068853532895446
+- g: 34.837135946068884
+  i: 28.344475608682842
+  r: 27.78679271861074
+  z: 26.19700587690204
+- g: 34.20807377015444
+  i: 27.71541343279796
+  r: 27.157730542730178
+  z: 25.567943701013405
+- g: 31.709358828142285
+  i: 25.21669839322567
+  r: 24.659015618264675
+  z: 23.069228728301823
+- g: 31.411403597332537
+  i: 24.918743289541453
+  r: 24.361060407478362
+  z: 22.771273504476994
+- g: 29.863345136593125
+  i: 23.37068479924892
+  r: 22.813001909171362
+  z: 21.223215067453566
+- g: 28.849381651821204
+  i: 22.356721314450283
+  r: 21.79903842438091
+  z: 20.20925158266334
+- g: 34.694797903851395
+  i: 28.202137566503097
+  r: 27.644454676425994
+  z: 26.054667834718657
+- g: 31.70910128299147
+  i: 25.216440900228918
+  r: 24.658758063800633
+  z: 23.06897120643407
+- g: 34.541191326878106
+  i: 28.048530989513438
+  r: 27.490848099429968
+  z: 25.901061257726724
+- g: 30.894431818742305
+  i: 24.401771469856612
+  r: 23.84408857591916
+  z: 22.2543017383432
+- g: 31.56396671757102
+  i: 25.071306359022856
+  r: 24.513623484410346
+  z: 22.923836700618267
+- g: 31.410522597376257
+  i: 24.917862255126238
+  r: 24.360179362352937
+  z: 22.770392500795424
+- g: 34.69348182286467
+  i: 28.20082148551319
+  r: 27.643138595441087
+  z: 26.053351753730567
+- g: 29.567196196430814
+  i: 23.074535859052048
+  r: 22.516852968986313
+  z: 20.927066127271246
+- g: 34.838946205616594
+  i: 28.34628586825147
+  r: 27.788602978172094
+  z: 26.198816136454298
+- g: 34.54157465845037
+  i: 28.048914321074335
+  r: 27.491231431005417
+  z: 25.90144458928944
+- g: 30.893999191815965
+  i: 24.40133885818068
+  r: 23.843655967270024
+  z: 22.25386912142858
+- g: 34.83855415585731
+  i: 28.3458938184649
+  r: 27.788210928417357
+  z: 26.19842408670229
+- g: 31.56306937057525
+  i: 25.070409022271633
+  r: 24.512726201675832
+  z: 22.922939361073077
+- g: 31.41208765236661
+  i: 24.919427326880395
+  r: 24.361744436901063
+  z: 22.771957544144243
+- g: 29.564624293143424
+  i: 23.07196395576466
+  r: 22.514281065695286
+  z: 20.92449422397931
+- g: 31.707674849778414
+  i: 25.215014568530023
+  r: 24.657331688329577
+  z: 23.06754485424608
+- g: 31.248968451749533
+  i: 24.756308095296845
+  r: 24.19862514967099
+  z: 22.608838324900717
+- g: 34.83903208970878
+  i: 28.346371752334562
+  r: 27.788688862271556
+  z: 26.19890202053375
+- g: 29.862818827696174
+  i: 23.37015849036652
+  r: 22.812475600298058
+  z: 21.222688758574805
+- g: 29.861690889323654
+  i: 23.369030551990363
+  r: 22.811347661912805
+  z: 21.22156082019137
+- g: 33.61474388955867
+  i: 27.122083552181493
+  r: 26.56440066211306
+  z: 24.97461382039694
+- g: 33.827979827417494
+  i: 27.335319490050097
+  r: 26.777636599979587
+  z: 25.18784975826236
+- g: 29.566063431055227
+  i: 23.07340309368101
+  r: 22.515720203610726
+  z: 20.92593336189475
+- g: 34.839519406753425
+  i: 28.34685906939103
+  r: 27.789176179329843
+  z: 26.1993893376075
+- g: 32.5608214356007
+  i: 26.068161098220113
+  r: 25.51047820815251
+  z: 23.920691366435733
+- g: 31.56548652332276
+  i: 25.07282619550824
+  r: 24.51514334511012
+  z: 22.925356472842395
+- g: 22.83814579009845
+  i: 20.737614422887418
+  r: 23.01526119209211
+  z: 21.331515015663854
+- g: 23.196426292468914
+  i: 21.095894925255834
+  r: 23.373541694466894
+  z: 21.68979551803477
+- g: 28.171450551814814
+  i: 26.070919184606964
+  r: 28.348565953806656
+  z: 26.664819777383855
+- g: 27.40772116857194
+  i: 25.307189801362
+  r: 27.584836570563738
+  z: 25.901090394137356
+- g: 28.632010148226982
+  i: 26.53147878100026
+  r: 28.80912555021041
+  z: 27.12537937378329
+- g: 23.6542186410079
+  i: 21.553687273782998
+  r: 23.831334042995877
+  z: 22.14758786655875
+- g: 24.866166326915845
+  i: 22.765634967014194
+  r: 25.043281716527417
+  z: 23.359535495750606
+- g: 25.500736921094358
+  i: 23.40020569227636
+  r: 25.677852392196655
+  z: 23.994106194004416
+- g: 28.485944802097492
+  i: 26.385413434894872
+  r: 28.66306020410093
+  z: 26.979314027672444
+- g: 24.275746957049705
+  i: 22.175215582654346
+  r: 24.452862373611424
+  z: 22.769116199051496
+- g: 28.33152712692572
+  i: 26.230995759717644
+  r: 28.508642528917335
+  z: 26.82489635248794
+- g: 28.33387378433281
+  i: 26.233342417127005
+  r: 28.51098918632988
+  z: 26.827243009896392
+- g: 26.582596735983316
+  i: 23.619487579755514
+  r: 22.718973906603424
+  z: 20.75083421312047
+- g: 28.425781540572643
+  i: 25.46267234440893
+  r: 24.562158627435565
+  z: 22.594018952921033
+- g: 28.424611476249993
+  i: 25.461502339690924
+  r: 24.560988523997366
+  z: 22.592848859727383
+- g: 27.795232853852212
+  i: 24.83212368679233
+  r: 23.93160997587256
+  z: 21.963470342103392
+- g: 28.425717341713607
+  i: 25.462608251720667
+  r: 24.56209436804056
+  z: 22.5939547624439
+- g: 31.55682203554852
+  i: 28.59371287931117
+  r: 27.69319920615635
+  z: 25.725059512673397
+- g: 31.557605952494214
+  i: 28.59449679625959
+  r: 27.693983123122052
+  z: 25.725843429641827
+- g: 26.435852344642626
+  i: 23.472743188419372
+  r: 22.572229515266372
+  z: 20.60408982177978
+- g: 27.610319953993894
+  i: 24.647210730588995
+  r: 23.74669708078727
+  z: 21.77855738135986
+- g: 31.259808419746264
+  i: 28.29669926350607
+  r: 27.396185590357618
+  z: 25.428045896882395
+- g: 31.41144981961611
+  i: 28.44834066338808
+  r: 27.547826990248723
+  z: 25.57968729676304
+- g: 31.557579618021464
+  i: 28.594470461781384
+  r: 27.693956788639298
+  z: 25.725817095154525
+- g: 30.484567388077267
+  i: 23.991907051124144
+  r: 23.434224150783848
+  z: 21.84443729982013
+- g: 31.078751667635515
+  i: 24.5860913451761
+  r: 24.028408440528437
+  z: 22.438621571287513
+- g: 34.379306804581574
+  i: 27.88664646720804
+  r: 27.328963577136847
+  z: 25.73917673541996
+- g: 31.24851551069878
+  i: 24.755855194991454
+  r: 24.1981722288765
+  z: 22.608385401312262
+Program Settings:
+  Compile and Plot Results: false
+  Extract Lightcurves from Spectra: true
+  Generate KCorrection Database: true
+  Generate KCorrection Plots: true
+  Plot Simulation Helper Plots: true
+  Run the Simulation: true
+  Simulation Results File Used for Plots: simulation_results_20130917t114132.yaml
+Redshift Resolution: 0.05
+Redshifts:
+- 0.9500000000000001
+- 0.7000000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.6000000000000001
+- 0.9
+- 0.9500000000000001
+- 0.9
+- 0.9500000000000001
+- 0.4
+- 0.8500000000000001
+- 0.45
+- 0.65
+- 0.7000000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.55
+- 0.7000000000000001
+- 0.9500000000000001
+- 0.75
+- 0.9500000000000001
+- 0.9
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.9
+- 0.9
+- 0.9
+- 0.9500000000000001
+- 0.9
+- 0.8
+- 0.75
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.75
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.65
+- 0.9
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.7000000000000001
+- 0.9
+- 0.8500000000000001
+- 0.9
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.7000000000000001
+- 0.9500000000000001
+- 0.9
+- 0.8500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.8
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.6000000000000001
+- 0.65
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.4
+- 0.9
+- 0.7000000000000001
+- 0.8
+- 0.8
+- 0.6000000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.75
+- 0.9500000000000001
+- 0.9
+- 0.6000000000000001
+- 0.8500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.75
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9
+- 0.7000000000000001
+- 0.8500000000000001
+- 0.9
+- 0.9500000000000001
+- 0.6000000000000001
+- 0.75
+- 0.8
+- 0.8
+Relative Rate Set to Use: MY_SNE
+Relative SN Rates:
+  MY_SNE:
+    SNOne: 0.3
+    SNThree: 0.3
+    SNTwo: 0.4
+SN Absolute Peak-Magnitude Distributions:
+  magnitude:
+    SNOne: -17.08
+    SNThree: -22.06
+    SNTwo: -20.21
+  sigma:
+    SNOne: 0.001
+    SNThree: 0.001
+    SNTwo: 0.001
+SN Types:
+- SNOne
+- SNThree
+- SNThree
+- SNTwo
+- SNTwo
+- SNThree
+- SNOne
+- SNThree
+- SNThree
+- SNThree
+- SNTwo
+- SNOne
+- SNOne
+- SNThree
+- SNTwo
+- SNTwo
+- SNOne
+- SNThree
+- SNOne
+- SNOne
+- SNOne
+- SNTwo
+- SNTwo
+- SNTwo
+- SNTwo
+- SNThree
+- SNOne
+- SNOne
+- SNTwo
+- SNTwo
+- SNTwo
+- SNTwo
+- SNThree
+- SNOne
+- SNTwo
+- SNTwo
+- SNTwo
+- SNOne
+- SNOne
+- SNTwo
+- SNOne
+- SNOne
+- SNTwo
+- SNTwo
+- SNThree
+- SNThree
+- SNOne
+- SNTwo
+- SNOne
+- SNTwo
+- SNTwo
+- SNTwo
+- SNOne
+- SNThree
+- SNOne
+- SNOne
+- SNTwo
+- SNOne
+- SNTwo
+- SNTwo
+- SNThree
+- SNTwo
+- SNTwo
+- SNOne
+- SNThree
+- SNThree
+- SNOne
+- SNOne
+- SNThree
+- SNOne
+- SNOne
+- SNTwo
+- SNThree
+- SNThree
+- SNOne
+- SNOne
+- SNOne
+- SNThree
+- SNTwo
+- SNTwo
+- SNOne
+- SNTwo
+- SNOne
+- SNOne
+- SNThree
+- SNTwo
+- SNTwo
+- SNTwo
+- SNTwo
+- SNOne
+- SNOne
+- SNThree
+- SNTwo
+- SNOne
+- SNOne
+- SNOne
+- SNTwo
+- SNTwo
+- SNOne
+- SNTwo
+Simulation Sample: 100
+Sky Area of the Survey (square degrees): 70
+Survey Cadence:
+  Filters:
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: g
+    day of year of first scheduled observation: 1
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: r
+    day of year of first scheduled observation: 1
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: i
+    day of year of first scheduled observation: 2
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: z
+    day of year of first scheduled observation: 3
+    repeat every ? days: 3
+  Fraction of Year Lost to Weather etc: 0.4
+  Observable Fraction of Year: 0.5
+Upper Redshift Limit: 1.0
+author: Dave Young
+version: 1

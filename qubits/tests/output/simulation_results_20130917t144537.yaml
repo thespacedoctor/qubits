@@ -1,0 +1,400 @@
+CCSN Progenitor Population Fraction of IMF: 0.007
+Cadence Dictionary:
+  g:
+  - 1
+  - 7
+  - 16
+  - 31
+  - 34
+  - 40
+  - 43
+  - 46
+  - 49
+  - 58
+  - 61
+  - 64
+  - 67
+  - 70
+  - 73
+  - 76
+  - 88
+  - 91
+  - 94
+  - 97
+  - 100
+  - 103
+  - 106
+  - 118
+  - 121
+  - 130
+  - 133
+  - 136
+  - 148
+  - 154
+  - 166
+  - 175
+  i:
+  - 2
+  - 5
+  - 11
+  - 17
+  - 29
+  - 35
+  - 38
+  - 41
+  - 47
+  - 62
+  - 71
+  - 74
+  - 89
+  - 98
+  - 101
+  - 104
+  - 107
+  - 119
+  - 128
+  - 131
+  - 134
+  - 137
+  - 146
+  - 149
+  - 152
+  - 164
+  r:
+  - 4
+  - 7
+  - 10
+  - 19
+  - 37
+  - 49
+  - 58
+  - 64
+  - 67
+  - 70
+  - 79
+  - 91
+  - 100
+  - 103
+  - 106
+  - 118
+  - 121
+  - 124
+  - 127
+  - 130
+  - 133
+  - 136
+  - 148
+  - 151
+  - 154
+  - 175
+  z:
+  - 18
+  - 21
+  - 30
+  - 33
+  - 39
+  - 42
+  - 48
+  - 66
+  - 72
+  - 75
+  - 78
+  - 87
+  - 102
+  - 120
+  - 123
+  - 129
+  - 150
+  - 153
+  - 159
+  - 162
+  - 165
+Campaign Length:
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- g: false
+  i: false
+  max: 0
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Discoveries Relative to Peak Magnitudes:
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Discoveries Relative to Survey Year:
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+- any: false
+  g: false
+  i: false
+  r: false
+  z: false
+Extinctions:
+  constant E(b-v): 0.023
+  constant or random: constant
+  galactic: null
+  host: null
+Extra Survey Constraints:
+  Faint-Limit of Peak Magnitude: 21.5
+  Observable for at least ? number of days: 100
+K-correction temporal resolution (days): 4.0
+Lightcurves:
+  SNOne:
+    End of lightcurve relative to peak: 250
+  SNThree:
+    End of lightcurve relative to peak: 250
+  SNTwo:
+    End of lightcurve relative to peak: 280
+Limiting Magnitudes:
+  g: 23.3
+  i: 23.3
+  r: 23.3
+  z: 21.7
+Observed Frame Filter for K-corrections: i
+Order of polynomial used to fits lightcurves: 8
+Transient to CCSN Ratio: 10e-5
+Peak Apparent Magnitudes:
+- g: 33.17045992535532
+  i: 23.785318298730914
+  r: 25.154294800354364
+  z: 21.61178606190872
+- g: 38.44840620976902
+  i: 29.063264583123214
+  r: 30.432241084753514
+  z: 26.88973234630175
+- g: 1227.562256697467
+  i: 173.68867285217436
+  r: 296.01551942239485
+  z: -9.5281280916799
+- g: 1023.3391603213458
+  i: 140.31320722120887
+  r: 249.4655914940945
+  z: -6.034492290147874
+- g: 391.0037393002508
+  i: 47.92221184387722
+  r: 105.50872338495992
+  z: 6.946027373551987
+- g: 33.16957093488054
+  i: 23.78442930825119
+  r: 25.15340580987572
+  z: 21.610897071429402
+- g: 38.44718219258357
+  i: 29.062040565937878
+  r: 30.431017067568746
+  z: 26.888508329115467
+- g: 38.15004859306191
+  i: 28.76490696640718
+  r: 30.13388346803572
+  z: 26.591374729582732
+- g: 1228.084907674096
+  i: 173.68725172625022
+  r: 296.07279496824276
+  z: -9.526350685856764
+- g: 38.44663371083061
+  i: 29.061492084182987
+  r: 30.43046858581056
+  z: 26.88795984736098
+Program Settings:
+  Compile and Plot Results: false
+  Extract Lightcurves from Spectra: true
+  Generate KCorrection Database: true
+  Generate KCorrection Plots: true
+  Plot Simulation Helper Plots: true
+  Run the Simulation: true
+  Simulation Results File Used for Plots: simulation_results_20130917t114132.yaml
+Redshift Resolution: 0.05
+Redshifts:
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+- 0.9
+- 0.65
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.8500000000000001
+- 0.9500000000000001
+- 0.9500000000000001
+Relative Rate Set to Use: MY_SNE
+Relative SN Rates:
+  MY_SNE:
+    SNOne: 0.3
+    SNThree: 0.3
+    SNTwo: 0.4
+SN Absolute Peak-Magnitude Distributions:
+  magnitude:
+    SNOne: -17.08
+    SNThree: -22.06
+    SNTwo: -20.21
+  sigma:
+    SNOne: 0.001
+    SNThree: 0.001
+    SNTwo: 0.001
+SN Types:
+- SNThree
+- SNOne
+- SNTwo
+- SNTwo
+- SNTwo
+- SNThree
+- SNOne
+- SNOne
+- SNTwo
+- SNOne
+Simulation Sample: 10
+Sky Area of the Survey (square degrees): 70
+Survey Cadence:
+  Filters:
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: g
+    day of year of first scheduled observation: 1
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: r
+    day of year of first scheduled observation: 1
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: i
+    day of year of first scheduled observation: 2
+    repeat every ? days: 3
+  - Fraction of Lunar Month Lost to Moon: 0.27
+    band: z
+    day of year of first scheduled observation: 3
+    repeat every ? days: 3
+  Fraction of Year Lost to Weather etc: 0.4
+  Observable Fraction of Year: 0.5
+Upper Redshift Limit: 1.0
+author: Dave Young
+version: 1
