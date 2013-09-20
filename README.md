@@ -4,7 +4,7 @@
 
 QUBITS can be used to simulate various flavours of astronomical transient surveys. The simulations are designed to be easy to use and tailor without having to hack any code, and many of simulation parameters can be found in one settings file.
 
-Although recoded from scratch, the [second chapter of my thesis](assets/dry_thesis_ch2.pdf) describes most of the details used to build these transient survey simulations.
+Although recoded from scratch, the [second chapter of my thesis](qubits/assets/dry_thesis_ch2.pdf) describes most of the details used to build these transient survey simulations.
 
 ## Installation
 
