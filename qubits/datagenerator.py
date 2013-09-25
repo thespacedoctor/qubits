@@ -771,6 +771,9 @@ def generate_single_kcorrection_listing(
                     elif "Spectrum and bandpass do not fully overlap" in str(e):
                         log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
                         continue
+                    elif "disjoint" in str(e):
+                        log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
+                        continue
                     else:
                         log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
                     pass
