@@ -304,6 +304,8 @@ def determine_when_sne_are_ripe_for_discovery(
             for ffilter in filters:
                 if not discoverableList[item][ffilter]:
                     ripeDayDict[ffilter] = False
+                elif magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter] is None
+                    ripeDayDict[ffilter] = False
                 else:
                     explosionDay = observedFrameLightCurveInfo[item]['explosionDay']
                     lowerLimit = explosionDay
