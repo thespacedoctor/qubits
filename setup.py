@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='qubits',
-      version='0.22',
+      version='0.281',
       description='',
       long_description=readme(),
       classifiers=[

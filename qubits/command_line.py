@@ -102,6 +102,10 @@ def qubits(clArgs=None):
     pathToSettingsFile = clArgs["<pathToSettingsFile>"]
     pathToSpectralDatabase = clArgs["<pathToSpectralDatabase>"]
 
+    pathToOutputDirectory = os.path.abspath(pathToOutputDirectory)+"/"
+    pathToSettingsFile = os.path.abspath(pathToSettingsFile)
+    pathToSpectralDatabase = os.path.abspath(pathToSpectralDatabase)+"/"
+
     ## IMPORT THE SIMULATION SETTINGS
     (allSettings,
     programSettings,

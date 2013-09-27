@@ -274,7 +274,8 @@ def plot_sn_discovery_map(log,
         polar=True,
         frameon=False)
 
-    ax.set_ylim(0, 1.1)
+    maxInList = max(redshifts)*1.1
+    ax.set_ylim(0, maxInList)
     # ax.get_xaxis().set_visible(False)
 
     circleTicks = np.arange(0, 350, 30)
@@ -444,6 +445,8 @@ def plot_sn_discovery_ratio_map(log,
     if len(shortCampaignRedshift) > 0:
         dataDictionary["Detected - campaign to short to constrain as transient"] = shortCampaignRedshift
 
+    maxInList = max(redshifts)*1.1
+
     ################ >ACTION(S) ################
     imageLink = dp.plot_polar(
        log,
@@ -452,7 +455,7 @@ def plot_sn_discovery_ratio_map(log,
        pathToOutputPlotsFolder=pathToOutputPlotFolder,
        dataRange=False,
        ylabel=False,
-       radius=1.1,
+       radius=maxInList,
        circumference=False,
        circleTicksRange=(0, 360, 60),
        circleTicksLabels=".",
@@ -679,6 +682,8 @@ def determine_sn_rate(
         #polynomialDict["Detected - campaign to short to constrain as transient"] = shortCampaigntransientCurve
         orginalDataDictionary["Detected - campaign to short to constrain as transient"] = [shellRedshiftArray, shelltransientRateDensityArray*shortCampaignFractionListArray]
 
+    maxInList = max(redshifts)*1.1
+
     if pleasePlot:
         imageLink = dp.plot_polynomial(
                 log,
@@ -686,7 +691,7 @@ def determine_sn_rate(
                 polynomialDict=polynomialDict,
                 orginalDataDictionary=orginalDataDictionary,
                 pathToOutputPlotsFolder=pathToOutputPlotFolder,
-                xRange=[0.01, 1., 0.01],
+                xRange=[0.01, maxInList, 0.01],
                 xlabel=False,
                 ylabel=False,
                 xAxisLimits=False,

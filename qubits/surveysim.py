@@ -229,6 +229,10 @@ def determine_if_sne_are_discoverable(
 
         discoverableList.append(discoveryDict)
 
+
+    maxVal = np.max(redshiftArray)*1.1
+
+
     if plot:
         hitList = []
         missList = []
@@ -252,7 +256,7 @@ def determine_if_sne_are_discoverable(
             pathToOutputPlotsFolder=pathToOutputPlotDirectory,
             dataRange=False,
             ylabel=False,
-            radius=1.1,
+            radius=maxVal,
             circumference=False,
             prependNum=False)
 
@@ -304,7 +308,7 @@ def determine_when_sne_are_ripe_for_discovery(
             for ffilter in filters:
                 if not discoverableList[item][ffilter]:
                     ripeDayDict[ffilter] = False
-                elif magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter] is None
+                elif observedFrameLightCurveInfo[item]['lightCurves'][ffilter] is None:
                     ripeDayDict[ffilter] = False
                 else:
                     explosionDay = observedFrameLightCurveInfo[item]['explosionDay']
