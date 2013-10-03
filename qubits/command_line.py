@@ -357,6 +357,7 @@ def qubits(clArgs=None):
                                         snSurveyDiscoveryTimes,
                                         redshifts,
                                         surveyCadenceSettings=surveyCadenceSettings,
+                                        lowerRedshiftLimit=lowerRedshiftLimit,
                                         upperRedshiftLimit=upperRedshiftLimit,
                                         redshiftResolution=redshiftResolution,
                                         surveyArea=surveyArea,

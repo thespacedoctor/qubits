@@ -857,7 +857,7 @@ def generate_single_kcorrection_polynomial(
     xMin = np.min(timeArray)
     xMax = np.max(timeArray)
 
-    timeDist = 200
+    timeDist = 50
     timeDelta = 40
     for i in range(4):
         timeArray = np.append(timeArray,xMin-timeDist-i*timeDelta)
@@ -867,7 +867,7 @@ def generate_single_kcorrection_polynomial(
     log.debug('timeArray: %s' % (timeArray,))
     log.debug('kCorArray: %s' % (kCorArray,))
 
-    expand = 20
+    expand = 150
     xMin -= expand
     xMax += expand
 

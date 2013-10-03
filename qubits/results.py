@@ -480,6 +480,7 @@ def determine_sn_rate(
         snCampaignLengthList,
         extraSurveyConstraints,
         pathToOutputPlotFolder,
+        lowerRedshiftLimit=0.01,
         upperRedshiftLimit=1.0,
         redshiftResolution=0.1
         ):
@@ -498,6 +499,7 @@ def determine_sn_rate(
         - ``snCampaignLengthList`` -- a list of campaign lengths in each filter
         - ``extraSurveyConstraints`` -- some extra survey constraints
         - ``pathToOutputPlotDirectory`` -- path to add plots to
+        - ``lowerRedshiftLimit`` -- the lower redshist limit out to which to determine the rate
         - ``upperRedshiftLimit`` -- the redshist limit out to which to determine the rate
         - ``redshiftResolution`` -- the redshist resolution ued to determine the rate
 
@@ -519,8 +521,8 @@ def determine_sn_rate(
     sdssArea = 5713.
     sdssSFRupperRedshiftLimit = 0.033
     sdssSFR = 14787.21
-    CCSNRateFraction = 0.007
-    transientToCCSNRateFraction = 1./10000.
+    # CCSNRateFraction = 0.007
+    # transientToCCSNRateFraction = 1./10000.
     transientRateFraction = CCSNRateFraction*transientToCCSNRateFraction
 
     anchor = redshiftResolution/sdssSFRupperRedshiftLimit
@@ -546,14 +548,23 @@ def determine_sn_rate(
     transientShellRateList = []
     tooFaintShellRateList = []
     shortCampaignShellRateList = []
-    for shellRedshift in range(redshiftResolution, upperRedshiftLimit, redshiftResolution):
+
+    count = 0;
+    for shellRedshift in np.arange(lowerRedshiftLimit, upperRedshiftLimit, redshiftResolution):
+        count += 1;
         shellRedshift = float(shellRedshift)/float(multiplier)
         shellWidth = float(redshiftResolution)/float(multiplier)
         shellMiddle = shellRedshift - shellWidth/2.
         shellRedshiftBottom = shellRedshift - shellWidth
-        #log.info('shellMiddle %s' % (shellMiddle,))
+        log.debug('%s. shellRedshift %s' % (count, shellRedshift,))
+        log.debug('%s. shellWidth %s' % (count, shellWidth,))
+        log.debug('%s. shellMiddle %s' % (count, shellMiddle,))
+        log.debug('%s. shellRedshiftBottom %s' % (count, shellRedshiftBottom,))
+
         SFH = (1.+shellMiddle)**2.5
-        if shellRedshift > shellWidth:
+        if shellRedshift == 0.:
+            shellVolume = 9.
+        elif shellRedshift > shellWidth:
             shellVolume = da.convert_redshift_to_distance(shellRedshift)['dl_mpc']**3 - da.convert_redshift_to_distance(shellRedshift-shellWidth)['dl_mpc']**3
         else:
             shellVolume = da.convert_redshift_to_distance(shellRedshift)['dl_mpc']**3
@@ -562,7 +573,9 @@ def determine_sn_rate(
         shelltransientRateDensity = shelltransientRateDensity*areaRatio
         timeDilation = 1./(1.+shellMiddle)
         shelltransientRateDensity = shelltransientRateDensity*timeDilation
-        # log.info('shelltransientRateDensity %s' % (shelltransientRateDensity,))
+
+
+        log.debug('shelltransientRateDensity %s' % (shelltransientRateDensity,))
         shelltransientRateDensityList.append(shelltransientRateDensity)
         shellRedshiftList.append(shellMiddle)
 
@@ -570,7 +583,7 @@ def determine_sn_rate(
         # if discoveryFraction != 0.:
         discoveryRedshiftList.append(shellMiddle)
         discoveryFractionList.append(discoveryFraction)
-        # log.info('shell redshift %s, discoveryFraction %s' % (shellMiddle, discoveryFraction))
+        log.debug('shell redshift %s, discoveryFraction %s' % (shellMiddle, discoveryFraction))
         # if tooFaintFraction != 0.:
         tooFaintRedshiftList.append(shellMiddle)
         tooFaintFractionList.append(tooFaintFraction)
@@ -639,8 +652,8 @@ def determine_sn_rate(
 
     shelltransientRateDensityArray = np.array(shelltransientRateDensityList)
     shellRedshiftArray = np.array(shellRedshiftList)
-    # log.info('shellRedshiftArray %s' % (shellRedshiftArray,))
-    # log.info('shelltransientRateDensityArray %s' % (shelltransientRateDensityArray,))
+    log.debug('shellRedshiftArray %s' % (shellRedshiftArray,))
+    log.debug('shelltransientRateDensityArray %s' % (shelltransientRateDensityArray,))
     thisPoly = np.polyfit(shellRedshiftArray, shelltransientRateDensityArray, 3)
     transientRateCurve = np.poly1d(thisPoly)
     # log.info('flat %s' % (flatPoly,))
@@ -701,6 +714,8 @@ def determine_sn_rate(
                 legend=True)
     else:
         imageLink = ""
+
+    log.debug('transientShellRateList: %s' % (transientShellRateList,))
 
     totalRate = 0.
     for item in transientShellRateList:
