@@ -21,7 +21,7 @@ datagenerator
     - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
 """
 ################# GLOBAL IMPORTS ####################
-from commonutils import *
+from .commonutils import *
 
 
 ###################################################################
@@ -42,7 +42,7 @@ def generate_model_lightcurves(
         explosionDaysFromSettings,
         extendLightCurveTail,
         polyOrder
-    ):
+):
     """Generate the lightcurve plots and polynomials by extracting the data from the provided spectra.
 
     **Key Arguments:**
@@ -75,7 +75,7 @@ def generate_model_lightcurves(
     basePath = pathToSpectralDatabase
     for d in os.listdir(basePath):
         if os.path.isdir(os.path.join(basePath, d)):
-            spectralDatabase[d] = os.path.join(basePath, d)+"/"
+            spectralDatabase[d] = os.path.join(basePath, d) + "/"
 
     # spectralDatabase = {"he130": he130}
     filters = ['g', 'r', 'i', 'z']
@@ -110,7 +110,8 @@ def generate_model_lightcurves(
             filterDict = {}
 
             # CREATE A FIRST POLY LIGHTCURVE TO EXTRACT MAX PEAK AND TIME
-            lightCurveList = [[magnitudes, times, '%s-band data' % (ffilter,), ffilter, model, title],]
+            lightCurveList = [
+                [magnitudes, times, '%s-band data' % (ffilter,), ffilter, model, title], ]
             curveDict = plotLightCurves(
                 log,
                 lightCurves=lightCurveList,
@@ -120,17 +121,20 @@ def generate_model_lightcurves(
 
             # log.debug('lightCurveList: %s' % (lightCurveList,))
 
-            wavelengthArray, fluxArray = extract_spectra_from_file(log, pathToSpectrum=thisFile)
+            wavelengthArray, fluxArray = extract_spectra_from_file(
+                log, pathToSpectrum=thisFile)
             for k, v in curveDict.iteritems():
                 poly = v
 
                 if poly is None:
-                    log.warning('could not generate a polynomial for %s in %s-band - enough data could not be extracted from spectra' % (model,ffilter))
+                    log.warning(
+                        'could not generate a polynomial for %s in %s-band - enough data could not be extracted from spectra' % (model, ffilter))
                     continue
-                start=int(min(times))
-                end=int(max(times))
+                start = int(min(times))
+                end = int(max(times))
                 log.debug('times: %s' % (times,))
-                log.debug('model, start, end: %s, %s, %s' % (model, start, end,))
+                log.debug('model, start, end: %s, %s, %s' %
+                          (model, start, end,))
 
                 if poly is not None:
                     peakMag, peakTime, explosionMag, explosionDay = find_peak_magnitude(
@@ -144,20 +148,25 @@ def generate_model_lightcurves(
                     peakMag, peakTime, explosionMag, explosionDay = None, None, None, None
 
                 if peakTime is not None:
-                    extractedLightCurveDict[model][ffilter]['Peak Magnitude'] = peakMag
-                    extractedLightCurveDict[model][ffilter]['Peak Time in Spectra'] = peakTime
-                    extractedLightCurveDict[model][ffilter]['Explosion Day Relative to Peak'] = - peakTime + explosionDay
+                    extractedLightCurveDict[model][
+                        ffilter]['Peak Magnitude'] = peakMag
+                    extractedLightCurveDict[model][ffilter][
+                        'Peak Time in Spectra'] = peakTime
+                    extractedLightCurveDict[model][ffilter][
+                        'Explosion Day Relative to Peak'] = - peakTime + explosionDay
                     for i in range(len(times)):
                         times[i] = times[i] - peakTime
                 else:
-                    extractedLightCurveDict[model][ffilter]['Peak Magnitude'] = None
-                    extractedLightCurveDict[model][ffilter]['Peak Time in Spectra'] = None
-                    extractedLightCurveDict[model][ffilter]['Explosion Day Relative to Peak'] = None
-
-
+                    extractedLightCurveDict[model][
+                        ffilter]['Peak Magnitude'] = None
+                    extractedLightCurveDict[model][
+                        ffilter]['Peak Time in Spectra'] = None
+                    extractedLightCurveDict[model][ffilter][
+                        'Explosion Day Relative to Peak'] = None
 
             # CREATE A SECOND POLY LIGHTCURVE NORMALISED TO PEAK MAG AND TIME
-            lightCurveList = [[magnitudes, times, '%s-band data' % (ffilter,), ffilter, model, title],]
+            lightCurveList = [
+                [magnitudes, times, '%s-band data' % (ffilter,), ffilter, model, title], ]
             curveDict = plotLightCurves(
                 log,
                 lightCurves=lightCurveList,
@@ -200,7 +209,6 @@ def extract_spectra_from_file(
     import numpy as np
     ## LOCAL APPLICATION ##
     import dryxPython.astrotools as at
-
 
     ################ > VARIABLE SETTINGS ######
     ################ >ACTION(S) ################
@@ -247,7 +255,6 @@ def plot_filter_transmissions(log, filterList):
     import numpy as np
     ## LOCAL APPLICATION ##
 
-
     ################ > VARIABLE SETTINGS ######
     ################ >ACTION(S) ################
     for filterFile in filterList:
@@ -282,7 +289,8 @@ def calcphot(log, wavelengthArray, fluxArray, obsmode):
 
     ################ > VARIABLE SETTINGS ######
     # Read in a spectrum from a file
-    sp = syn.ArraySpectrum(wave=wavelengthArray, flux=fluxArray, waveunits='angstrom', fluxunits='flam')
+    sp = syn.ArraySpectrum(
+        wave=wavelengthArray, flux=fluxArray, waveunits='angstrom', fluxunits='flam')
     bp = syn.ObsBandpass(obsmode)
     obs = syn.Observation(sp, bp)
     abMag = obs.effstim('abmag')
@@ -325,7 +333,8 @@ def plotLightCurves(
         x = curve[1]
         y = curve[0]
 
-        ## CAUSE LIGHTCURVE GENERATION TO FAIL IF LESS THAN 5 POINTS EXTRACTED FROM THE SPECTRA
+        # CAUSE LIGHTCURVE GENERATION TO FAIL IF LESS THAN 5 POINTS EXTRACTED
+        # FROM THE SPECTRA
         if len(x) <= 4:
             curveDict['poly'] = None
             continue
@@ -336,12 +345,12 @@ def plotLightCurves(
         pOrder = np.poly1d(poly)
         polyString = "mxxx[i] = "
         polyStringMd = "\\\\(mag = "
-        for i in range(0, order+1):
+        for i in range(0, order + 1):
             if i > 0 and poly[i] > 0:
                 polyString += "+"
                 polyStringMd += "+"
-            polyString += """%s*pow(i,%s) """ % (poly[i], order-i)
-            polyStringMd += """%s*time^{%s} """ % (poly[i], order-i)
+            polyString += """%s*pow(i,%s) """ % (poly[i], order - i)
+            polyStringMd += """%s*time^{%s} """ % (poly[i], order - i)
         polyStringMd += "\\\\)"
 
         ax.plot(x, y, '.', label='%s' % (curve[2],))
@@ -352,12 +361,13 @@ def plotLightCurves(
     # Shink current axis by 20%
     box = ax.get_position()
     ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size': 8})
     ax.titlesize = 'medium'   # fontsize of the axes title
     ax.labelsize = 'medium'  # fontsize of the x any y labels
     plt.xlabel("Days Relative to Peak")
     plt.ylabel("Magnitude")
-    plt.title(title, fontsize='small', verticalalignment = 'bottom', linespacing = 0.2)
+    plt.title(title, fontsize='small',
+              verticalalignment='bottom', linespacing=0.2)
     ax.invert_yaxis()
 
     fileName = pathToOutputDirectory + title.replace(" ", "_") + ".png"
@@ -413,7 +423,7 @@ def extract_lightcurve(
         #     mul = -1.
         thisTime = float(reTime.search(thisFile).group(1))
         fileNameTimes.append(thisTime)
-        log.debug('time in %s is: %s' % (thisFile,thisTime))
+        log.debug('time in %s is: %s' % (thisFile, thisTime))
         wavelengthArray, fluxArray = extract_spectra_from_file(log, thisFile)
         try:
             log.debug("attempting to find the magnitude from spectrum")
@@ -426,77 +436,80 @@ def extract_lightcurve(
                 )
             )
             times.append(thisTime)
-        except Exception, e:
-            log.warning("could not find the magnitude from spectrum %s using the filter %s - failed with this error: %s " % (thisFile,obsmode,str(e),))
+        except Exception as e:
+            log.warning(
+                "could not find the magnitude from spectrum %s using the filter %s - failed with this error: %s " %
+                (thisFile, obsmode, str(e),))
             pass
 
     ## APPEND AN EXPLOSION DAY AND MAG
     if len(magnitudes) > 3:
         finalTime = max(times)
         firstTime = min(times)
-        firstMag=magnitudes[times.index(firstTime)]
-        lastMag=magnitudes[times.index(finalTime)]
+        firstMag = magnitudes[times.index(firstTime)]
+        lastMag = magnitudes[times.index(finalTime)]
         log.debug('times: %s' % (times,))
         log.debug('magnitudes: %s' % (magnitudes,))
-        sortedTime = times[:]
-        sortedTime.sort()
+        sortedTime = sorted(times[:])
         log.debug('sortedTime: %s' % (sortedTime,))
-        secondLastTime=sortedTime[-2]
-        secondLastMag=magnitudes[times.index(secondLastTime)]
+        secondLastTime = sortedTime[-2]
+        secondLastMag = magnitudes[times.index(secondLastTime)]
 
         minMag = max(magnitudes)
         iterations = 4
         magDrop = 4
 
         if userExplosionDay is not None:
-            x2=firstTime
-            x1=userExplosionDay
-            y2=firstMag
-            y1=minMag+magDrop
+            x2 = firstTime
+            x1 = userExplosionDay
+            y2 = firstMag
+            y1 = minMag + magDrop
 
-            m = (y1-y2)/(x1-x2)
-            c = y1-m*x1
-            upperTimeLimit = (minMag-c)/m
+            m = (y1 - y2) / (x1 - x2)
+            c = y1 - m * x1
+            upperTimeLimit = (minMag - c) / m
 
-            thisRange = upperTimeLimit-userExplosionDay
+            thisRange = upperTimeLimit - userExplosionDay
             delta = 0
             magDropNow = magDrop
             # log.debug('firstTime, userExplosionDay, increment: %s, %s, %s' % (firstTime, userExplosionDay))
-            log.debug('range: %s' % (np.arange(userExplosionDay, upperTimeLimit, thisRange/iterations+1),))
-            for t in np.arange(userExplosionDay,upperTimeLimit, thisRange/iterations):
+            log.debug('range: %s' %
+                      (np.arange(userExplosionDay, upperTimeLimit, thisRange / iterations + 1),))
+            for t in np.arange(userExplosionDay, upperTimeLimit, thisRange / iterations):
                 log.debug('new time: %s' % (t,))
                 magDropNow -= delta
-                delta = magDrop/iterations
+                delta = magDrop / iterations
                 log.debug('magDrop, delta : %s, %s' % (magDropNow, delta,))
                 times.append(t)
-                magnitudes.append(minMag+magDropNow)
-                log.debug('new mag: %s' % (minMag+magDropNow,))
+                magnitudes.append(minMag + magDropNow)
+                log.debug('new mag: %s' % (minMag + magDropNow,))
 
         if extendLightCurveTail:
-            x2=secondLastTime
-            x1=finalTime
-            y2=secondLastMag
-            y1=lastMag
+            x2 = secondLastTime
+            x1 = finalTime
+            y2 = secondLastMag
+            y1 = lastMag
 
             log.debug('finalTime, lastMag: %s, %s' % (finalTime, lastMag,))
-            log.debug('secondLastTime, secondLastMag: %s, %s' % (secondLastTime, secondLastMag))
+            log.debug('secondLastTime, secondLastMag: %s, %s' %
+                      (secondLastTime, secondLastMag))
 
-            m = (y1-y2)/(x1-x2)
-            c = y1-m*x1
-            upperTimeLimit = (lastMag+4-c)/m
+            m = (y1 - y2) / (x1 - x2)
+            c = y1 - m * x1
+            upperTimeLimit = (lastMag + 4 - c) / m
 
-            thisRange = upperTimeLimit-finalTime
+            thisRange = upperTimeLimit - finalTime
             delta = 0
             magDrop = 4
             magDropNow = 0
-            for t in np.arange(finalTime, upperTimeLimit, thisRange/iterations):
+            for t in np.arange(finalTime, upperTimeLimit, thisRange / iterations):
                 magDropNow += delta
-                delta = magDrop/iterations
+                delta = magDrop / iterations
                 times.append(t)
-                magnitudes.append(lastMag+magDropNow)
+                magnitudes.append(lastMag + magDropNow)
 
-    log.debug('finding magnitudes and times from spectrum : %s' % (thisFile ,))
-    log.debug('magnitudes, times: %s, %s' % (magnitudes,times))
+    log.debug('finding magnitudes and times from spectrum : %s' % (thisFile,))
+    log.debug('magnitudes, times: %s, %s' % (magnitudes, times))
     print magnitudes, times
     return magnitudes, times
 
@@ -545,10 +558,10 @@ def find_peak_magnitude(
 
     magnitudeArray = np.array(magnitudeList)
     timeArray = np.array(timeList)
-    magIndexMin=magnitudeArray.argmin()
-    magIndexMax=magnitudeArray.argmax()
-    timeIndexMin=timeArray.argmin()
-    timeIndexMax=timeArray.argmax()
+    magIndexMin = magnitudeArray.argmin()
+    magIndexMax = magnitudeArray.argmax()
+    timeIndexMin = timeArray.argmin()
+    timeIndexMax = timeArray.argmax()
 
     peakMag = float(magnitudeArray[magIndexMin])
     peakTime = float(timeList[magIndexMin])
@@ -558,12 +571,16 @@ def find_peak_magnitude(
     log.debug('start, end: %s, %s' % (start, end,))
     log.debug('timeList: %s' % (timeList,))
     log.debug('magnitudeArray: %s' % (magnitudeArray,))
-    log.info('MODEL: %s ... peakMag %s, peakTime %s, explosionMag %s, explosionDay %s' % (model, peakMag, peakTime, explosionMag, explosionDay))
+    log.info(
+        'MODEL: %s ... peakMag %s, peakTime %s, explosionMag %s, explosionDay %s' %
+        (model, peakMag, peakTime, explosionMag, explosionDay))
     return peakMag, peakTime, explosionMag, explosionDay
 
 ## LAST MODIFIED : March 25, 2013
 ## CREATED : March 25, 2013
 ## AUTHOR : DRYX
+
+
 def generate_kcorrection_listing_database(
         log,
         restFrameFilter,
@@ -607,15 +624,15 @@ def generate_kcorrection_listing_database(
 
     ## REMOVE OLD DATABASE
     try:
-        shutil.rmtree(pathToOutputDirectory+"k_corrections")
+        shutil.rmtree(pathToOutputDirectory + "k_corrections")
     except:
         pass
 
     models = generatedLCs.keys()
     for model in models:
 
-        for redshift in range(int(redshiftLower*mul), int(redshiftUpper*mul), int(redshiftResolution*mul)):
-            redshift = redshift/div
+        for redshift in range(int(redshiftLower * mul), int(redshiftUpper * mul), int(redshiftResolution * mul)):
+            redshift = redshift / div
 
             generate_single_kcorrection_listing(
                 log,
@@ -664,7 +681,6 @@ def generate_single_kcorrection_listing(
     import pysynphot as syn
     ## LOCAL APPLICATION ##
 
-
     ################ >ACTION(S) ################
     # GET THE PEAK MAGNITUDE DETAILS FROM YAML FILE
     fileName = pathToOutputDirectory + "transient_light_curves.yaml"
@@ -698,18 +714,21 @@ def generate_single_kcorrection_listing(
         strRed = "%0.2f" % (redshift,)
         try:
             log.debug("attempting to create directories")
-            dataDir = pathToOutputDirectory + "k_corrections/%s/%s" % (model, thisFilter)
+            dataDir = pathToOutputDirectory + \
+                "k_corrections/%s/%s" % (model, thisFilter)
             os.makedirs(dataDir)
-        except Exception, e:
-            log.debug("could not create directories - failed with this error: %s " % (str(e),))
+        except Exception as e:
+            log.debug(
+                "could not create directories - failed with this error: %s " % (str(e),))
 
         try:
             log.debug("attempting to clear the k-correction yaml file")
-            fileName = dataDir + "/z"+str(strRed).replace(".", "pt")+".yaml"
+            fileName = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
             stream = file(fileName, 'w')
             stream.close()
-        except Exception, e:
-            log.critical("could not clear the k-correction yaml file - failed with this error: %s " % (str(e),))
+        except Exception as e:
+            log.critical(
+                "could not clear the k-correction yaml file - failed with this error: %s " % (str(e),))
             return -1
 
     nextTime = 0.0
@@ -723,61 +742,84 @@ def generate_single_kcorrection_listing(
         else:
             nextTime = thisTime + temporalResolution
             thisTime -= peakTime
-            wavelengthArray, fluxArray = extract_spectra_from_file(log, thisFile)
-            spRest = syn.ArraySpectrum(wave=wavelengthArray, flux=fluxArray, waveunits='angstrom', fluxunits='flam')
+            wavelengthArray, fluxArray = extract_spectra_from_file(
+                log, thisFile)
+            spRest = syn.ArraySpectrum(
+                wave=wavelengthArray, flux=fluxArray, waveunits='angstrom', fluxunits='flam')
             try:
-                log.debug("attempting to determine the rest %s-magnitude" % (restFrameFilter,))
+                log.debug("attempting to determine the rest %s-magnitude" %
+                          (restFrameFilter,))
                 gRest = calcphot(
                     log,
                     wavelengthArray=wavelengthArray,
                     fluxArray=fluxArray,
                     obsmode="sdss,%s" % (restFrameFilter,)
                 )
-            except Exception, e:
+            except Exception as e:
                 if "Integrated flux is <= 0" in str(e):
-                    log.warning("could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " % (restFrameFilter, model, thisTime, thisFile, str(e),))
+                    log.warning(
+                        "could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " %
+                        (restFrameFilter, model, thisTime, thisFile, str(e),))
                     continue
                 elif "Spectrum and bandpass do not fully overlap" in str(e):
-                    log.warning("could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " % (restFrameFilter, model, thisTime, thisFile, str(e),))
+                    log.warning(
+                        "could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " %
+                        (restFrameFilter, model, thisTime, thisFile, str(e),))
                     continue
                 else:
-                    log.warning("could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " % (restFrameFilter, model, thisTime, thisFile, str(e),))
+                    log.warning(
+                        "could not determine the rest-magnitude using calcphot - filter, model, time, file %s, %s, %s, %s - failed with this error: %s " %
+                        (restFrameFilter, model, thisTime, thisFile, str(e),))
                 pass
 
             for thisFilter in filters:
                 strRed = "%0.2f" % (redshift,)
                 spObs = spRest.redshift(redshift)
-                dataDir = pathToOutputDirectory + "k_corrections/%s/%s" % (model, thisFilter)
+                dataDir = pathToOutputDirectory + \
+                    "k_corrections/%s/%s" % (model, thisFilter)
                 try:
-                    log.debug("attempting to open the yaml file to append k-correction data")
-                    fileName = dataDir + "/z"+str(strRed).replace(".", "pt")+".yaml"
+                    log.debug(
+                        "attempting to open the yaml file to append k-correction data")
+                    fileName = dataDir + "/z" + \
+                        str(strRed).replace(".", "pt") + ".yaml"
                     stream = file(fileName, 'a')
-                except Exception, e:
-                    log.critical("could not open the yaml file to append k-correction data - failed with this error: %s " % (str(e),))
+                except Exception as e:
+                    log.critical(
+                        "could not open the yaml file to append k-correction data - failed with this error: %s " % (str(e),))
                     return -1
 
                 try:
-                    log.debug("attempting to determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s" % (strRed,thisFilter, model))
+                    log.debug(
+                        "attempting to determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s" %
+                        (strRed, thisFilter, model))
                     filterObs = calcphot(
                         log,
                         wavelengthArray=spObs.wave,
                         fluxArray=spObs.flux,
                         obsmode="sdss,%s" % (thisFilter,)
                     )
-                except Exception, e:
+                except Exception as e:
                     if "Integrated flux is <= 0" in str(e):
-                        log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
+                        log.warning(
+                            "could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " %
+                            (strRed, thisFilter, model, str(e),))
                         continue
                     elif "Spectrum and bandpass do not fully overlap" in str(e):
-                        log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
+                        log.warning(
+                            "could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " %
+                            (strRed, thisFilter, model, str(e),))
                         continue
                     elif "disjoint" in str(e):
-                        log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
+                        log.warning(
+                            "could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " %
+                            (strRed, thisFilter, model, str(e),))
                         continue
                     else:
-                        log.warning("could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " % (strRed,thisFilter, model,str(e),))
+                        log.warning(
+                            "could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " %
+                            (strRed, thisFilter, model, str(e),))
                     pass
-                kCor = gRest-filterObs
+                kCor = gRest - filterObs
                 kcName = 'K_%s%s' % (restFrameFilter, thisFilter,)
                 thisKcor = {}
                 thisKcor["Rest Frame Days"] = thisTime
@@ -829,7 +871,7 @@ def generate_single_kcorrection_polynomial(
     ################ >ACTION(S) ################
     strRed = "%0.2f" % (redshift,)
     dataDir = pathToOutputDirectory + "k_corrections/%s/%s" % (model, ffilter)
-    pathToYaml = dataDir + "/z"+str(strRed).replace(".", "pt")+".yaml"
+    pathToYaml = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
     fileName = pathToYaml
     stream = file(fileName, 'r')
     yamlList = yaml.load(stream)
@@ -839,17 +881,23 @@ def generate_single_kcorrection_polynomial(
     kCor = []
     time = []
     try:
-        log.debug("attempting to generate a k-correction polynomial plot from the file: %s" % (fileName,))
+        log.debug(
+            "attempting to generate a k-correction polynomial plot from the file: %s" %
+            (fileName,))
         for item in yamlList:
             kCor.append(item[thisKcor])
             time.append(item['Rest Frame Days'])
-    except Exception, e:
-        log.warning("could not generate a k-correction polynomial plot from the file %s:  - failed with this error: %s " % (fileName, str(e),))
+    except Exception as e:
+        log.warning(
+            "could not generate a k-correction polynomial plot from the file %s:  - failed with this error: %s " %
+            (fileName, str(e),))
         return -1
 
     if len(kCor) < kCorMinimumDataPoints:
         basename = os.path.basename(fileName)
-        log.warning('the k-correction file %s contains less than %s datapoints - polynomial shall not be generated' % (basename,kCorMinimumDataPoints))
+        log.warning(
+            'the k-correction file %s contains less than %s datapoints to convert from %s restframe to %s observed frame for the %s model - polynomial shall not be generated' %
+            (basename, kCorMinimumDataPoints, restFrameFilter, ffilter, model))
         return
 
     kCorArray = np.array(kCor)
@@ -860,9 +908,9 @@ def generate_single_kcorrection_polynomial(
     timeDist = 50
     timeDelta = 40
     for i in range(4):
-        timeArray = np.append(timeArray,xMin-timeDist-i*timeDelta)
-        timeArray = np.append(timeArray,xMax+timeDist+i*timeDelta)
-        kCorArray = np.append(kCorArray,[0,0])
+        timeArray = np.append(timeArray, xMin - timeDist - i * timeDelta)
+        timeArray = np.append(timeArray, xMax + timeDist + i * timeDelta)
+        kCorArray = np.append(kCorArray, [0, 0])
 
     log.debug('timeArray: %s' % (timeArray,))
     log.debug('kCorArray: %s' % (kCorArray,))
@@ -882,22 +930,22 @@ def generate_single_kcorrection_polynomial(
 
     if plot:
         fileName = dp.plot_polynomial(
-                        log,
-                        title=title,
-                        polynomialDict=polyDict,
-                        orginalDataDictionary=dataDict,
-                        pathToOutputPlotsFolder=dataDir+"/",
-                        xRange=[xMin, xMax],
-                        xAxisLimits=False,
-                        yAxisLimits=False,
-                        yAxisInvert=False,
-                        prependNum=False)
+            log,
+            title=title,
+            polynomialDict=polyDict,
+            orginalDataDictionary=dataDict,
+            pathToOutputPlotsFolder=dataDir + "/",
+            xRange=[xMin, xMax],
+            xAxisLimits=False,
+            yAxisLimits=False,
+            yAxisInvert=False,
+            prependNum=False)
 
         # mdLog.write("""![%s_plot]\n\n[%s_plot]: %s\n\n""" % (title.replace(" ", "_"), title.replace(" ", "_"), fileName,))
 
-    newFileName = dataDir + "/z"+str(strRed).replace(".", "pt")+"_poly.yaml"
+    newFileName = dataDir + "/z" + str(strRed).replace(".", "pt") + "_poly.yaml"
     stream = file(newFileName, 'w')
-    yamlContent = {'polyCoeffs' : flatPoly.coeffs}
+    yamlContent = {'polyCoeffs': flatPoly.coeffs}
     #log.debug('flatPoly.coeffs %s' % (flatPoly.coeffs,))
     yaml.dump(yamlContent, stream, default_flow_style=True)
     stream.close()
@@ -954,8 +1002,8 @@ def generate_kcorrection_polynomial_database(
     # models = ["he130",]
     for model in models:
 
-        for redshift in range(int(redshiftLower*mul), int(redshiftUpper*mul), int(redshiftResolution*mul)):
-            redshift = redshift/div
+        for redshift in range(int(redshiftLower * mul), int(redshiftUpper * mul), int(redshiftResolution * mul)):
+            redshift = redshift / div
 
             for ffilter in filters:
                 generate_single_kcorrection_polynomial(
@@ -972,11 +1020,9 @@ def generate_kcorrection_polynomial_database(
     return
 
 
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-
 if __name__ == '__main__':
     main()
 

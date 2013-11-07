@@ -32,6 +32,8 @@ universe
 ## LAST MODIFIED : April 12, 2013
 ## CREATED : April 12, 2013
 ## AUTHOR : DRYX
+
+
 def random_redshift_array(
         log,
         sampleNumber,
@@ -64,29 +66,29 @@ def random_redshift_array(
     import dryxPython.astrotools as da
 
     redshiftDistribution = np.arange(0., upperRedshiftLimit, redshiftResolution)
-    closestNumber=lambda n,l:min(l,key=lambda x:abs(x-n))
+    closestNumber = lambda n, l: min(l, key=lambda x: abs(x - n))
 
     # GIVEN THE REDSHIFT LIMIT - DETERMINE THE VOLUME LIMIT
     distanceDictionary = da.convert_redshift_to_distance(upperRedshiftLimit)
     upperMpcLimit = distanceDictionary["dl_mpc"]
-    upperVolumeLimit = (4./3.)*np.pi*upperMpcLimit**3
+    upperVolumeLimit = (4. / 3.) * np.pi * upperMpcLimit ** 3
 
     if lowerRedshiftLimit == 0.:
         lowerVolumeLimit = 0.
     else:
         distanceDictionary = da.convert_redshift_to_distance(lowerRedshiftLimit)
         lowerMpcLimit = distanceDictionary["dl_mpc"]
-        lowerVolumeLimit = (4./3.)*np.pi*lowerMpcLimit**3
+        lowerVolumeLimit = (4. / 3.) * np.pi * lowerMpcLimit ** 3
 
-    volumeShell = upperVolumeLimit-lowerVolumeLimit
+    volumeShell = upperVolumeLimit - lowerVolumeLimit
 
     # GENERATE A LIST OF RANDOM DISTANCES
     redshiftList = []
     for i in range(sampleNumber):
-        randomVolume = lowerVolumeLimit+npr.random()*volumeShell
-        randomDistance = (randomVolume*(3./4.)/np.pi)**(1./3.)
+        randomVolume = lowerVolumeLimit + npr.random() * volumeShell
+        randomDistance = (randomVolume * (3. / 4.) / np.pi) ** (1. / 3.)
         randomRedshift = da.convert_mpc_to_redshift(randomDistance)
-        randomRedshift = closestNumber(randomRedshift,redshiftDistribution)
+        randomRedshift = closestNumber(randomRedshift, redshiftDistribution)
         # log.debug('randomDistance %s' % (randomDistance,))
         redshiftList.append(randomRedshift)
 
@@ -97,7 +99,7 @@ def random_redshift_array(
         # FORCE SQUARE FIGURE AND SQUARE AXES LOOKS BETTER FOR POLAR
         fig = plt.figure(
             num=None,
-            figsize=(8,8),
+            figsize=(8, 8),
             dpi=None,
             facecolor=None,
             edgecolor=None,
@@ -108,9 +110,9 @@ def random_redshift_array(
             polar=True)
 
         thetaList = []
-        twoPi = 2.*np.pi
+        twoPi = 2. * np.pi
         for i in range(sampleNumber):
-            thetaList.append(twoPi*npr.random())
+            thetaList.append(twoPi * npr.random())
         thetaArray = np.array(thetaList)
 
         plt.scatter(
@@ -193,7 +195,7 @@ def random_sn_types_array(
 
     if plot:
         numTypes = len(relativeSNRates)
-        x = np.arange(1, numTypes+1, 1)
+        x = np.arange(1, numTypes + 1, 1)
 
         heights = []
         xticks = []
@@ -203,7 +205,7 @@ def random_sn_types_array(
 
         fig = plt.figure(
             num=None,
-            figsize=(8,8),
+            figsize=(8, 8),
             dpi=None,
             facecolor=None,
             edgecolor=None,
@@ -218,7 +220,7 @@ def random_sn_types_array(
             width=0.8,
             bottom=0)
 
-        plt.xticks( x + 0.5,  xticks )
+        plt.xticks(x + 0.5,  xticks)
 
         ax.set_xlabel('SN Type')
         ax.set_ylabel('Number of SNe')
@@ -265,9 +267,10 @@ def random_host_extinction(
     ################ > VARIABLE SETTINGS #######
 
     ################ >ACTION(S) ################
-    ## xxx come back here and add in the random extinctions generation -- will need to account for what type of SN we have ##
+    # xxx come back here and add in the random extinctions generation -- will
+    # need to account for what type of SN we have ##
     if extinctionType == "constant":
-        hostExtinctionArray = np.zeros(sampleNumber)*extinctionConstant
+        hostExtinctionArray = np.zeros(sampleNumber) * extinctionConstant
     else:
         log.error('host extiction distributions not included yet')
 
@@ -306,9 +309,10 @@ def random_galactic_extinction(
     ################ > VARIABLE SETTINGS #######
 
     ################ >ACTION(S) ################
-    ## xxx come back here and add in the random extinctions generation -- will need to account for what type of SN we have ##
+    # xxx come back here and add in the random extinctions generation -- will
+    # need to account for what type of SN we have ##
     if extinctionType == "constant":
-        galacticExtinctionArray = np.ones(sampleNumber)*extinctionConstant
+        galacticExtinctionArray = np.ones(sampleNumber) * extinctionConstant
     else:
         log.error('galactic extiction distributions not included yet')
 
@@ -367,16 +371,23 @@ def generate_numpy_polynomial_lightcurves(
             plotDict = {}
 
             if modelData["poly"] is None:
-                log.error('cound not plot the raw lightcurve for the %s object in rest frame %s-band' % (modelData,ffilter))
+                log.error(
+                    'cound not plot the raw lightcurve for the %s object in rest frame %s-band' %
+                    (modelData, ffilter))
                 rawLightCurveDict[thisModel][ffilter]['poly'] = None
-                rawLightCurveDict[thisModel][ffilter]['Explosion Day Relative to Peak'] = None
-                rawLightCurveDict[thisModel][ffilter]['End of lightcurve relative to peak'] = None
+                rawLightCurveDict[thisModel][ffilter][
+                    'Explosion Day Relative to Peak'] = None
+                rawLightCurveDict[thisModel][ffilter][
+                    'End of lightcurve relative to peak'] = None
                 continue
 
             # explosionDay = snLightCurves[model]['Explosion Day Relative to Peak']
-            endOfLightcurveDay = snLightCurves[model]['End of lightcurve relative to peak']
+            endOfLightcurveDay = snLightCurves[model][
+                'End of lightcurve relative to peak']
             explosionDay = modelData['Explosion Day Relative to Peak']
-            log.warning('explosionDay, endOfLightcurveDay for raw Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
+            log.info(
+                'explosionDay, endOfLightcurveDay for raw Light Curve: %s, %s' %
+                (explosionDay, endOfLightcurveDay))
             # endOfLightcurveDay = snLightCurves[model]['End of lightcurve relative to peak']
             # log.info('endOfLightcurveDay %s' % (endOfLightcurveDay,))
             # log.info('explosionDay %s' % (explosionDay,))
@@ -387,16 +398,21 @@ def generate_numpy_polynomial_lightcurves(
             polyLightCurve = polyLightCurve - peakMagPoly
             polyLightCurve = np.poly1d(polyLightCurve)
             rawLightCurveDict[thisModel][ffilter]['poly'] = polyLightCurve
-            rawLightCurveDict[thisModel][ffilter]['Explosion Day Relative to Peak'] = explosionDay
+            rawLightCurveDict[thisModel][ffilter][
+                'Explosion Day Relative to Peak'] = explosionDay
 
-            log.debug('rawLightCurveDict[thisModel][ffilter][Explosion Day Relative to Peak]: %s' % (rawLightCurveDict[thisModel][ffilter]['Explosion Day Relative to Peak'],))
-            rawLightCurveDict[thisModel][ffilter]['End of lightcurve relative to peak'] = endOfLightcurveDay
+            log.debug(
+                'rawLightCurveDict[thisModel][ffilter][Explosion Day Relative to Peak]: %s' %
+                (rawLightCurveDict[thisModel][ffilter]['Explosion Day Relative to Peak'],))
+            rawLightCurveDict[thisModel][ffilter][
+                'End of lightcurve relative to peak'] = endOfLightcurveDay
             plotDict[model] = polyLightCurve
 
             if plot:
                 dp.plot_polynomial(
                     log,
-                    title="00 raw lightcurve for %s, filter %s" % (model, ffilter),
+                    title="00 raw lightcurve for %s, filter %s" % (
+                        model, ffilter),
                     polynomialDict=plotDict,
                     orginalDataDictionary=False,
                     pathToOutputPlotsFolder=pathToOutputPlotDirectory,
@@ -445,7 +461,8 @@ def random_peak_magnitudes(
 
     peakMagList = []
     for item in snTypesArray:
-        thisPeak = magDistributions[item][1] * np.random.randn() + magDistributions[item][0]
+        thisPeak = magDistributions[item][
+            1] * np.random.randn() + magDistributions[item][0]
         peakMagList.append(thisPeak)
 
     peakMagArray = np.array(peakMagList)
@@ -500,7 +517,8 @@ def build_kcorrection_array(
             for ffilter in filters:
                 filterDir = dataDir + model + "/" + ffilter
                 strRed = "%0.2f" % (redshift,)
-                fileName = filterDir + "/z"+str(strRed).replace(".", "pt")+"_poly.yaml"
+                fileName = filterDir + "/z" + \
+                    str(strRed).replace(".", "pt") + "_poly.yaml"
                 try:
                     stream = file(fileName, 'r')
                     yamlContent = yaml.load(stream)
@@ -572,7 +590,7 @@ def convert_lightcurves_to_observered_frame(
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()
-    ebvConverters = {'g' : 3.793, 'r' : 2.751, 'i' : 2.086, 'z' : 1.479}
+    ebvConverters = {'g': 3.793, 'r': 2.751, 'i': 2.086, 'z': 1.479}
     stepNum = 0
 
     ###########################################################
@@ -593,14 +611,21 @@ def convert_lightcurves_to_observered_frame(
     for item in range(len(snTypesArray)):
         thisModel = snTypesArray[item]
         # explosionDay = snLightCurves[thisModel]['Explosion Day Relative to Peak']
-        log.debug('thisModel, restFrameFilter: %s, %s' % (thisModel,restFrameFilter ,))
-        explosionDay = rawLightCurveDict[thisModel][restFrameFilter]['Explosion Day Relative to Peak']
-        endOfLightcurveDay = snLightCurves[thisModel]['End of lightcurve relative to peak']
-        log.warning('explosionDay, endOfLightcurveDay for absolute Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
-        absLightCurve = rawLightCurveDict[thisModel][restFrameFilter]['poly'] + peakMagPolyList[item]
+        log.debug('thisModel, restFrameFilter: %s, %s' %
+                  (thisModel, restFrameFilter,))
+        explosionDay = rawLightCurveDict[thisModel][
+            restFrameFilter]['Explosion Day Relative to Peak']
+        endOfLightcurveDay = snLightCurves[thisModel][
+            'End of lightcurve relative to peak']
+        log.warning(
+            'explosionDay, endOfLightcurveDay for absolute Light Curve: %s, %s' %
+            (explosionDay, endOfLightcurveDay))
+        absLightCurve = rawLightCurveDict[thisModel][
+            restFrameFilter]['poly'] + peakMagPolyList[item]
         absLightCurve = np.poly1d(absLightCurve)
         absLightCurveList.append(absLightCurve)
-        exampleDictionary['SN %02d @ z = %04.3f' % (item, redshiftArray[item])] = absLightCurve
+        exampleDictionary['SN %02d @ z = %04.3f' %
+                          (item, redshiftArray[item])] = absLightCurve
     if plot:
         dp.plot_polynomial(
             log,
@@ -640,14 +665,19 @@ def convert_lightcurves_to_observered_frame(
     for item in range(len(snTypesArray)):
         thisModel = snTypesArray[item]
         # explosionDay = snLightCurves[thisModel]['Explosion Day Relative to Peak']
-        explosionDay = rawLightCurveDict[thisModel][restFrameFilter]['Explosion Day Relative to Peak']
-        endOfLightcurveDay = snLightCurves[thisModel]['End of lightcurve relative to peak']
-        log.warning('explosionDay, endOfLightcurveDay for apparent Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
+        explosionDay = rawLightCurveDict[thisModel][
+            restFrameFilter]['Explosion Day Relative to Peak']
+        endOfLightcurveDay = snLightCurves[thisModel][
+            'End of lightcurve relative to peak']
+        log.info(
+            'explosionDay, endOfLightcurveDay for apparent Light Curve: %s, %s' %
+            (explosionDay, endOfLightcurveDay))
         apparentLightCurve = absLightCurveList[item] + distanceModPolyList[item]
         # log.debug('apparentLightCurve %s' % (apparentLightCurve,))
         apparentLightCurve = np.poly1d(apparentLightCurve)
         apparentLightCurveList.append(apparentLightCurve)
-        exampleDictionary['SN %02d @ z = %04.3f' % (item, redshiftArray[item])] = apparentLightCurve
+        exampleDictionary['SN %02d @ z = %04.3f' %
+                          (item, redshiftArray[item])] = apparentLightCurve
         #log.info('absLightCurveDictionary %s' % (absLightCurveDictionary,))
     if plot:
         dp.plot_polynomial(
@@ -674,9 +704,13 @@ def convert_lightcurves_to_observered_frame(
     for i in range(len(apparentLightCurveList)):
         thisModel = snTypesArray[i]
         # explosionDay = snLightCurves[thisModel]['Explosion Day Relative to Peak']
-        explosionDay = rawLightCurveDict[thisModel][restFrameFilter]['Explosion Day Relative to Peak']
-        endOfLightcurveDay = snLightCurves[thisModel]['End of lightcurve relative to peak']
-        log.warning('explosionDay, endOfLightcurveDay for unkcor apparent Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
+        explosionDay = rawLightCurveDict[thisModel][
+            restFrameFilter]['Explosion Day Relative to Peak']
+        endOfLightcurveDay = snLightCurves[thisModel][
+            'End of lightcurve relative to peak']
+        log.info(
+            'explosionDay, endOfLightcurveDay for unkcor apparent Light Curve: %s, %s' %
+            (explosionDay, endOfLightcurveDay))
         kCorDict = kCorrectionArray[i]
         lcDict = {}
         plotLcDict = {}
@@ -690,7 +724,8 @@ def convert_lightcurves_to_observered_frame(
             if plot:
                 dp.plot_polynomial(
                     log,
-                    title="K(un)corrected Apparent Magnitude Lightcurves - SN Number %s" % (i),
+                    title="K(un)corrected Apparent Magnitude Lightcurves - SN Number %s" % (
+                        i),
                     polynomialDict=plotLcDict,
                     orginalDataDictionary=False,
                     pathToOutputPlotsFolder=pathToOutputPlotDirectory,
@@ -715,7 +750,7 @@ def convert_lightcurves_to_observered_frame(
     for ext in galacticExtinctionArray:
         extDict = {}
         for ffilter in filters:
-            thisExt = ext*ebvConverters[ffilter]
+            thisExt = ext * ebvConverters[ffilter]
             # log.info('ext %s, filter %s' % (thisExt, ffilter))
             thisPoly = np.poly1d([thisExt, ])
             extDict[ffilter] = thisPoly
@@ -726,14 +761,19 @@ def convert_lightcurves_to_observered_frame(
     for item in range(len(kCorApparentLightCurveList)):
         thisModel = snTypesArray[item]
         # explosionDay = snLightCurves[thisModel]['Explosion Day Relative to Peak']
-        explosionDay = rawLightCurveDict[thisModel][restFrameFilter]['Explosion Day Relative to Peak']
-        endOfLightcurveDay = snLightCurves[thisModel]['End of lightcurve relative to peak']
-        log.warning('explosionDay, endOfLightcurveDay for galatic extinction corr Frame Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
+        explosionDay = rawLightCurveDict[thisModel][
+            restFrameFilter]['Explosion Day Relative to Peak']
+        endOfLightcurveDay = snLightCurves[thisModel][
+            'End of lightcurve relative to peak']
+        log.info(
+            'explosionDay, endOfLightcurveDay for galatic extinction corr Frame Light Curve: %s, %s' %
+            (explosionDay, endOfLightcurveDay))
         lcDict = {}
         plotLcDict = {}
         for ffilter in filters:
             if kCorApparentLightCurveList[item][ffilter] is not None:
-                galExtLightCurve = kCorApparentLightCurveList[item][ffilter] + galExtPolyList[item][ffilter]
+                galExtLightCurve = kCorApparentLightCurveList[
+                    item][ffilter] + galExtPolyList[item][ffilter]
                 # log.debug('apparentLightCurve %s' % (apparentLightCurve,))
                 galExtPoly = np.poly1d(galExtLightCurve)
                 plotLcDict[ffilter] = galExtPoly
@@ -743,7 +783,8 @@ def convert_lightcurves_to_observered_frame(
         if plot:
             dp.plot_polynomial(
                 log,
-                title="Galactic Extinction Corrected Lightcurves - SN Number %s" % (item),
+                title="Galactic Extinction Corrected Lightcurves - SN Number %s" % (
+                    item),
                 polynomialDict=plotLcDict,
                 orginalDataDictionary=False,
                 pathToOutputPlotsFolder=pathToOutputPlotDirectory,
@@ -768,9 +809,13 @@ def convert_lightcurves_to_observered_frame(
         timeDilation = 1. + redshiftArray[item]
         thisModel = snTypesArray[item]
         # explosionDay = snLightCurves[thisModel]['Explosion Day Relative to Peak']*timeDilation
-        explosionDay = rawLightCurveDict[thisModel][restFrameFilter]['Explosion Day Relative to Peak']*timeDilation
-        endOfLightcurveDay = snLightCurves[thisModel]['End of lightcurve relative to peak']*timeDilation
-        log.warning('explosionDay, endOfLightcurveDay for observed time dil Frame Light Curve: %s, %s' % (explosionDay,endOfLightcurveDay))
+        explosionDay = rawLightCurveDict[thisModel][restFrameFilter][
+            'Explosion Day Relative to Peak'] * timeDilation
+        endOfLightcurveDay = snLightCurves[thisModel][
+            'End of lightcurve relative to peak'] * timeDilation
+        log.info(
+            'explosionDay, endOfLightcurveDay for observed time dil Frame Light Curve: %s, %s' %
+            (explosionDay, endOfLightcurveDay))
         polyDict = {}
         lcPolyDict = {}
         peakMagDict = {}
@@ -781,7 +826,7 @@ def convert_lightcurves_to_observered_frame(
                 xList = []
                 yList = []
                 for x in range(int(explosionDay), int(endOfLightcurveDay)):
-                    xList.append(x*timeDilation)
+                    xList.append(x * timeDilation)
                     y = galExtLightCurveList[item][ffilter](x)
                     yList.append(y)
 
@@ -817,10 +862,10 @@ def convert_lightcurves_to_observered_frame(
                 legend=True)
 
         thisData = {
-                    'lightCurves' : polyDict,
-                    'peakMags' : peakMagDict,
-                    'explosionDay' : explosionDay,
-                    'endOfLightcurveDay' : endOfLightcurveDay }
+            'lightCurves': polyDict,
+            'peakMags': peakMagDict,
+            'explosionDay': explosionDay,
+            'endOfLightcurveDay': endOfLightcurveDay}
         # log.info('peakMagDict %s' % (peakMagDict,))
         observedFrameLightCurveInfo.append(thisData)
         peakAppMagList.append(floatPeakMagDict)

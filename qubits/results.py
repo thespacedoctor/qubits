@@ -523,7 +523,7 @@ def determine_sn_rate(
     sdssSFR = 14787.21
     # CCSNRateFraction = 0.007
     # transientToCCSNRateFraction = 1./10000.
-    transientRateFraction = CCSNRateFraction*transientToCCSNRateFraction
+    transientRateFraction = float(CCSNRateFraction)*float(transientToCCSNRateFraction)
 
     anchor = redshiftResolution/sdssSFRupperRedshiftLimit
     normaiseSFR = sdssSFR*anchor**3
