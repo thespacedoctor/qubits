@@ -21,5 +21,3 @@ html_test_coverage_report/
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
-
-README.rst
