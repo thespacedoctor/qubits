@@ -13,7 +13,7 @@ The easiest way to install this code is to open your terminal and use the comman
     easy_install qubits
 
 This should install the code and all of its dependencies (*dryxPython*,*matplotlib*,*numpy* ...).
-Also make sure you have the `PYSYN_CDBS` path set in your path.
+Also make sure you have the `PYSYN_CDBS`[^cdbs] path set in your path.
 
         setenv iraf "/usr/local/scisoft/packages/iraf/iraf"
         setenv IRAFARCH "macintel"
@@ -239,3 +239,6 @@ This compiles the results into a markdown file (plain text with minimal markup) 
 Here is an example of the output log file:
 
 ![example results file](qubits/assets/example_results.png)
+
+
+[^cdbs]: http://www.stsci.edu/institute/software_hardware/stsdas/synphot
