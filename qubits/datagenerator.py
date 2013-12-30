@@ -697,13 +697,10 @@ def generate_single_kcorrection_listing(
     title = "%s Objects" % (model,)
     os.chdir(path)
     spectrumFiles = []
-    spectrumFilenames = []
     for thisFile in glob.glob("*.spec"):
-        spectrumFilenames.append(thisFile)
+
         thisFile = path + thisFile
         spectrumFiles.append(thisFile)
-
-    log.debug('found these files in %(path)s: %(spectrumFilenames)s' % locals())
 
     os.chdir(pwd)
 
@@ -712,7 +709,6 @@ def generate_single_kcorrection_listing(
 
     ################ >ACTION(S) ################
     # CREATE THE REQUIRED DIRECTORIES
-
     filters = ["g", "i", "r", "z"]
     for thisFilter in filters:
         strRed = "%0.2f" % (redshift,)
@@ -735,13 +731,22 @@ def generate_single_kcorrection_listing(
                 "could not clear the k-correction yaml file - failed with this error: %s " % (str(e),))
             return -1
 
-    nextTime = 0.0
+
+
+    timesList = []
+    fileDictionary = {}
     for thisFile in spectrumFiles:
-        # mul = 1
-        # if reTime.search(thisFile).group(2) == "-":
-        #     mul = -1
         thisTime = float(reTime.search(thisFile).group(1))
+        fileDictionary[thisTime] = thisFile
+
+    import collections
+    ofileDictionary = collections.OrderedDict(sorted(fileDictionary.items()))
+
+    nextTime = -999999999.9
+    for thisTime, thisFile in ofileDictionary.iteritems():
+        log.debug('thisTime: %(thisTime)s, thisFile: %(thisFile)s' % locals())
         if thisTime < nextTime:
+            log.debug('skipping the file: %(thisFile)s' % locals())
             continue
         else:
             nextTime = thisTime + temporalResolution
