@@ -697,9 +697,13 @@ def generate_single_kcorrection_listing(
     title = "%s Objects" % (model,)
     os.chdir(path)
     spectrumFiles = []
+    spectrumFilenames = []
     for thisFile in glob.glob("*.spec"):
+        spectrumFilenames.append(thisFile)
         thisFile = path + thisFile
         spectrumFiles.append(thisFile)
+
+    log.debug('found these files in %(path)s: %(spectrumFilenames)s' % locals())
 
     os.chdir(pwd)
 
