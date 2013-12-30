@@ -1,4 +1,4 @@
 version: 1
 git repos:
-    - path: /home/dry/qubits
+    - path: /home/dry/github_repos/qubits
       branchToUpdate: master
