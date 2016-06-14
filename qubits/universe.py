@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # encoding: utf-8
 """
-universe
-=================================
-:Summary:
-    A partial of the ``SN_Survey_Simulator`` module.
-    The functions in this partial are used to setup the simulated observable universe.
+*A partial of the ``SN_Survey_Simulator`` module.
+    The functions in this partial are used to setup the simulated observable universe.*
 
 :Author:
     David Young
@@ -18,7 +15,7 @@ universe
     - ``_someObject`` = a 'private' object that should only be changed for debugging
 
 :Notes:
-    - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 """
 ################# GLOBAL IMPORTS ####################
 
@@ -29,9 +26,9 @@ universe
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
 ###################################################################
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 
 
 def random_redshift_array(
@@ -42,7 +39,8 @@ def random_redshift_array(
         redshiftResolution,
         pathToOutputPlotDirectory,
         plot=False):
-    """Generate a NumPy array of random distances given a sample number and distance limit
+    """
+    *Generate a NumPy array of random distances given a sample number and distance limit*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -65,7 +63,8 @@ def random_redshift_array(
     ## LOCAL APPLICATION ##
     import dryxPython.astrotools as da
 
-    redshiftDistribution = np.arange(0., upperRedshiftLimit, redshiftResolution)
+    redshiftDistribution = np.arange(
+        0., upperRedshiftLimit, redshiftResolution)
     closestNumber = lambda n, l: min(l, key=lambda x: abs(x - n))
 
     # GIVEN THE REDSHIFT LIMIT - DETERMINE THE VOLUME LIMIT
@@ -76,7 +75,8 @@ def random_redshift_array(
     if lowerRedshiftLimit == 0.:
         lowerVolumeLimit = 0.
     else:
-        distanceDictionary = da.convert_redshift_to_distance(lowerRedshiftLimit)
+        distanceDictionary = da.convert_redshift_to_distance(
+            lowerRedshiftLimit)
         lowerMpcLimit = distanceDictionary["dl_mpc"]
         lowerVolumeLimit = (4. / 3.) * np.pi * lowerMpcLimit ** 3
 
@@ -140,16 +140,17 @@ def random_redshift_array(
     return redshiftArray
 
 
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 def random_sn_types_array(
         log,
         sampleNumber,
         relativeSNRates,
         pathToOutputPlotDirectory,
         plot=False):
-    """Generate random supernova types from the weighted distributions set in the simulation settings file
+    """
+    *Generate random supernova types from the weighted distributions set in the simulation settings file*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -235,9 +236,9 @@ def random_sn_types_array(
     return snTypeArray
 
 
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 def random_host_extinction(
         log,
         sampleNumber,
@@ -245,7 +246,8 @@ def random_host_extinction(
         extinctionConstant,
         hostExtinctionDistributions,
         plot=False):
-    """Generate a Numpy array of random host extinctions
+    """
+    *Generate a Numpy array of random host extinctions*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -277,9 +279,9 @@ def random_host_extinction(
     return hostExtinctionArray
 
 
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 def random_galactic_extinction(
         log,
         sampleNumber,
@@ -287,7 +289,8 @@ def random_galactic_extinction(
         extinctionConstant,
         galacticExtinctionDistributions,
         plot=False):
-    """Generate a Numpy array of random galactic extinctions
+    """
+    *Generate a Numpy array of random galactic extinctions*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -321,16 +324,17 @@ def random_galactic_extinction(
     return galacticExtinctionArray
 
 
-## LAST MODIFIED : April 14, 2013
-## CREATED : April 14, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 14, 2013
+# CREATED : April 14, 2013
+# AUTHOR : DRYX
 def generate_numpy_polynomial_lightcurves(
         log,
         snLightCurves,
         pathToOutputDirectory,
         pathToOutputPlotDirectory,
         plot=False):
-    """Given a the yaml input of the SN Lightcurves generate a numpy polynomial of the curves.
+    """
+    *Given a the yaml input of the SN Lightcurves generate a numpy polynomial of the curves.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -352,7 +356,7 @@ def generate_numpy_polynomial_lightcurves(
     import dryxPython.plotting as dp
 
     ################ >ACTION(S) ################
-    ## EXTRACT THE MODEL LIGHTCURVE POLYNOMIALS
+    # EXTRACT THE MODEL LIGHTCURVE POLYNOMIALS
     fileName = pathToOutputDirectory + "transient_light_curves.yaml"
     stream = file(fileName, 'r')
     yamlContent = yaml.load(stream)
@@ -427,15 +431,16 @@ def generate_numpy_polynomial_lightcurves(
     return rawLightCurveDict
 
 
-## LAST MODIFIED : April 15, 2013
-## CREATED : April 15, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 15, 2013
+# CREATED : April 15, 2013
+# AUTHOR : DRYX
 def random_peak_magnitudes(
         log,
         peakMagnitudeDistributions,
         snTypesArray,
         plot=True):
-    """Generate a numpy array of random (distribution weighted) peak magnitudes for the given sn types.
+    """
+    *Generate a numpy array of random (distribution weighted) peak magnitudes for the given sn types.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -471,9 +476,9 @@ def random_peak_magnitudes(
     return peakMagArray
 
 
-## LAST MODIFIED : April 15, 2013
-## CREATED : April 15, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 15, 2013
+# CREATED : April 15, 2013
+# AUTHOR : DRYX
 def build_kcorrection_array(
         log,
         redshiftArray,
@@ -481,7 +486,8 @@ def build_kcorrection_array(
         snLightCurves,
         pathToOutputDirectory,
         plot=True):
-    """Given the random redshiftArray and snTypeArray, generate a dictionary of k-correction polynomials (one for each filter) for every object.
+    """
+    *Given the random redshiftArray and snTypeArray, generate a dictionary of k-correction polynomials (one for each filter) for every object.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -534,9 +540,9 @@ def build_kcorrection_array(
     return kCorArray
 
 
-## LAST MODIFIED : April 15, 2013
-## CREATED : April 15, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 15, 2013
+# CREATED : April 15, 2013
+# AUTHOR : DRYX
 def convert_lightcurves_to_observered_frame(
         log,
         snLightCurves,
@@ -552,7 +558,8 @@ def convert_lightcurves_to_observered_frame(
         pathToOutputPlotDirectory,
         polyOrder,
         plot=True):
-    """Given all the randomly generated parameters of the survey, generate a dictionary of lightcurves for each object (one lightcurve per filter)
+    """
+    *Given all the randomly generated parameters of the survey, generate a dictionary of lightcurves for each object (one lightcurve per filter)*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -672,7 +679,8 @@ def convert_lightcurves_to_observered_frame(
         log.info(
             'explosionDay, endOfLightcurveDay for apparent Light Curve: %s, %s' %
             (explosionDay, endOfLightcurveDay))
-        apparentLightCurve = absLightCurveList[item] + distanceModPolyList[item]
+        apparentLightCurve = absLightCurveList[
+            item] + distanceModPolyList[item]
         # log.debug('apparentLightCurve %s' % (apparentLightCurve,))
         apparentLightCurve = np.poly1d(apparentLightCurve)
         apparentLightCurveList.append(apparentLightCurve)

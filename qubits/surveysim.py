@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # encoding: utf-8
 """
-surveysim
-=================================
-:Summary:
-    A partial of the ``qubits`` module.
-    The functions in this partial are used to setup the simulated observable universe.
+*A partial of the ``qubits`` module.
+    The functions in this partial are used to setup the simulated observable universe.*
 
 :Author:
     David Young
@@ -18,7 +15,7 @@ surveysim
     - ``_someObject`` = a 'private' object that should only be changed for debugging
 
 :Notes:
-    - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 """
 ################# GLOBAL IMPORTS ####################
 from commonutils import *
@@ -31,16 +28,17 @@ from commonutils import *
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
 ###################################################################
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 def survey_cadence_arrays(
         log,
         surveyCadenceSettings,
         pathToOutputDirectory,
         pathToOutputPlotDirectory,
         plot=False):
-    """Generate the survey cadence arrays for each filter
+    """
+    *Generate the survey cadence arrays for each filter*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -61,11 +59,12 @@ def survey_cadence_arrays(
 
     ################ > VARIABLE SETTINGS ######
     lunarMonth = 29.3
-    surveyYear = 12.*lunarMonth
+    surveyYear = 12. * lunarMonth
     ################ >ACTION(S) ################
     cadenceDictionary = {}
     obsFraction = surveyCadenceSettings['Observable Fraction of Year']
-    lossFraction = surveyCadenceSettings['Fraction of Year Lost to Weather etc']
+    lossFraction = surveyCadenceSettings[
+        'Fraction of Year Lost to Weather etc']
     for thisFilter in surveyCadenceSettings['Filters']:
         # READ THE CADENCE PARAMETERS
         band = thisFilter['band']
@@ -74,7 +73,7 @@ def survey_cadence_arrays(
         moonFraction = thisFilter['Fraction of Lunar Month Lost to Moon']
 
         # DETERMINE DAYS LOST DUE TO MOON CYCLE
-        finalObsDayOfMonth = lunarMonth*(1.-moonFraction)
+        finalObsDayOfMonth = lunarMonth * (1. - moonFraction)
         monthCount = 0
         day = 1
         monthDay = 1
@@ -86,15 +85,15 @@ def survey_cadence_arrays(
                 monthDay += 1
                 day += 1
             monthCount += 1
-            day = int(lunarMonth*monthCount)
-            #log.debug('month # %s starts on day %s' % (monthCount, day))
+            day = int(lunarMonth * monthCount)
+            # log.debug('month # %s starts on day %s' % (monthCount, day))
             monthDay = 0
 
         # DETERMINE THE DAYS THE TELESCOPE OBSERVES IN THIS FILTER
         day = firstDay
         nextObs = firstDay
         obsDaysList = []
-        finalObsDayOfYear = obsFraction*surveyYear
+        finalObsDayOfYear = obsFraction * surveyYear
         while day <= finalObsDayOfYear:
             randNum = np.random.rand()
             if day == nextObs:
@@ -102,7 +101,7 @@ def survey_cadence_arrays(
                     obsDaysList.append(day)
                 nextObs = day + repeatEvery
             day += 1
-            #log.debug('day # %s' % (day,))
+            # log.debug('day # %s' % (day,))
 
         # ADD THE BAND & OBS ARRAY TO THE DICTIONARY
         cadenceDictionary[band] = obsDaysList
@@ -110,7 +109,7 @@ def survey_cadence_arrays(
     if plot:
         fig = plt.figure(
             num=None,
-            figsize=(8,8),
+            figsize=(8, 8),
             dpi=600,
             facecolor=None,
             edgecolor=None,
@@ -128,8 +127,8 @@ def survey_cadence_arrays(
 
         for k, v in cadenceDictionary.iteritems():
             # log.debug('k %s' % (k,))
-            x = 2*np.pi*np.array(v)/surveyYear
-            y = np.ones(len(x))*10.
+            x = 2 * np.pi * np.array(v) / surveyYear
+            y = np.ones(len(x)) * 10.
 
             if k in ['g', 'B']:
                 color = '#268bd2'
@@ -165,7 +164,7 @@ def survey_cadence_arrays(
         for tick in circleTicks:
             tickLabels.append("%s days" % (tick,))
 
-        plt.xticks(2*np.pi*circleTicks/surveyYear, tickLabels)
+        plt.xticks(2 * np.pi * circleTicks / surveyYear, tickLabels)
         plt.yticks([])
 
         title = "Cadence Wheel for Simulated Survey"
@@ -177,9 +176,9 @@ def survey_cadence_arrays(
     return cadenceDictionary
 
 
-## LAST MODIFIED : April 17, 2013
-## CREATED : April 17, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 17, 2013
+# CREATED : April 17, 2013
+# AUTHOR : DRYX
 def determine_if_sne_are_discoverable(
         log,
         redshiftArray,
@@ -188,7 +187,8 @@ def determine_if_sne_are_discoverable(
         pathToOutputDirectory,
         pathToOutputPlotDirectory,
         plot=True):
-    """Given the observe frame lightcurve, determine if the SNe are discoverable by the survey or not.
+    """
+    *Given the observe frame lightcurve, determine if the SNe are discoverable by the survey or not.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -229,9 +229,7 @@ def determine_if_sne_are_discoverable(
 
         discoverableList.append(discoveryDict)
 
-
-    maxVal = np.max(redshiftArray)*1.1
-
+    maxVal = np.max(redshiftArray) * 1.1
 
     if plot:
         hitList = []
@@ -248,7 +246,8 @@ def determine_if_sne_are_discoverable(
         missArray = np.array(missList)
         faintArray = np.array(faintList)
 
-        dataDictionary =  { 'Discoverable' : hitArray, 'Undiscoverable' : missArray }
+        dataDictionary = {'Discoverable': hitArray,
+                          'Undiscoverable': missArray}
         dp.plot_polar(
             log,
             title="Discoverable SN Redshift Distribution",
@@ -263,9 +262,9 @@ def determine_if_sne_are_discoverable(
     return discoverableList
 
 
-## LAST MODIFIED : April 18, 2013
-## CREATED : April 18, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 18, 2013
+# CREATED : April 18, 2013
+# AUTHOR : DRYX
 def determine_when_sne_are_ripe_for_discovery(
         log,
         redshiftArray,
@@ -273,8 +272,8 @@ def determine_when_sne_are_ripe_for_discovery(
         observedFrameLightCurveInfo,
         discoverableList,
         plot=True):
-
-    """Given the observe frame lightcurve, determine if the SNe are discoverable by the survey or not.
+    """
+    *Given the observe frame lightcurve, determine if the SNe are discoverable by the survey or not.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -311,11 +310,13 @@ def determine_when_sne_are_ripe_for_discovery(
                 elif observedFrameLightCurveInfo[item]['lightCurves'][ffilter] is None:
                     ripeDayDict[ffilter] = False
                 else:
-                    explosionDay = observedFrameLightCurveInfo[item]['explosionDay']
+                    explosionDay = observedFrameLightCurveInfo[
+                        item]['explosionDay']
                     lowerLimit = explosionDay
                     upperLimit = 0.
                     ripeDay = lowerLimit
-                    magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](ripeDay)
+                    magGuess = observedFrameLightCurveInfo[
+                        item]['lightCurves'][ffilter](ripeDay)
                     magDiff = limitingMags[ffilter] - magGuess
 
                     if magGuess > limitingMags[ffilter]:
@@ -323,17 +324,22 @@ def determine_when_sne_are_ripe_for_discovery(
                             if magGuess > limitingMags[ffilter]:
                                 #log.info('item %s ripeDay %s magGuess %s - going higher' % (item, ripeDay, magGuess))
                                 lowerLimit = ripeDay
-                                ripeDay = lowerLimit + (upperLimit - lowerLimit)/2.
-                                magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](ripeDay)
+                                ripeDay = lowerLimit + \
+                                    (upperLimit - lowerLimit) / 2.
+                                magGuess = observedFrameLightCurveInfo[
+                                    item]['lightCurves'][ffilter](ripeDay)
                             elif magGuess < limitingMags[ffilter]:
                                 #log.info('item %s ripeDay %s' % (item, ripeDay))
                                 upperLimit = ripeDay
-                                ripeDay = lowerLimit + (upperLimit - lowerLimit)/2.
-                                magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](ripeDay)
+                                ripeDay = lowerLimit + \
+                                    (upperLimit - lowerLimit) / 2.
+                                magGuess = observedFrameLightCurveInfo[
+                                    item]['lightCurves'][ffilter](ripeDay)
                             magDiff = limitingMags[ffilter] - magGuess
 
                     ripeDay = float("%5.3f" % (ripeDay,))
-                    #log.info('SN#%s, filter %s, ripeDay %s' % (item, ffilter, ripeDay,))
+                    # log.info('SN#%s, filter %s, ripeDay %s' % (item, ffilter,
+                    # ripeDay,))
                     ripeDayDict[ffilter] = ripeDay
             ripeDayDict["any"] = False
             for ffilter in filters:
@@ -346,9 +352,9 @@ def determine_when_sne_are_ripe_for_discovery(
     return ripeDayList
 
 
-## LAST MODIFIED : April 18, 2013
-## CREATED : April 18, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 18, 2013
+# CREATED : April 18, 2013
+# AUTHOR : DRYX
 def determine_when_discovered_sne_disappear(
         log,
         redshiftArray,
@@ -356,8 +362,8 @@ def determine_when_discovered_sne_disappear(
         observedFrameLightCurveInfo,
         ripeDayList,
         plot=True):
-
-    """Given the observed frame lightcurve, determine when the discovered SNe become too faint to be detected.
+    """
+    *Given the observed frame lightcurve, determine when the discovered SNe become too faint to be detected.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -392,34 +398,45 @@ def determine_when_discovered_sne_disappear(
                 if not ripeDayList[item][ffilter]:
                     disappearDayDict[ffilter] = False
                 else:
-                    lightCurveEndDay = observedFrameLightCurveInfo[item]['endOfLightcurveDay']
+                    lightCurveEndDay = observedFrameLightCurveInfo[
+                        item]['endOfLightcurveDay']
                     lowerLimit = 0.
                     upperLimit = lightCurveEndDay
                     disappearDay = upperLimit
-                    magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](disappearDay)
+                    magGuess = observedFrameLightCurveInfo[item][
+                        'lightCurves'][ffilter](disappearDay)
                     magDiff = limitingMags[ffilter] - magGuess
-                    log.info('item %s disappearDay %s magGuess %s - going higher' % (item, disappearDay, magGuess))
+                    log.info('item %s disappearDay %s magGuess %s - going higher' %
+                             (item, disappearDay, magGuess))
 
                     if magGuess > limitingMags[ffilter]:
                         while math.fabs(magDiff) > 0.01:
                             if magGuess > limitingMags[ffilter]:
-                                log.info('item %s disappearDay %s magGuess %s - going higher' % (item, disappearDay, magGuess))
+                                log.info(
+                                    'item %s disappearDay %s magGuess %s - going higher' % (item, disappearDay, magGuess))
                                 upperLimit = disappearDay
-                                disappearDay = lowerLimit + (upperLimit - lowerLimit)/2.
-                                magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](disappearDay)
+                                disappearDay = lowerLimit + \
+                                    (upperLimit - lowerLimit) / 2.
+                                magGuess = observedFrameLightCurveInfo[item][
+                                    'lightCurves'][ffilter](disappearDay)
                             elif magGuess < limitingMags[ffilter]:
-                                log.info('item %s disappearDay %s' % (item, disappearDay))
+                                log.info('item %s disappearDay %s' %
+                                         (item, disappearDay))
                                 lowerLimit = disappearDay
-                                disappearDay = lowerLimit + (upperLimit - lowerLimit)/2.
-                                magGuess = observedFrameLightCurveInfo[item]['lightCurves'][ffilter](disappearDay)
+                                disappearDay = lowerLimit + \
+                                    (upperLimit - lowerLimit) / 2.
+                                magGuess = observedFrameLightCurveInfo[item][
+                                    'lightCurves'][ffilter](disappearDay)
                             magDiff = limitingMags[ffilter] - magGuess
                     else:
                         disappearDay = "N.E.D."
-                        log.warning("""not enough data to determine when the SN disappears fainter than the survey's limiting mag""")
+                        log.warning(
+                            """not enough data to determine when the SN disappears fainter than the survey's limiting mag""")
 
                     if type(disappearDay) != str:
                         disappearDay = float("%5.3f" % (disappearDay,))
-                    #log.info('SN#%s, filter %s, disappearDay %s' % (item, ffilter, disappearDay,))
+                    # log.info('SN#%s, filter %s, disappearDay %s' % (item,
+                    # ffilter, disappearDay,))
                     disappearDayDict[ffilter] = disappearDay
             disappearDayDict["any"] = False
             for ffilter in filters:
@@ -432,9 +449,9 @@ def determine_when_discovered_sne_disappear(
     return disappearDayList
 
 
-## LAST MODIFIED : April 18, 2013
-## CREATED : April 18, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 18, 2013
+# CREATED : April 18, 2013
+# AUTHOR : DRYX
 def determine_if_sne_are_discovered(
         log,
         limitingMags,
@@ -443,7 +460,8 @@ def determine_if_sne_are_discovered(
         observedFrameLightCurveInfo,
         extraSurveyConstraints,
         plot=True):
-    """Generate a list of dictionaries which describe if and when a SN is discovered in each and any filter.
+    """
+    *Generate a list of dictionaries which describe if and when a SN is discovered in each and any filter.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -467,16 +485,16 @@ def determine_if_sne_are_discovered(
     filters = ['g', 'r', 'i', 'z']
     models = ['he80', 'he100', 'he130']
     lunarMonth = 29.3
-    surveyYear = 12.*lunarMonth
-
+    surveyYear = 12. * lunarMonth
 
     surveyDiscoveryDayList = []
     lightCurveDiscoveryDayList = []
     snCampaignLengthList = []
     log.info('ripeDayList %s' % (len(ripeDayList),))
     for item in range(len(ripeDayList)):
-        lightCurveEndDay = observedFrameLightCurveInfo[item]['endOfLightcurveDay']
-        visibleDay = np.random.rand()*surveyYear
+        lightCurveEndDay = observedFrameLightCurveInfo[
+            item]['endOfLightcurveDay']
+        visibleDay = np.random.rand() * surveyYear
         surveyDiscoveryDayDict = {}
         lightCurveDiscoverDayDict = {}
         snCampaignLengthDict = {}
@@ -501,8 +519,10 @@ def determine_if_sne_are_discovered(
                     # log.info('item %s, filter %s, NOT DISCOVERED' % (item, ffilter))
                 else:
                     if visibleDay > max(cadenceDictionary[ffilter]):
-                        waitingTime = surveyYear + min(cadenceDictionary[ffilter]) - visibleDay
-                        surveyDiscoveryDayDict[ffilter] = min(cadenceDictionary[ffilter])
+                        waitingTime = surveyYear + \
+                            min(cadenceDictionary[ffilter]) - visibleDay
+                        surveyDiscoveryDayDict[ffilter] = min(
+                            cadenceDictionary[ffilter])
                         cdIndex = 0
                     else:
                         cdIndex = -1
@@ -513,7 +533,8 @@ def determine_if_sne_are_discovered(
                                 surveyDiscoveryDayDict[ffilter] = day
                                 break
 
-                    lightCurveDiscoverDayDict[ffilter] = ripeDayList[item][ffilter] + waitingTime
+                    lightCurveDiscoverDayDict[ffilter] = ripeDayList[
+                        item][ffilter] + waitingTime
                     if observedFrameLightCurveInfo[item]['lightCurves'][ffilter](lightCurveDiscoverDayDict[ffilter]) > limitingMags[ffilter]:
                         lightCurveDiscoverDayDict[ffilter] = False
                         surveyDiscoveryDayDict[ffilter] = False
@@ -524,16 +545,24 @@ def determine_if_sne_are_discovered(
                         cdIndex += 1
                         while 1 > 0:
                             if cdIndex >= len(cadenceDictionary[ffilter]):
-                                log.info('item: %s. NEXT YEAR: cdIndex %s, len(cadenceDictionary[ffilter]) %s' % (item, cdIndex, len(cadenceDictionary[ffilter])))
-                                nextLcDay = lcDay + surveyYear + min(cadenceDictionary[ffilter]) - max(cadenceDictionary[ffilter])
+                                log.info('item: %s. NEXT YEAR: cdIndex %s, len(cadenceDictionary[ffilter]) %s' % (
+                                    item, cdIndex, len(cadenceDictionary[ffilter])))
+                                nextLcDay = lcDay + surveyYear + \
+                                    min(cadenceDictionary[
+                                        ffilter]) - max(cadenceDictionary[ffilter])
                                 cdIndex = 1
                             else:
-                                log.info('item: %s. SAME YEAR: cdIndex %s, len(cadenceDictionary[ffilter]) %s' % (item, cdIndex, len(cadenceDictionary[ffilter])))
-                                nextLcDay = lcDay + cadenceDictionary[ffilter][cdIndex] - cadenceDictionary[ffilter][cdIndex-1]
+                                log.info('item: %s. SAME YEAR: cdIndex %s, len(cadenceDictionary[ffilter]) %s' % (
+                                    item, cdIndex, len(cadenceDictionary[ffilter])))
+                                nextLcDay = lcDay + \
+                                    cadenceDictionary[ffilter][
+                                        cdIndex] - cadenceDictionary[ffilter][cdIndex - 1]
                                 cdIndex += 1
                             if observedFrameLightCurveInfo[item]['lightCurves'][ffilter](nextLcDay) < limitingMags[ffilter] and (lightCurveEndDay > nextLcDay):
-                                snCampaignLengthDict[ffilter] += nextLcDay - lcDay
-                                log.info('campaign length %s, filter %s' % (snCampaignLengthDict[ffilter], ffilter))
+                                snCampaignLengthDict[
+                                    ffilter] += nextLcDay - lcDay
+                                log.info('campaign length %s, filter %s' % (
+                                    snCampaignLengthDict[ffilter], ffilter))
                                 lcDay = nextLcDay
                             else:
                                 break

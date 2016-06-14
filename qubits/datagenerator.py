@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # encoding: utf-8
 """
-datagenerator
-============================
-:Summary:
-    Partial for the main MCS simulation. This module will generate lightcurves and K-corrections
-    for the SN models given multiple epoch spectra and filter throughputs as a function of wavelength.
+*Partial for the main MCS simulation. This module will generate lightcurves and K-corrections
+    for the SN models given multiple epoch spectra and filter throughputs as a function of wavelength.*
 
 :Author:
     David Young
@@ -18,7 +15,7 @@ datagenerator
     - ``_someObject`` = a 'private' object that should only be changed for debugging
 
 :Notes:
-    - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 """
 ################# GLOBAL IMPORTS ####################
 from .commonutils import *
@@ -31,9 +28,9 @@ from .commonutils import *
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
 ###################################################################
-## LAST MODIFIED : April 16, 2013
-## CREATED : April 16, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 16, 2013
+# CREATED : April 16, 2013
+# AUTHOR : DRYX
 def generate_model_lightcurves(
         log,
         pathToSpectralDatabase,
@@ -43,7 +40,8 @@ def generate_model_lightcurves(
         extendLightCurveTail,
         polyOrder
 ):
-    """Generate the lightcurve plots and polynomials by extracting the data from the provided spectra.
+    """
+    *Generate the lightcurve plots and polynomials by extracting the data from the provided spectra.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -66,7 +64,7 @@ def generate_model_lightcurves(
     ## LOCAL APPLICATION ##
 
     ################ >ACTION(S) ################
-    ## WRITE CODE HERE
+    # WRITE CODE HERE
     pwd = os.getcwd()
     pathToSpectralDatabase
 
@@ -186,14 +184,15 @@ def generate_model_lightcurves(
     return extractedLightCurveDict
 
 
-## LAST MODIFIED : March 20, 2013
-## CREATED : March 20, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 20, 2013
+# CREATED : March 20, 2013
+# AUTHOR : DRYX
 def extract_spectra_from_file(
         log,
         pathToSpectrum,
         convertLumToFlux=False):
-    """Given a spectrum file this function shall convert the two columns (wavelength and luminosity) to a wavelegnth (wavelengthArray) and flux (fluxArray) array
+    """
+    *Given a spectrum file this function shall convert the two columns (wavelength and luminosity) to a wavelegnth (wavelengthArray) and flux (fluxArray) array*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -221,13 +220,13 @@ def extract_spectra_from_file(
     # minWl = wavelengthArray.min()
     # maxWl = wavelengthArray.max()
     luminosityArray = data[:, 1]
-    ## CONVERT TO FLUX:  F = L / 4*pi*(r**2)
+    # CONVERT TO FLUX:  F = L / 4*pi*(r**2)
     if convertLumToFlux:
         fluxArray = at.luminosity_to_flux(luminosityArray, 1e-5)
     else:
         fluxArray = luminosityArray
 
-    ## DEBUG BLOCK
+    # DEBUG BLOCK
     log.debug('pathToSpectrum: %s' % (pathToSpectrum,))
     # for i in range(len(fluxArray)):
     #     print """%s\t%s\t%s""" % (wavelengthArray[i], luminosityArray[i], fluxArray[i] )
@@ -235,11 +234,12 @@ def extract_spectra_from_file(
     return wavelengthArray, fluxArray
 
 
-## LAST MODIFIED : March 22, 2013
-## CREATED : March 22, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 22, 2013
+# CREATED : March 22, 2013
+# AUTHOR : DRYX
 def plot_filter_transmissions(log, filterList):
-    """Plot the filters on a single plot
+    """
+    *Plot the filters on a single plot*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -265,12 +265,13 @@ def plot_filter_transmissions(log, filterList):
     return
 
 
-## LAST MODIFIED : March 24, 2013
-## CREATED : March 24, 2013
-## AUTHOR : dryx
+# LAST MODIFIED : March 24, 2013
+# CREATED : March 24, 2013
+# AUTHOR : dryx
 # def calcphot(log, spectrum, filter):
 def calcphot(log, wavelengthArray, fluxArray, obsmode):
-    """Run calcphot on single spectrum and filter.
+    """
+    *Run calcphot on single spectrum and filter.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -298,15 +299,16 @@ def calcphot(log, wavelengthArray, fluxArray, obsmode):
     return abMag
 
 
-## LAST MODIFIED : March 25, 2013
-## CREATED : March 25, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 25, 2013
+# CREATED : March 25, 2013
+# AUTHOR : DRYX
 def plotLightCurves(
         log,
         lightCurves,
         polyOrder,
         pathToOutputDirectory):
-    """plot lightcurve(s) given an list of magnitude, time pairs
+    """
+    *plot lightcurve(s) given an list of magnitude, time pairs*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -379,16 +381,17 @@ def plotLightCurves(
     return curveDict
 
 
-## LAST MODIFIED : March 25, 2013
-## CREATED : March 25, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 25, 2013
+# CREATED : March 25, 2013
+# AUTHOR : DRYX
 def extract_lightcurve(
         log,
         spectrumFiles,
         userExplosionDay,
         extendLightCurveTail,
         obsmode):
-    """Extract the requested lightcurve from list of spectrum files
+    """
+    *Extract the requested lightcurve from list of spectrum files*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -442,7 +445,7 @@ def extract_lightcurve(
                 (thisFile, obsmode, str(e),))
             pass
 
-    ## APPEND AN EXPLOSION DAY AND MAG
+    # APPEND AN EXPLOSION DAY AND MAG
     if len(magnitudes) > 3:
         finalTime = max(times)
         firstTime = min(times)
@@ -514,16 +517,17 @@ def extract_lightcurve(
     return magnitudes, times
 
 
-## LAST MODIFIED : March 25, 2013
-## CREATED : March 25, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 25, 2013
+# CREATED : March 25, 2013
+# AUTHOR : DRYX
 def find_peak_magnitude(
         log,
         poly,
         model,
         start,
         end):
-    """Determine peakMag and time from an initial polynomial lightcurve
+    """
+    *Determine peakMag and time from an initial polynomial lightcurve*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -576,9 +580,9 @@ def find_peak_magnitude(
         (model, peakMag, peakTime, explosionMag, explosionDay))
     return peakMag, peakTime, explosionMag, explosionDay
 
-## LAST MODIFIED : March 25, 2013
-## CREATED : March 25, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 25, 2013
+# CREATED : March 25, 2013
+# AUTHOR : DRYX
 
 
 def generate_kcorrection_listing_database(
@@ -590,7 +594,8 @@ def generate_kcorrection_listing_database(
         redshiftResolution=0.1,
         redshiftLower=0.0,
         redshiftUpper=1.0):
-    """Generate the Kg* k-corrections for a range of redshifts given a list of spectra
+    """
+    *Generate the Kg* k-corrections for a range of redshifts given a list of spectra*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -622,7 +627,7 @@ def generate_kcorrection_listing_database(
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
 
-    ## REMOVE OLD DATABASE
+    # REMOVE OLD DATABASE
     try:
         shutil.rmtree(pathToOutputDirectory + "k_corrections")
     except:
@@ -645,9 +650,9 @@ def generate_kcorrection_listing_database(
     return
 
 
-## LAST MODIFIED : April 15, 2013
-## CREATED : April 15, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 15, 2013
+# CREATED : April 15, 2013
+# AUTHOR : DRYX
 def generate_single_kcorrection_listing(
         log,
         pathToOutputDirectory,
@@ -656,7 +661,8 @@ def generate_single_kcorrection_listing(
         restFrameFilter,
         redshift,
         temporalResolution=4.0):
-    """Given a redshift generate a dictionary of k-correction polynomials for the MCS.
+    """
+    *Given a redshift generate a dictionary of k-correction polynomials for the MCS.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -723,15 +729,14 @@ def generate_single_kcorrection_listing(
 
         try:
             log.debug("attempting to clear the k-correction yaml file")
-            fileName = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
+            fileName = dataDir + "/z" + \
+                str(strRed).replace(".", "pt") + ".yaml"
             stream = file(fileName, 'w')
             stream.close()
         except Exception as e:
             log.critical(
                 "could not clear the k-correction yaml file - failed with this error: %s " % (str(e),))
             return -1
-
-
 
     timesList = []
     fileDictionary = {}
@@ -840,9 +845,9 @@ def generate_single_kcorrection_listing(
     return
 
 
-## LAST MODIFIED : April 16, 2013
-## CREATED : April 16, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 16, 2013
+# CREATED : April 16, 2013
+# AUTHOR : DRYX
 def generate_single_kcorrection_polynomial(
         log,
         model,
@@ -853,7 +858,8 @@ def generate_single_kcorrection_polynomial(
         kCorPolyOrder=3,
         kCorMinimumDataPoints=3,
         plot=False):
-    """Given a the k-correction lightcurve, convert it to a polynomial, plot if requested and dump to a separate file.
+    """
+    *Given a the k-correction lightcurve, convert it to a polynomial, plot if requested and dump to a separate file.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -952,7 +958,8 @@ def generate_single_kcorrection_polynomial(
 
         # mdLog.write("""![%s_plot]\n\n[%s_plot]: %s\n\n""" % (title.replace(" ", "_"), title.replace(" ", "_"), fileName,))
 
-    newFileName = dataDir + "/z" + str(strRed).replace(".", "pt") + "_poly.yaml"
+    newFileName = dataDir + "/z" + \
+        str(strRed).replace(".", "pt") + "_poly.yaml"
     stream = file(newFileName, 'w')
     yamlContent = {'polyCoeffs': flatPoly.coeffs}
     #log.debug('flatPoly.coeffs %s' % (flatPoly.coeffs,))
@@ -962,9 +969,9 @@ def generate_single_kcorrection_polynomial(
     return
 
 
-## LAST MODIFIED : March 25, 2013
-## CREATED : March 25, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : March 25, 2013
+# CREATED : March 25, 2013
+# AUTHOR : DRYX
 def generate_kcorrection_polynomial_database(
         log,
         restFrameFilter,
@@ -975,7 +982,8 @@ def generate_kcorrection_polynomial_database(
         redshiftLower=0.0,
         redshiftUpper=1.0,
         plot=False):
-    """Generate the Kg* k-correction polynoimal for a range of redshifts given a list of spectra
+    """
+    *Generate the Kg* k-correction polynoimal for a range of redshifts given a list of spectra*
 
     **Key Arguments:**
         - ``log`` -- logger

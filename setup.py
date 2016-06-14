@@ -21,6 +21,7 @@ setup(name='qubits',
       author_email='davidrobertyoung@gmail.com',
       license='MIT',
       packages=['qubits'],
+      include_package_data=True,
       install_requires=[
           'dryxPython',
           'pysynphot',

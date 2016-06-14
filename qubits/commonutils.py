@@ -4,7 +4,7 @@
 commonutils
 
 Created by David Young on xxxxx
-If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 
 dryx syntax:
 xxx = come back here and do some more work
@@ -45,17 +45,18 @@ pathToLoggingSettings = pathToSettingsFolder + 'logging.yaml'
 mdLogPath = pathToOutputResultsFolder + "simulation_result_log_%s.md" % (now,)
 
 
-#############################################################################################
+##########################################################################
 # CLASSES                                                                                   #
-#############################################################################################
+##########################################################################
 
 
 ############################################
 # PUBLIC FUNCTIONS                         #
 ############################################
 def set_python_path():
-    """Used simply to set the python path for the project modules
-    - note, the Apache pythonpath is not the same as the users path so this function is particularly usful if the project is a web-based.
+    """
+    *Used simply to set the python path for the project modules
+    - note, the Apache pythonpath is not the same as the users path so this function is particularly usful if the project is a web-based.*
 
     **Key Arguments:**
         - ``None``
@@ -70,7 +71,7 @@ def set_python_path():
     path = os.getcwd()
 
     ################ >ACTION(S) ################
-    ## READ THE ABSOLUTE PATH TO THE ROOT DIRECTORY OF THIS PROJECT
+    # READ THE ABSOLUTE PATH TO THE ROOT DIRECTORY OF THIS PROJECT
     try:
         stream = file(pathToYamlFile, 'r')
         ppDict = yaml.load(stream)
@@ -83,20 +84,21 @@ def set_python_path():
     print "Here's what has been appended to your pythonpath:"
     for k, v in pythonpaths.iteritems():
         if v:
-            sys.path.append(svnroot+pythonpaths[k])
-            print """%s""" % (svnroot+pythonpaths[k],)
+            sys.path.append(svnroot + pythonpaths[k])
+            print """%s""" % (svnroot + pythonpaths[k],)
 
     return
 
 
-## LAST MODIFIED : April 12, 2013
-## CREATED : April 12, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : April 12, 2013
+# CREATED : April 12, 2013
+# AUTHOR : DRYX
 def read_in_survey_parameters(
-        log,
-        pathToSettingsFile
-    ):
-    """First reads in the mcs_settings.yaml file to determine the name of the settings file to read in the survey parameters.
+    log,
+    pathToSettingsFile
+):
+    """
+    *First reads in the mcs_settings.yaml file to determine the name of the settings file to read in the survey parameters.*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -113,7 +115,7 @@ def read_in_survey_parameters(
 
     ############### VARIABLE ATTRIBUTES #############
     ################ >ACTION(S) ################
-    ## READ THE NAME OF THE SETTINGS FILE FOR THIS SIMULATION
+    # READ THE NAME OF THE SETTINGS FILE FOR THIS SIMULATION
     try:
         stream = file(pathToSettingsFile, 'r')
         thisDict = yaml.load(stream)
@@ -134,11 +136,12 @@ def read_in_survey_parameters(
 
     limitingMags = thisDict["Limiting Magnitudes"]
     # for key in limitingMags:
-        # log.debug('filter: %s, limit: %s' % (key, limitingMags[key]))
+    # log.debug('filter: %s, limit: %s' % (key, limitingMags[key]))
 
     sampleNumber = thisDict["Simulation Sample"]
 
-    peakMagnitudeDistributions = thisDict["SN Absolute Peak-Magnitude Distributions"]
+    peakMagnitudeDistributions = thisDict[
+        "SN Absolute Peak-Magnitude Distributions"]
     #log.debug('snDistributions[magnitude] %s' % (snDistributions["magnitude"],))
     #log.debug('snDistributions[sigma] %s' % (snDistributions["sigma"],))
 
@@ -166,7 +169,8 @@ def read_in_survey_parameters(
     extendLightCurveTail = thisDict["Extend lightcurve tail?"]
 
     snLightCurves = thisDict["Lightcurves"]
-    lightCurvePolyOrder = thisDict["Order of polynomial used to fits lightcurves"]
+    lightCurvePolyOrder = thisDict[
+        "Order of polynomial used to fits lightcurves"]
     #log.debug('snlightCurves %s' % (snlightCurves,))
 
     surveyArea = thisDict["Sky Area of the Survey (square degrees)"]
@@ -174,9 +178,11 @@ def read_in_survey_parameters(
     transientToCCSNRateFraction = thisDict["Transient to CCSN Ratio"]
     extraSurveyConstraints = thisDict["Extra Survey Constraints"]
     restFrameFilter = thisDict["Rest Frame Filter for K-corrections"]
-    kCorrectionTemporalResolution = thisDict["K-correction temporal resolution (days)"]
+    kCorrectionTemporalResolution = thisDict[
+        "K-correction temporal resolution (days)"]
     kCorPolyOrder = thisDict["Order of polynomial used to fits k-corrections"]
-    kCorMinimumDataPoints = thisDict["Minimum number of datapoints used to generate k-correction curve"]
+    kCorMinimumDataPoints = thisDict[
+        "Minimum number of datapoints used to generate k-correction curve"]
     logLevel = thisDict["Level of logging required"]
 
     return (
@@ -211,16 +217,18 @@ def read_in_survey_parameters(
 ############################################
 # PRIVATE (HELPER) FUNCTIONS               #
 ############################################
-## LAST MODIFIED : December 5, 2012
-## CREATED : December 5, 2012
-## AUTHOR : DRYX
+# LAST MODIFIED : December 5, 2012
+# CREATED : December 5, 2012
+# AUTHOR : DRYX
+
+
 def settings(
-        pathToSettingsFile,
-        dbConn=True,
-        log=True
-    ):
+    pathToSettingsFile,
+    dbConn=True,
+    log=True
+):
     """
-    Create a connector to the database if required & setup logging
+    *Create a connector to the database if required & setup logging*
 
     **Key Arguments:**
         - ``pathToOutputDirectory`` -- path to the outpur directory
@@ -241,7 +249,7 @@ def settings(
     path = os.getcwd()
 
     ################ >ACTION(S) ################
-    ## READ THE PATH OF THIS MODULE TO - SANDBOX OR MARSHALL?
+    # READ THE PATH OF THIS MODULE TO - SANDBOX OR MARSHALL?
     if dbConn:
         dbConn = m.set_db_connection(pathToDBSettings)
     if log:
@@ -251,5 +259,3 @@ def settings(
 
 if __name__ == '__main__':
     main()
-
-

@@ -44,12 +44,12 @@ def _set_up_command_line_tool(
     return log
 
 
-## LAST MODIFIED : September 16, 2013
-## CREATED : September 16, 2013
-## AUTHOR : DRYX
+# LAST MODIFIED : September 16, 2013
+# CREATED : September 16, 2013
+# AUTHOR : DRYX
 def qubits(clArgs=None):
     """
-    qubits
+    *qubits
     ======================
     :Summary:
         The main MCS project file.
@@ -67,7 +67,7 @@ def qubits(clArgs=None):
         - ``_someObject`` = a 'private' object that should only be changed for debugging
 
     :Notes:
-        - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+        - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 
     Usage:
         qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
@@ -76,7 +76,7 @@ def qubits(clArgs=None):
         -v, --version   print version
         -s, --settings  provide a path to the settings file
         -d, --database  provide the path to the root directory containing your nested-folders and files spectral database
-        -o, --output    provide a path to an output directory for the results of the simulations
+        -o, --output    provide a path to an output directory for the results of the simulations*
     """
 
     ################ > IMPORTS ################
@@ -96,7 +96,7 @@ def qubits(clArgs=None):
     from . import universe as u
     import dryxPython.mmd.mmd as dmd
 
-    ## SETUP AN EMPTY LOGGER (IF REQUIRED)
+    # SETUP AN EMPTY LOGGER (IF REQUIRED)
     log = _set_up_command_line_tool()
     if clArgs == None:
         clArgs = docopt(qubits.__doc__)
@@ -109,7 +109,7 @@ def qubits(clArgs=None):
     pathToSettingsFile = os.path.abspath(pathToSettingsFile)
     pathToSpectralDatabase = os.path.abspath(pathToSpectralDatabase) + "/"
 
-    ## IMPORT THE SIMULATION SETTINGS
+    # IMPORT THE SIMULATION SETTINGS
     (allSettings,
      programSettings,
      limitingMags,
@@ -346,13 +346,14 @@ def qubits(clArgs=None):
 
         now = datetime.now()
         now = now.strftime("%Y%m%dt%H%M%S")
-        fileName = pathToOutputDirectory + "simulation_results_%s.yaml" % (now,)
+        fileName = pathToOutputDirectory + \
+            "simulation_results_%s.yaml" % (now,)
         stream = file(fileName, 'w')
         yamlContent = dict(allSettings.items() + resultsDict.items())
         yaml.dump(yamlContent, stream, default_flow_style=False)
         stream.close()
 
-    ## COMPILE AND PLOT THE RESULTS
+    # COMPILE AND PLOT THE RESULTS
     if programSettings['Compile and Plot Results']:
         pathToYamlFile = pathToOutputDirectory + \
             programSettings['Simulation Results File Used for Plots']
@@ -408,7 +409,8 @@ This simulated survey discovered a total of **%s** transients per year. An extra
 
         now = datetime.now()
         now = now.strftime("%Y%m%dt%H%M%S")
-        mdLogPath = pathToResultsFolder + "simulation_result_log_%s.md" % (now,)
+        mdLogPath = pathToResultsFolder + \
+            "simulation_result_log_%s.md" % (now,)
         mdLog = open(mdLogPath, 'w')
         mdLog.write(result_log)
         mdLog.close()
@@ -428,7 +430,7 @@ This simulated survey discovered a total of **%s** transients per year. An extra
     log.info('-- FINISHED ATTEMPT TO RUN THE qubits AT %s (RUNTIME: %s) --' %
              (endTime, runningTime, ))
 
-    ## TEST THE ARGUMENTS
+    # TEST THE ARGUMENTS
 
     ## VARIABLES ##
 
@@ -444,7 +446,7 @@ This simulated survey discovered a total of **%s** transients per year. An extra
 ######################################################
 def main():
     """
-    The main function - executed if this module is run from the cl
+    *The main function - executed if this module is run from the cl*
     """
     ################ > IMPORTS ################
 
