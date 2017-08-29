@@ -167,7 +167,7 @@ The settings file for the simulations looks like this:
     ###### LOGGING
     Level of logging required: WARNING # DEBUG, INFO, WARNING, ERROR or CRITICAL
 
-Download a template settings file from the [git repo here](tests/input/qubits_settings.yaml), adapt to your needs and then call it when running QUBITS (via the `-s` flag).
+Download a template settings file from the [git repo here](https://github.com/thespacedoctor/qubits/blob/master/qubits/tests/input/qubits_settings.yaml), adapt to your needs and then call it when running QUBITS (via the `-s` flag).
 
 At the top of this settings file you turn the various stages of the simulation build on and off:
 
