@@ -19,27 +19,57 @@ Also make sure you have the `PYSYN_CDBS`[^cdbs] path set in your path.
         setenv IRAFARCH "macintel"
         setenv PYSYN_CDBS "/Volumes/hdd/project_archive/work_archive/reference/synphot_data"
 
-I haven't tested this on other machines so let me know what goes wrong with the installation!  
+I haven't tested this on other machines so let me know what goes wrong with the installation!
 
 If you want to tinker with the code and install qubits as a development package, then clone the project using this command:
 
     git clone git@github.com:thespacedoctor/qubits.git <folder_name>
-    
+
 and then `cd <folder_name>` and:
 
     python setup.py develop
 
-## Usage ##
-
-You run the code from the command-line using just one command. Open a terminal and use the following command syntax:
+## Usage
 
     Usage:
+        qubits init <pathToWorkspace>
         qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
 
+        COMMANDS
+        --------
+        init            setup a qubits settings file and a test spectral database
+
+        ARGUMENTS
+        ---------
+        pathToSettingsFile    path to the yaml settings file
+        pathToWorkspace       path to a directory within which to setup an example qubit workspace
+
+        FLAGS
+        -----
         -h, --help      show this help message
         -s, --settings  provide a path to the settings file
         -d, --database  provide the path to the root directory containing your nested-folders and files spectral database
-        -o, --output    provide a path to an output directory for the results of the simulations
+        -o, --output    provide a path to an output directory for the results of the simulations*
+
+## A Quick Start Workspace
+
+If you're using QUBITS for the first time, or have not used it in a while, the best way to start is to use the `qubits init` command to generate a template workspace for yourself. Running the command:
+
+```bash
+qubits init ~/Desktop/qubits_workspace
+```
+
+creates a template workspace on your desktop with:
+
+1.  a template spectral database `qubits_spectral_database`,
+2.  a default qubits settings file `qubits_settings.yaml`,
+3.  an empty output directory `qubits_output`
+
+![qubits template workspace][qubits template workspace 36868827172]
+
+[qubits template workspace 36868827172]: https://farm5.staticflickr.com/4403/36868827172_3eaec29a82_o.png title="qubits template workspace" width=600px
+
+Once you familiarise yourself with running QUBITS you can move this workspace elsewhere and tailor the spectral database and settings file for your needs.
 
 ## Building a Spectral Database
 
@@ -186,11 +216,11 @@ At the top of this settings file you turn the various stages of the simulation b
 
 When you first use the simulations it's best to set all stages of the simulation to *False*, then incrementally run the code through each stage:
 
-    * set the next setting to *True*, 
-    * run the code, 
-    * check the results and tweak settings and 
+    * set the next setting to *True*,
+    * run the code,
+    * check the results and tweak settings and
     * rerun if necessary
-    * move onto the next stage and repeat. 
+    * move onto the next stage and repeat.
 
 Below you will find details of each build stage of the simulation - read the settings file comments to determine which settings you need to tailor for the simulation you are trying to run.
 
@@ -218,8 +248,8 @@ Do not be concerned if you see the following warning:
 
 Here the simulation is run using the settings found in the settings file (cadence of observation, limiting-magnitudes, survey volume, loss due to weather etc). This stage is a two part process:
 
-1. **Simulating the Universe** - placing SNe throughout the volume requested at random redshifts, with the relative-rate supplied and with the peak magnitude distributions given.
-2. **Simulating the Survey** - simulates the survey with the setup supplied in the settings files with cadence of observation, limiting-magnitudes, survey volume, loss due to weather etc.
+1.  **Simulating the Universe** - placing SNe throughout the volume requested at random redshifts, with the relative-rate supplied and with the peak magnitude distributions given.
+2.  **Simulating the Survey** - simulates the survey with the setup supplied in the settings files with cadence of observation, limiting-magnitudes, survey volume, loss due to weather etc.
 
 The results of the simulation are place in a (large) date-time stamped yaml file in the output folder with a name similar to `simulation_results_20130425t053500.yaml`. The date-time appended to the filename will be the time the simulation was run so you can run many simulations without worrying about overwriting previous outputs. The settings used to run the simulation are so recorded in this file.
 
@@ -240,12 +270,9 @@ Here is an example of the output log file:
 
 ![example results file](qubits/assets/example_results.png)
 
-
 [^cdbs]: http://www.stsci.edu/institute/software_hardware/stsdas/synphot
 
-
 # +++++++++++++++++++ NEW CONTENT ++++++++++++++++++
-
 
 # qubits
 
@@ -292,8 +319,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-
-

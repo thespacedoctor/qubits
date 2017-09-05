@@ -4,16 +4,17 @@
 *Documentation for qubits can be found here: https://github.com/thespacedoctor/qubits*
 
 Usage:
-    qubits init
+    qubits init <pathToWorkspace>
     qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
 
     COMMANDS
     --------
-    init            setup the qubits settings file for the first time
+    init            setup a qubits settings file and a test spectral database
 
     ARGUMENTS
     ---------
     pathToSettingsFile    path to the yaml settings file
+    pathToWorkspace       path to a directory within which to setup an example qubit workspace
     
     FLAGS
     -----
@@ -81,21 +82,13 @@ def main(arguments=None):
         (startTime,))
 
     if init:
-        from os.path import expanduser
-        home = expanduser("~")
-        filepath = home + "/.config/qubits/qubits.yaml"
-        try:
-            cmd = """open %(filepath)s""" % locals()
-            p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
-        except:
-            pass
-        try:
-            cmd = """start %(filepath)s""" % locals()
-            p = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
-        except:
-            pass
-
-    sys.exit(0)
+        from . import workspace
+        ws = workspace(
+            log=log,
+            pathToWorkspace=pathToWorkspace
+        )
+        ws.setup()
+        return
 
     # IMPORT THE SIMULATION SETTINGS
     (allSettings,

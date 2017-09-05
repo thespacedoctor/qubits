@@ -1,0 +1,124 @@
+version: 1
+
+## PROGRAM EXECUTION SETTINGS ##
+Program Settings:
+    Extract Lightcurves from Spectra: False
+    Generate KCorrection Database: False
+    Generate KCorrection Plots: False  # ONLY SET TO TRUE IF ONLY A FEW KCORRECTIONS ARE TO BE CALCULATED
+    Run the Simulation: False
+    Plot Simulation Helper Plots: False  #  ONLY PLOT IF DEBUGGING
+    Compile and Plot Results: False
+    Simulation Results File Used for Plots: simulation_results_XXXXXXX.yaml
+
+## SIMULATED SURVEY CONSTRAINTS ##
+Extra Survey Constraints:
+    Faint-Limit of Peak Magnitude: 21.50
+    Observable for at least ? number of days: 100
+Upper Redshift Limit: 1.0
+Redshift Resolution: 0.05
+Sky Area of the Survey (square degrees): 70
+Limiting Magnitudes:
+    g : 23.3
+    r : 23.3
+    i : 23.3
+    z : 21.7
+Survey Cadence:
+    # YEAR MINUS FRACTION LOST DUE TO OBJECTS BEING LOCATED BEHIND THE SUN
+    Observable Fraction of Year: 0.5
+    Fraction of Year Lost to Weather etc: 0.4
+    Filters:
+        - band: g
+          day of year of first scheduled observation: 1
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: r
+          day of year of first scheduled observation: 1
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: i
+          day of year of first scheduled observation: 2
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: z
+          day of year of first scheduled observation: 3
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+
+## K-CORRECTION GENERATION ##
+Observed Frame Filter for K-corrections: g # This is the filter that the k-corrections are anchored to. The simulations will convert from this observed band magnitude to the rest frame magnitudes to calculate the k-correction.
+K-correction temporal resolution (days): 1.0 # Only increase the resolution here if you have many spectra in your database and k-corrections are taking too long to generate.
+Order of polynomial used to fits k-corrections: 7
+Minimum number of datapoints used to generate k-correction curve: 3 # If the are not enough spectra or too many spectra have been redshifted out of the range of the observed frame band-pass, then there are few points to generate a polynomial k-correction lightcurve. 3 is probably the barely-passable minimum.
+
+## SIMULATED UNIVERSE CONSTRAINTS ##
+CCSN Progenitor Population Fraction of IMF: 0.007
+Transient to CCSN Ratio: 10e-5
+Simulation Sample: 200 # Number of transients to include in simulations. More = more accurate but sims take longer to run. 100 good for testing & 10,000 good for science.
+Extinctions:
+    constant or random: constant # Feature not yet implemented - leave as `constant`
+    constant E(b-v): 0.023 # 0.023 is the mean for the PS1-MD fields
+    host:
+    galactic:
+Relative Rate Set to Use: SLSNe
+Relative SN Rates:
+    # MAKE SURE TRANSIENT NAME CORRESPOND TO FOLDER NAMES CONTAINING THIER SPECTRAL DATA-SETS
+    SLSNe:
+        SNOne: 0.5
+        SNTwo: 0.5
+SN Absolute Peak-Magnitude Distributions:
+    magnitude:
+        SNOne: -17.08
+        SNTwo: -20.21
+    sigma:
+        SNOne: 0.001
+        SNTwo: 0.001
+
+## LIGHTCURVE GENERATION & CONSTRAINTS
+Lightcurves:
+    SNOne:
+        End of lightcurve relative to peak: 300
+    SNTwo:
+        End of lightcurve relative to peak: 220
+Order of polynomial used to fits lightcurves: 6
+# Often it is useful to set a an explosion day (relative to the timescale used in naming the files in the spectral database).
+# This helps constrain the polynomials of the light- and K-correction- curves generated in the simulations.
+# SET TO `None` TO DISREGARD THIS SETTING
+Explosion Days:
+    SNTwo: -70
+    SNOne: -70
+# You can also extend the tail of the lightcurve to better constrain the polynomial. Set to `True` or `False`
+Extend lightcurve tail?:
+    SNTwo: True
+    SNOne: True
+
+## LOGGING
+# Level of logging required: DEBUG # DEBUG, INFO, WARNING, ERROR or CRITICAL
+
+logging settings:
+    formatters:
+        file_style:
+            format: '* %(asctime)s - %(name)s - %(levelname)s (%(pathname)s > %(funcName)s > %(lineno)d) - %(message)s  '
+            datefmt: '%Y/%m/%d %H:%M:%S'
+        console_style:
+            format: '* %(asctime)s - %(levelname)s: %(pathname)s:%(funcName)s:%(lineno)d > %(message)s'
+            datefmt: '%H:%M:%S'
+        html_style:
+            format: '<div id="row" class="%(levelname)s"><span class="date">%(asctime)s</span>   <span class="label">file:</span><span class="filename">%(filename)s</span>   <span class="label">method:</span><span class="funcName">%(funcName)s</span>   <span class="label">line#:</span><span class="lineno">%(lineno)d</span> <span class="pathname">%(pathname)s</span>  <div class="right"><span class="message">%(message)s</span><span class="levelname">%(levelname)s</span></div></div>'
+            datefmt: '%Y-%m-%d <span class= "time">%H:%M <span class= "seconds">%Ss</span></span>'
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: DEBUG
+            formatter: console_style
+            stream: ext://sys.stdout
+        file:
+            class: logging.handlers.GroupWriteRotatingFileHandler
+            level: WARNING
+            formatter: file_style
+            filename: /Users/XXXX/.config/qubits/qubits.log
+            mode: w+
+            maxBytes: 102400
+            backupCount: 1
+    root:
+        level: WARNING
+        handlers: [file,console]
