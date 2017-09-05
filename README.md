@@ -6,13 +6,28 @@ QUBITS can be used to simulate various flavours of astronomical transient survey
 
 Although recoded from scratch, the [second chapter of my thesis](qubits/assets/dry_thesis_ch2.pdf) describes most of the details used to build these transient survey simulations.
 
-## Installation
+## Installation and Setting Up Your Environment
 
 The easiest way to install this code is to open your terminal and use the command:
 
     easy_install qubits
 
 This should install the code and all of its dependencies (*dryxPython*,*matplotlib*,*numpy* ...).
+
+### The `PYSYN_CDBS`
+
+Note that the data files required by *pysynphot*, and hence QUBITS, are distributed separately by [STScI Calibration Reference Data System](http://www.stsci.edu/hst/observatory/crds/throughput.html). Before starting you will need to download of the calibration data from the FTP area linked from the [STScI webpage](http://www.stsci.edu/hst/observatory/crds/throughput.html), unpack them somewhere appropriate and organise them into a single nested folder structure like so:
+
+![PYSYN_CDBS][pysyn_cdbs 36852357776]
+
+[PYSYN_CDBS 36852357776]: https://farm5.staticflickr.com/4374/36852357776_03eeaaf8a2_o.png title="PYSYN_CDBS" width=600px
+
+Finally, you need to make sure the `PYSYN_CDBS` environment variable is set so *pysynphot* knows where these data live. Add the following to your `.bashrc` file and don't forget to open a new terminal window before you being to use QUBITS:
+
+```bash
+export PYSYN_CDBS=/path/to/cdbs/
+```
+
 Also make sure you have the `PYSYN_CDBS`[^cdbs] path set in your path.
 
         setenv iraf "/usr/local/scisoft/packages/iraf/iraf"
@@ -33,7 +48,7 @@ and then `cd <folder_name>` and:
 
     Usage:
         qubits init <pathToWorkspace>
-        qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
+        qubits run -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
 
         COMMANDS
         --------
@@ -199,6 +214,15 @@ The settings file for the simulations looks like this:
 
 Download a template settings file from the [git repo here](https://github.com/thespacedoctor/qubits/blob/master/qubits/tests/input/qubits_settings.yaml), adapt to your needs and then call it when running QUBITS (via the `-s` flag).
 
+## The QUBITS Simulation Stages
+
+The four stages of the simulation are:
+
+1.  Extracting the Lightcurves from Spectra
+2.  Generating a K-Correction Database
+3.  Running the Simulation, and
+4.  Compiling and Plotting Results
+
 At the top of this settings file you turn the various stages of the simulation build on and off:
 
     Program Settings:
@@ -214,33 +238,39 @@ At the top of this settings file you turn the various stages of the simulation b
             Compile and Plot Results: True
             Simulation Results File Used for Plots: simulation_results_20130919t131758.yaml
 
-When you first use the simulations it's best to set all stages of the simulation to *False*, then incrementally run the code through each stage:
+When you first use the simulations it's best to set all stages of the simulation to *False*, then incrementally run the code through each stage. You will always run the code with the `qubits run` command with following syntax:
 
-    * set the next setting to *True*,
-    * run the code,
-    * check the results and tweak settings and
-    * rerun if necessary
-    * move onto the next stage and repeat.
+```bash
+qubits run -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
+```
+
+So to run QUBITS with our template workspace we setup in the quick start workspace we setup above, we shall run:
+
+```bash
+qubits run -s ~/Desktop/qubits_workspace/qubits_settings.yaml -o ~/Desktop/qubits_workspace/qubits_output -d ~/Desktop/qubits_workspace/qubits_spectral_database
+```
 
 Below you will find details of each build stage of the simulation - read the settings file comments to determine which settings you need to tailor for the simulation you are trying to run.
 
 ### 1. Extracting the Lightcurves from Spectra
 
-This stage will generate the lightcurves from the spectral files which you provide (at `<pathToSpectralDatabase>`). The extracted lightcurves are stored as python objects in the a file called *transient_light_curves.yaml* in `<pathToOutputDirectory>`.
+This stage is will help the user visualise the lightcurves that can be generated from their spectral database (at $z=0$). Lightcurve plots are created in the *plots* folder in the output directory. Please note QUBITS' ability to generate decent lightcurves relies heavily on the quality of your spectral database; it needs good wavelength coverage to be able to synthesize the photometry and good temporal coverage to build an entire lightcurve. The extracted lightcurves are stored as python objects in the a file called *transient_light_curves.yaml* in `<pathToOutputDirectory>`.
+
+Once you've generated the lightcurves, have a look at the lightcurve plots (some may be blank if temporal/wavelength coverage was deemed too poor to create a lightcurve for the given band-pass at $z=0$). You may want to tweak some lightcurve parameters in the settings file and rebuild the lightcurve plots. Once you're happy move onto the next stage.
+
+![example lightcurve](qubits/assets/SNOne_-_i-band.png)
 
 Current filters are the PS1 *g*, *r*, *i*, *z* filters.
 
-![example lightcurve](qubits/assets/SNOne_-_i-band.png)
+Note *pysynphot* can be very chatty and prints log messages straight to stdout which can't be turned off easily. Don't worry if you see something like this:
+
+> ... does not have a defined binset in the wavecat table. The waveset of the spectrum will be used instead.
 
 ### 2. Generate K-Correction Database
 
 The code will use the spectra to generate a database of K-corrections with the given settings. They will be created in the `k_corrections` directory of your output folder. For each redshift and k-correction filter-set a dataset is generated which is used to create a polynomial for *rest frame epoch* vs *kcorrection*.
 
 By setting `Generate K-Correction Plots` to `True` a plot for each K-correction dataset will be generated. Set this to true if only a few k-corrections are to be calculated, i.e. when you are testing/debugging the simulation - otherwise the k-correction generation will take forever!
-
-Do not be concerned if you see the following warning:
-
-    does not have a defined binset in the wavecat table. The waveset of the spectrum will be used instead.
 
 ![example k-correction polynomial](qubits/assets/k_ir_at_z_=_0.3.png)
 

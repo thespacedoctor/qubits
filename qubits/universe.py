@@ -357,7 +357,7 @@ def generate_numpy_polynomial_lightcurves(
 
     ################ >ACTION(S) ################
     # EXTRACT THE MODEL LIGHTCURVE POLYNOMIALS
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     yamlContent = yaml.load(stream)
     generatedLCs = yamlContent
@@ -508,9 +508,9 @@ def build_kcorrection_array(
     ## LOCAL APPLICATION ##
 
     ################ >ACTION(S) ################
-    dataDir = pathToOutputDirectory + "k_corrections/"
+    dataDir = pathToOutputDirectory + "/k_corrections/"
     filters = ['g', 'r', 'i', 'z']
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()
@@ -593,7 +593,7 @@ def convert_lightcurves_to_observered_frame(
 
     ################ >ACTION(S) ################
     filters = ['g', 'r', 'i', 'z']
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()

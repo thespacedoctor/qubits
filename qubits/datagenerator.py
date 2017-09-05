@@ -97,12 +97,17 @@ def generate_model_lightcurves(
             title = "%s - %s-band" % (model, ffilter)
             # EXTRACT LIGHTCURVES FROM SPECTRA
 
+            if ffilter in ["g", "r", "i", "z"]:
+                obsmode = "sdss,%s" % (ffilter,)
+            else:
+                obsmode = ffilter
+
             magnitudes, times = extract_lightcurve(
                 log,
                 spectrumFiles,
                 userExplosionDay=explosionDaysFromSettings[model],
                 extendLightCurveTail=extendLightCurveTail[model],
-                obsmode="sdss,%s" % (ffilter,)
+                obsmode=obsmode
             )
 
             filterDict = {}
@@ -176,7 +181,7 @@ def generate_model_lightcurves(
                 extractedLightCurveDict[model][ffilter][k] = v
 
     yamlDict = extractedLightCurveDict
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'w')
     yaml.dump(yamlDict, stream, default_flow_style=False)
     stream.close()
@@ -513,7 +518,7 @@ def extract_lightcurve(
 
     log.debug('finding magnitudes and times from spectrum : %s' % (thisFile,))
     log.debug('magnitudes, times: %s, %s' % (magnitudes, times))
-    print magnitudes, times
+
     return magnitudes, times
 
 
@@ -623,13 +628,13 @@ def generate_kcorrection_listing_database(
     mul = 1000
     div = 1000.
 
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
 
     # REMOVE OLD DATABASE
     try:
-        shutil.rmtree(pathToOutputDirectory + "k_corrections")
+        shutil.rmtree(pathToOutputDirectory + "/k_corrections")
     except:
         pass
 
@@ -689,7 +694,7 @@ def generate_single_kcorrection_listing(
 
     ################ >ACTION(S) ################
     # GET THE PEAK MAGNITUDE DETAILS FROM YAML FILE
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     filterData = generatedLCs[model]
@@ -716,12 +721,13 @@ def generate_single_kcorrection_listing(
     ################ >ACTION(S) ################
     # CREATE THE REQUIRED DIRECTORIES
     filters = ["g", "i", "r", "z"]
+
     for thisFilter in filters:
         strRed = "%0.2f" % (redshift,)
         try:
             log.debug("attempting to create directories")
             dataDir = pathToOutputDirectory + \
-                "k_corrections/%s/%s" % (model, thisFilter)
+                "/k_corrections/%s/%s" % (model, thisFilter)
             os.makedirs(dataDir)
         except Exception as e:
             log.debug(
@@ -763,12 +769,17 @@ def generate_single_kcorrection_listing(
             try:
                 log.debug("attempting to determine the rest %s-magnitude" %
                           (restFrameFilter,))
+                if restFrameFilter in ["g", "r", "i", "z"]:
+                    obsmode = "sdss,%s" % (restFrameFilter,)
+                else:
+                    obsmode = restFrameFilter
                 gRest = calcphot(
                     log,
                     wavelengthArray=wavelengthArray,
                     fluxArray=fluxArray,
-                    obsmode="sdss,%s" % (restFrameFilter,)
+                    obsmode=obsmode
                 )
+                print gRest
             except Exception as e:
                 if "Integrated flux is <= 0" in str(e):
                     log.warning(
@@ -788,9 +799,10 @@ def generate_single_kcorrection_listing(
 
             for thisFilter in filters:
                 strRed = "%0.2f" % (redshift,)
+                print redshift
                 spObs = spRest.redshift(redshift)
                 dataDir = pathToOutputDirectory + \
-                    "k_corrections/%s/%s" % (model, thisFilter)
+                    "/k_corrections/%s/%s" % (model, thisFilter)
                 try:
                     log.debug(
                         "attempting to open the yaml file to append k-correction data")
@@ -806,12 +818,18 @@ def generate_single_kcorrection_listing(
                     log.debug(
                         "attempting to determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s" %
                         (strRed, thisFilter, model))
+                    print thisFilter
+                    if thisFilter in ["g", "r", "i", "z"]:
+                        obsmode = "sdss,%s" % (thisFilter,)
+                    else:
+                        obsmode = thisFilter
                     filterObs = calcphot(
                         log,
                         wavelengthArray=spObs.wave,
                         fluxArray=spObs.flux,
-                        obsmode="sdss,%s" % (thisFilter,)
+                        obsmode=obsmode
                     )
+                    print filterObs
                 except Exception as e:
                     if "Integrated flux is <= 0" in str(e):
                         log.warning(
@@ -833,6 +851,7 @@ def generate_single_kcorrection_listing(
                             "could not determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s - failed with this error: %s " %
                             (strRed, thisFilter, model, str(e),))
                     pass
+
                 kCor = gRest - filterObs
                 kcName = 'K_%s%s' % (restFrameFilter, thisFilter,)
                 thisKcor = {}
@@ -841,6 +860,13 @@ def generate_single_kcorrection_listing(
                 yamlList = [thisKcor]
                 yaml.dump(yamlList, stream, default_flow_style=False)
                 stream.close()
+
+                print filterObs
+                print gRest
+                print stream
+                print yamlList
+
+                sys.exit(0)
 
     return
 
@@ -885,7 +911,7 @@ def generate_single_kcorrection_polynomial(
 
     ################ >ACTION(S) ################
     strRed = "%0.2f" % (redshift,)
-    dataDir = pathToOutputDirectory + "k_corrections/%s/%s" % (model, ffilter)
+    dataDir = pathToOutputDirectory + "/k_corrections/%s/%s" % (model, ffilter)
     pathToYaml = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
     fileName = pathToYaml
     stream = file(fileName, 'r')
@@ -1011,7 +1037,7 @@ def generate_kcorrection_polynomial_database(
     mul = 1000
     div = 1000.
 
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()

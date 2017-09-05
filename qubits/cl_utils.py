@@ -5,11 +5,12 @@
 
 Usage:
     qubits init <pathToWorkspace>
-    qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
+    qubits run -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
 
     COMMANDS
     --------
     init            setup a qubits settings file and a test spectral database
+    run             run the qubits simulation according to the setup given in the settings file
 
     ARGUMENTS
     ---------
@@ -152,6 +153,9 @@ def main(arguments=None):
         log,
         directoryPath=pathToResultsFolder
     )
+
+    if not programSettings['Extract Lightcurves from Spectra'] and not programSettings['Generate KCorrection Database'] and not programSettings['Run the Simulation'] and not programSettings['Compile and Plot Results']:
+        print "All stages of the simulatation have been switched off. Please switch on at least one stage of the simulation under the 'Programming Settings' in the settings file `%(pathToSettingsFile)s`" % locals()
 
     # GENERATE THE DATA FOR SIMULATIONS
     if programSettings['Extract Lightcurves from Spectra']:
@@ -412,6 +416,50 @@ This simulated survey discovered a total of **%s** transients per year. An extra
              (endTime, runningTime, ))
 
     return
+
+
+def _set_up_command_line_tool(
+    level="DEBUG",
+        logFilePath="/tmp/tmp.log"):
+    import logging
+    import logging.config
+    import yaml
+
+    logging.shutdown()
+    reload(logging)
+
+    loggerConfig = """
+    version: 1
+    formatters:
+        file_style:
+            format: '* %(asctime)s - %(name)s - %(levelname)s (%(filename)s > %(funcName)s > %(lineno)d) - %(message)s  '
+            datefmt: '%Y/%m/%d %H:%M:%S'
+        console_style:
+            format: '* %(asctime)s - %(levelname)s: %(filename)s:%(funcName)s:%(lineno)d > %(message)s'
+            datefmt: '%H:%M:%S'
+        html_style:
+            format: '<div id="row" class="%(levelname)s"><span class="date">%(asctime)s</span>   <span class="label">file:</span><span class="filename">%(filename)s</span>   <span class="label">method:</span><span class="funcName">%(funcName)s</span>   <span class="label">line#:</span><span class="lineno">%(lineno)d</span> <span class="pathname">%(pathname)s</span>  <div class="right"><span class="message">%(message)s</span><span class="levelname">%(levelname)s</span></div></div>'
+            datefmt: '%Y-%m-%d <span class= "time">%H:%M <span class= "seconds">%Ss</span></span>'
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: """ + level + """
+            formatter: console_style
+            stream: ext://sys.stdout
+        development_logs:
+            class: logging.FileHandler
+            level: """ + level + """
+            formatter: file_style
+            filename: """ + logFilePath + """
+            mode: w
+    root:
+        level: DEBUG
+        handlers: [console,development_logs]"""
+
+    logging.config.dictConfig(yaml.load(loggerConfig))
+    log = logging.getLogger(__name__)
+
+    return log
 
 
 if __name__ == '__main__':
