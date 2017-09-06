@@ -1,113 +1,96 @@
+#!/usr/local/bin/python
+# encoding: utf-8
+"""
+*Documentation for qubits can be found here: https://github.com/thespacedoctor/qubits*
+
+Usage:
+    qubits init <pathToWorkspace>
+    qubits run -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
+
+    COMMANDS
+    --------
+    init            setup a qubits settings file and a test spectral database
+    run             run the qubits simulation according to the setup given in the settings file
+
+    ARGUMENTS
+    ---------
+    pathToSettingsFile    path to the yaml settings file
+    pathToWorkspace       path to a directory within which to setup an example qubit workspace
+    
+    FLAGS
+    -----
+    -h, --help      show this help message
+    -s, --settings  provide a path to the settings file
+    -d, --database  provide the path to the root directory containing your nested-folders and files spectral database
+    -o, --output    provide a path to an output directory for the results of the simulations*
+"""
+################# GLOBAL IMPORTS ####################
+import sys
+import os
+os.environ['TERM'] = 'vt100'
+import readline
+import glob
+import pickle
+import yaml
+from docopt import docopt
+from fundamentals import tools, times
+from subprocess import Popen, PIPE, STDOUT
+from datetime import datetime, date, time
+from . import commonutils as cu
+from . import surveysim as ss
+from . import datagenerator as dg
+from . import results as r
+import dryxPython.commonutils as dcu
+from . import universe as u
+import dryxPython.mmd.mmd as dmd
+# from ..__init__ import *
 
 
-def _set_up_command_line_tool(
-    level="DEBUG",
-        logFilePath="/tmp/tmp.log"):
-    import logging
-    import logging.config
-    import yaml
-
-    logging.shutdown()
-    reload(logging)
-
-    loggerConfig = """
-    version: 1
-    formatters:
-        file_style:
-            format: '* %(asctime)s - %(name)s - %(levelname)s (%(filename)s > %(funcName)s > %(lineno)d) - %(message)s  '
-            datefmt: '%Y/%m/%d %H:%M:%S'
-        console_style:
-            format: '* %(asctime)s - %(levelname)s: %(filename)s:%(funcName)s:%(lineno)d > %(message)s'
-            datefmt: '%H:%M:%S'
-        html_style:
-            format: '<div id="row" class="%(levelname)s"><span class="date">%(asctime)s</span>   <span class="label">file:</span><span class="filename">%(filename)s</span>   <span class="label">method:</span><span class="funcName">%(funcName)s</span>   <span class="label">line#:</span><span class="lineno">%(lineno)d</span> <span class="pathname">%(pathname)s</span>  <div class="right"><span class="message">%(message)s</span><span class="levelname">%(levelname)s</span></div></div>'
-            datefmt: '%Y-%m-%d <span class= "time">%H:%M <span class= "seconds">%Ss</span></span>'
-    handlers:
-        console:
-            class: logging.StreamHandler
-            level: INFO
-            formatter: console_style
-            stream: ext://sys.stdout
-        development_logs:
-            class: logging.FileHandler
-            level: """ + level + """
-            formatter: file_style
-            filename: """ + logFilePath + """
-            mode: w
-    root:
-        level: DEBUG
-        handlers: [console,development_logs]"""
-
-    logging.config.dictConfig(yaml.load(loggerConfig))
-    log = logging.getLogger(__name__)
-
-    return log
-
-
-# LAST MODIFIED : September 16, 2013
-# CREATED : September 16, 2013
-# AUTHOR : DRYX
-def qubits(clArgs=None):
+def main(arguments=None):
     """
-    *qubits
-    ======================
-    :Summary:
-        The main MCS project file.
-        A Monte Carlo Simulator of a PS1 supernova survey
-        Many parameters can be set and customised in the yaml settings (see settings file)
-
-    :Author:
-        David Young
-
-    :Date Created:
-        April 18, 2013
-
-    :dryx syntax:
-        - ``xxx`` = come back here and do some more work
-        - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-    :Notes:
-        - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
-
-    Usage:
-        qubits -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
-
-        -h, --help      show this help message
-        -v, --version   print version
-        -s, --settings  provide a path to the settings file
-        -d, --database  provide the path to the root directory containing your nested-folders and files spectral database
-        -o, --output    provide a path to an output directory for the results of the simulations*
+    *The main function used when ``cl_utils.py`` is run as a single script from the cl, or when installed as a cl command*
     """
+    # setup the command-line util settings
+    su = tools(
+        arguments=arguments,
+        docString=__doc__,
+        logLevel="WARNING",
+        options_first=False,
+        projectName="qubits"
+    )
+    arguments, settings, log, dbConn = su.setup()
 
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import sys
-    import os
-    from datetime import datetime, date, time
-    ## THIRD PARTY ##
-    from docopt import docopt
-    import yaml
-    ## LOCAL APPLICATION ##
-    from . import commonutils as cu
-    from . import surveysim as ss
-    from . import datagenerator as dg
-    from . import results as r
-    import dryxPython.commonutils as dcu
-    from . import universe as u
-    import dryxPython.mmd.mmd as dmd
+    # unpack remaining cl arguments using `exec` to setup the variable names
+    # automatically
+    for arg, val in arguments.iteritems():
+        if arg[0] == "-":
+            varname = arg.replace("-", "") + "Flag"
+        else:
+            varname = arg.replace("<", "").replace(">", "")
+        if varname == "import":
+            varname = "iimport"
+        if isinstance(val, str) or isinstance(val, unicode):
+            exec(varname + " = '%s'" % (val,))
+        else:
+            exec(varname + " = %s" % (val,))
+        if arg == "--dbConn":
+            dbConn = val
+        log.debug('%s = %s' % (varname, val,))
 
-    # SETUP AN EMPTY LOGGER (IF REQUIRED)
-    log = _set_up_command_line_tool()
-    if clArgs == None:
-        clArgs = docopt(qubits.__doc__)
+    ## START LOGGING ##
+    startTime = times.get_now_sql_datetime()
+    log.info(
+        '--- STARTING TO RUN THE cl_utils.py AT %s' %
+        (startTime,))
 
-    pathToOutputDirectory = clArgs["<pathToOutputDirectory>"]
-    pathToSettingsFile = clArgs["<pathToSettingsFile>"]
-    pathToSpectralDatabase = clArgs["<pathToSpectralDatabase>"]
-
-    pathToOutputDirectory = os.path.abspath(pathToOutputDirectory) + "/"
-    pathToSettingsFile = os.path.abspath(pathToSettingsFile)
-    pathToSpectralDatabase = os.path.abspath(pathToSpectralDatabase) + "/"
+    if init:
+        from . import workspace
+        ws = workspace(
+            log=log,
+            pathToWorkspace=pathToWorkspace
+        )
+        ws.setup()
+        return
 
     # IMPORT THE SIMULATION SETTINGS
     (allSettings,
@@ -172,6 +155,9 @@ def qubits(clArgs=None):
         directoryPath=pathToResultsFolder
     )
 
+    if not programSettings['Extract Lightcurves from Spectra'] and not programSettings['Generate KCorrection Database'] and not programSettings['Run the Simulation'] and not programSettings['Compile and Plot Results']:
+        print "All stages of the simulatation have been switched off. Please switch on at least one stage of the simulation under the 'Programming Settings' in the settings file `%(pathToSettingsFile)s`" % locals()
+
     # GENERATE THE DATA FOR SIMULATIONS
     if programSettings['Extract Lightcurves from Spectra']:
         log.info('generating the Lightcurves')
@@ -184,6 +170,8 @@ def qubits(clArgs=None):
             extendLightCurveTail=extendLightCurveTail,
             polyOrder=lightCurvePolyOrder
         )
+        print "The lightcurve file can be found here: %(pathToOutputDirectory)stransient_light_curves.yaml" % locals()
+        print "The lightcurve plots can be found in %(pathToOutputPlotDirectory)s" % locals()
 
     if programSettings['Generate KCorrection Database']:
         log.info('generating the kcorrection data')
@@ -207,6 +195,10 @@ def qubits(clArgs=None):
             redshiftLower=lowerRedshiftLimit,
             redshiftUpper=upperRedshiftLimit + redshiftResolution,
             plot=programSettings['Generate KCorrection Plots'])
+
+        print "The k-crrection database has been generate here: %(pathToOutputDirectory)sk_corrections" % locals()
+        if programSettings['Generate KCorrection Plots']:
+            print "The k-crrection polynomial plots can be found in %(pathToOutputPlotDirectory)s" % locals()
 
     if programSettings['Run the Simulation']:
         # CREATE THE OBSERVABLE UNIVERSE!
@@ -353,6 +345,10 @@ def qubits(clArgs=None):
         yaml.dump(yamlContent, stream, default_flow_style=False)
         stream.close()
 
+        print "The simulation output file can be found here: %(fileName)s. Remember to update your settings file 'Simulation Results File Used for Plots' parameter with this filename before compiling the results." % locals()
+        if programSettings['Plot Simulation Helper Plots']:
+            print "The simulation helper-plots found in %(pathToOutputPlotDirectory)s" % locals()
+
     # COMPILE AND PLOT THE RESULTS
     if programSettings['Compile and Plot Results']:
         pathToYamlFile = pathToOutputDirectory + "/" + \
@@ -421,53 +417,65 @@ This simulated survey discovered a total of **%s** transients per year. An extra
             css="amblin"
         )
 
-    # if dbConn:
-    #     dbConn.commit()
-    #     dbConn.close()
+        print "Results can be found here: %(pathToResultsFolder)s" % locals()
+        html = mdLogPath.replace(".md", ".html")
+        print "Open this file in your browser: %(html)s" % locals()
+
+    if "dbConn" in locals() and dbConn:
+        dbConn.commit()
+        dbConn.close()
     ## FINISH LOGGING ##
-    endTime = dcu.get_now_sql_datetime()
-    runningTime = dcu.calculate_time_difference(startTime, endTime)
-    log.info('-- FINISHED ATTEMPT TO RUN THE qubits AT %s (RUNTIME: %s) --' %
+    endTime = times.get_now_sql_datetime()
+    runningTime = times.calculate_time_difference(startTime, endTime)
+    log.info('-- FINISHED ATTEMPT TO RUN THE cl_utils.py AT %s (RUNTIME: %s) --' %
              (endTime, runningTime, ))
-
-    # TEST THE ARGUMENTS
-
-    ## VARIABLES ##
-
-    return None
-
-
-# encoding: utf-8
-############ GLOBAL IMPORTS ####################
-
-
-######################################################
-# MAIN LOOP - USED FOR DEBUGGING OR WHEN SCRIPTING   #
-######################################################
-def main():
-    """
-    *The main function - executed if this module is run from the cl*
-    """
-    ################ > IMPORTS ################
 
     return
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
+def _set_up_command_line_tool(
+    level="DEBUG",
+        logFilePath="/tmp/tmp.log"):
+    import logging
+    import logging.config
+    import yaml
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
+    logging.shutdown()
+    reload(logging)
+
+    loggerConfig = """
+    version: 1
+    formatters:
+        file_style:
+            format: '* %(asctime)s - %(name)s - %(levelname)s (%(filename)s > %(funcName)s > %(lineno)d) - %(message)s  '
+            datefmt: '%Y/%m/%d %H:%M:%S'
+        console_style:
+            format: '* %(asctime)s - %(levelname)s: %(filename)s:%(funcName)s:%(lineno)d > %(message)s'
+            datefmt: '%H:%M:%S'
+        html_style:
+            format: '<div id="row" class="%(levelname)s"><span class="date">%(asctime)s</span>   <span class="label">file:</span><span class="filename">%(filename)s</span>   <span class="label">method:</span><span class="funcName">%(funcName)s</span>   <span class="label">line#:</span><span class="lineno">%(lineno)d</span> <span class="pathname">%(pathname)s</span>  <div class="right"><span class="message">%(message)s</span><span class="levelname">%(levelname)s</span></div></div>'
+            datefmt: '%Y-%m-%d <span class= "time">%H:%M <span class= "seconds">%Ss</span></span>'
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: """ + level + """
+            formatter: console_style
+            stream: ext://sys.stdout
+        development_logs:
+            class: logging.FileHandler
+            level: """ + level + """
+            formatter: file_style
+            filename: """ + logFilePath + """
+            mode: w
+    root:
+        level: DEBUG
+        handlers: [console,development_logs]"""
+
+    logging.config.dictConfig(yaml.load(loggerConfig))
+    log = logging.getLogger(__name__)
+
+    return log
+
 
 if __name__ == '__main__':
     main()
-
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################
