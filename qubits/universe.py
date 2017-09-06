@@ -363,7 +363,7 @@ def generate_numpy_polynomial_lightcurves(
     generatedLCs = yamlContent
     stream.close()
 
-    log.critical('fileName: %s' % (fileName,))
+    log.info('fileName: %s' % (fileName,))
     log.debug('generatedLCs: %s' % (generatedLCs,))
 
     rawLightCurveDict = {}
@@ -375,9 +375,9 @@ def generate_numpy_polynomial_lightcurves(
             plotDict = {}
 
             if modelData["poly"] is None:
-                log.error(
-                    'cound not plot the raw lightcurve for the %s object in rest frame %s-band' %
-                    (modelData, ffilter))
+                log.warning(
+                    'cound not plot the raw lightcurve for the %s object in rest frame %s-band - probably insufficient spectral coverage' %
+                    (model, ffilter))
                 rawLightCurveDict[thisModel][ffilter]['poly'] = None
                 rawLightCurveDict[thisModel][ffilter][
                     'Explosion Day Relative to Peak'] = None
@@ -624,7 +624,7 @@ def convert_lightcurves_to_observered_frame(
             restFrameFilter]['Explosion Day Relative to Peak']
         endOfLightcurveDay = snLightCurves[thisModel][
             'End of lightcurve relative to peak']
-        log.warning(
+        log.info(
             'explosionDay, endOfLightcurveDay for absolute Light Curve: %s, %s' %
             (explosionDay, endOfLightcurveDay))
         absLightCurve = rawLightCurveDict[thisModel][

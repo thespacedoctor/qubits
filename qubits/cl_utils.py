@@ -31,6 +31,7 @@ os.environ['TERM'] = 'vt100'
 import readline
 import glob
 import pickle
+import yaml
 from docopt import docopt
 from fundamentals import tools, times
 from subprocess import Popen, PIPE, STDOUT
@@ -169,6 +170,8 @@ def main(arguments=None):
             extendLightCurveTail=extendLightCurveTail,
             polyOrder=lightCurvePolyOrder
         )
+        print "The lightcurve file can be found here: %(pathToOutputDirectory)stransient_light_curves.yaml" % locals()
+        print "The lightcurve plots can be found in %(pathToOutputPlotDirectory)s" % locals()
 
     if programSettings['Generate KCorrection Database']:
         log.info('generating the kcorrection data')
@@ -192,6 +195,10 @@ def main(arguments=None):
             redshiftLower=lowerRedshiftLimit,
             redshiftUpper=upperRedshiftLimit + redshiftResolution,
             plot=programSettings['Generate KCorrection Plots'])
+
+        print "The k-crrection database has been generate here: %(pathToOutputDirectory)sk_corrections" % locals()
+        if programSettings['Generate KCorrection Plots']:
+            print "The k-crrection polynomial plots can be found in %(pathToOutputPlotDirectory)s" % locals()
 
     if programSettings['Run the Simulation']:
         # CREATE THE OBSERVABLE UNIVERSE!
@@ -332,15 +339,19 @@ def main(arguments=None):
         now = datetime.now()
         now = now.strftime("%Y%m%dt%H%M%S")
         fileName = pathToOutputDirectory + \
-            "simulation_results_%s.yaml" % (now,)
+            "/simulation_results_%s.yaml" % (now,)
         stream = file(fileName, 'w')
         yamlContent = dict(allSettings.items() + resultsDict.items())
         yaml.dump(yamlContent, stream, default_flow_style=False)
         stream.close()
 
+        print "The simulation output file can be found here: %(fileName)s. Remember to update your settings file 'Simulation Results File Used for Plots' parameter with this filename before compiling the results." % locals()
+        if programSettings['Plot Simulation Helper Plots']:
+            print "The simulation helper-plots found in %(pathToOutputPlotDirectory)s" % locals()
+
     # COMPILE AND PLOT THE RESULTS
     if programSettings['Compile and Plot Results']:
-        pathToYamlFile = pathToOutputDirectory + \
+        pathToYamlFile = pathToOutputDirectory + "/" + \
             programSettings['Simulation Results File Used for Plots']
         result_log = r.log_the_survey_settings(log, pathToYamlFile)
         snSurveyDiscoveryTimes, lightCurveDiscoveryTimes, snTypes, redshifts, cadenceDictionary, peakAppMagList, snCampaignLengthList = r.import_results(
@@ -405,6 +416,10 @@ This simulated survey discovered a total of **%s** transients per year. An extra
             pathToMMDFile=mdLogPath,
             css="amblin"
         )
+
+        print "Results can be found here: %(pathToResultsFolder)s" % locals()
+        html = mdLogPath.replace(".md", ".html")
+        print "Open this file in your browser: %(html)s" % locals()
 
     if "dbConn" in locals() and dbConn:
         dbConn.commit()

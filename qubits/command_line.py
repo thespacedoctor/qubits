@@ -347,7 +347,7 @@ def qubits(clArgs=None):
         now = datetime.now()
         now = now.strftime("%Y%m%dt%H%M%S")
         fileName = pathToOutputDirectory + \
-            "simulation_results_%s.yaml" % (now,)
+            "/simulation_results_%s.yaml" % (now,)
         stream = file(fileName, 'w')
         yamlContent = dict(allSettings.items() + resultsDict.items())
         yaml.dump(yamlContent, stream, default_flow_style=False)
@@ -355,7 +355,7 @@ def qubits(clArgs=None):
 
     # COMPILE AND PLOT THE RESULTS
     if programSettings['Compile and Plot Results']:
-        pathToYamlFile = pathToOutputDirectory + \
+        pathToYamlFile = pathToOutputDirectory + "/" + \
             programSettings['Simulation Results File Used for Plots']
         result_log = r.log_the_survey_settings(log, pathToYamlFile)
         snSurveyDiscoveryTimes, lightCurveDiscoveryTimes, snTypes, redshifts, cadenceDictionary, peakAppMagList, snCampaignLengthList = r.import_results(

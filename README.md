@@ -2,19 +2,29 @@
 
 ## Abstract:
 
-QUBITS can be used to simulate various flavours of astronomical transient surveys. The simulations are designed to be easy to use and tailor without having to hack any code, and many of simulation parameters can be found in one settings file.
+QUBITS is a python package and command-line tool used to simulate various flavours of astronomical transient surveys. The simulations are designed to be easy to use and tailor without having to hack any code, and many of simulation parameters can be found in one settings file.
 
 Although recoded from scratch, the [second chapter of my thesis](qubits/assets/dry_thesis_ch2.pdf) describes most of the details used to build these transient survey simulations.
 
 ## Installation and Setting Up Your Environment
 
-The easiest way to install this code is to open your terminal and use the command:
+QUBITS relies heavily on [`pysynphot`](http://pysynphot.readthedocs.io/en/latest/index.html) which is no longer supports a PyPI distribution. Therefore the easiest way to get QUBITS running is to install [Anaconda](https://docs.continuum.io/anaconda/install/) and then use the [STScI's AstroConda channel to install their Standard Software Stack](https://astroconda.readthedocs.io/en/latest/installation.html#configure-conda-to-use-the-astroconda-channel) (which includes pysynphot). Once this stack is installed, create/activate a conda environment that includes the stack and run:
 
-    easy_install qubits
+    pip install qubits
 
-This should install the code and all of its dependencies (*dryxPython*,*matplotlib*,*numpy* ...).
+This should install the QUBITS code and all of its dependencies. If this doesn't work, or you want to tinker with the code by installing QUBITS as a development package, then clone the project using this command:
 
-### The `PYSYN_CDBS`
+    git clone git@github.com:thespacedoctor/qubits.git <folder_name>
+
+and then `cd <folder_name>` and:
+
+    python setup.py install
+
+or
+
+    python setup.py develop
+
+### `PYSYN_CDBS` The STScI Calibration Reference Data System
 
 Note that the data files required by *pysynphot*, and hence QUBITS, are distributed separately by [STScI Calibration Reference Data System](http://www.stsci.edu/hst/observatory/crds/throughput.html). Before starting you will need to download of the calibration data from the FTP area linked from the [STScI webpage](http://www.stsci.edu/hst/observatory/crds/throughput.html), unpack them somewhere appropriate and organise them into a single nested folder structure like so:
 
@@ -35,14 +45,6 @@ Also make sure you have the `PYSYN_CDBS`[^cdbs] path set in your path.
         setenv PYSYN_CDBS "/Volumes/hdd/project_archive/work_archive/reference/synphot_data"
 
 I haven't tested this on other machines so let me know what goes wrong with the installation!
-
-If you want to tinker with the code and install qubits as a development package, then clone the project using this command:
-
-    git clone git@github.com:thespacedoctor/qubits.git <folder_name>
-
-and then `cd <folder_name>` and:
-
-    python setup.py develop
 
 ## Usage
 
@@ -66,7 +68,7 @@ and then `cd <folder_name>` and:
         -d, --database  provide the path to the root directory containing your nested-folders and files spectral database
         -o, --output    provide a path to an output directory for the results of the simulations*
 
-## A Quick Start Workspace
+## Quick Start
 
 If you're using QUBITS for the first time, or have not used it in a while, the best way to start is to use the `qubits init` command to generate a template workspace for yourself. Running the command:
 
@@ -84,11 +86,11 @@ creates a template workspace on your desktop with:
 
 [qubits template workspace 36868827172]: https://farm5.staticflickr.com/4403/36868827172_3eaec29a82_o.png title="qubits template workspace" width=600px
 
-Once you familiarise yourself with running QUBITS you can move this workspace elsewhere and tailor the spectral database and settings file for your needs.
+Once you familiarise yourself with running QUBITS you can move this workspace elsewhere and tailor the spectral database and settings file to your needs.
 
-## Building a Spectral Database
+### Building a Spectral Database
 
-Within the folder you choose to place your spectral database, create appropriately named folders for each of the specific transient objects you would like to include in the simulations. Note these are the names to be included in the settings file (see below) and that will appear in results files, plots and logs.
+Within the folder you choose to place your spectral database, create appropriately named folders for each of the specific transient objects you would like to include in the simulations. Note these are the names to be included in the settings file (see below) and that will appear in results files, plots and logs. Your database might look like this:
 
     qubits_spectral_database/
         SNIa/
@@ -105,14 +107,13 @@ Within the folder you choose to place your spectral database, create appropriate
         SLSN/
             ...
 
-Name your spectral files with times relative to some epoch within the transient's evolution (e.g. peak magnitude or explosion date). QUBITS will determine the time of peak magnitude when generating the lightcurves from the spectra and recalibrate the time scale relative to this point. The files should contain two space separated columns containing wavelength (Å) and flux (ergs/s/cm^2/Å).
+Name your spectral files with times relative to some epoch within the transient's evolution (e.g. peak magnitude or explosion date). QUBITS will determine the time of peak magnitude when generating the lightcurves from the spectra and recalibrate the time scale relative to this point. The files should contain two space separated columns containing wavelength (Å) and flux (ergs/s/cm^2/Å). Have a look in the template database supplied by the `qubits init` command.
 
-## Settings File
+### Settings File
 
-The settings file for the simulations looks like this:
+A template simulation settings file is provided by the `qubits init` command and should look something like this:
 
     version: 1
-    author : Dave Young
 
     ##### PROGRAM EXECUTION SETTINGS #####
     Program Settings:
@@ -212,8 +213,6 @@ The settings file for the simulations looks like this:
     ###### LOGGING
     Level of logging required: WARNING # DEBUG, INFO, WARNING, ERROR or CRITICAL
 
-Download a template settings file from the [git repo here](https://github.com/thespacedoctor/qubits/blob/master/qubits/tests/input/qubits_settings.yaml), adapt to your needs and then call it when running QUBITS (via the `-s` flag).
-
 ## The QUBITS Simulation Stages
 
 The four stages of the simulation are:
@@ -268,7 +267,7 @@ Note *pysynphot* can be very chatty and prints log messages straight to stdout w
 
 ### 2. Generate K-Correction Database
 
-The code will use the spectra to generate a database of K-corrections with the given settings. They will be created in the `k_corrections` directory of your output folder. For each redshift and k-correction filter-set a dataset is generated which is used to create a polynomial for *rest frame epoch* vs *kcorrection*.
+The code will use the spectra to generate a database of K-corrections with the given settings. They will be created in the `k_corrections` directory of your output folder. For each redshift and k-correction filter-set, a dataset is generated which is used to create a polynomial for *rest frame epoch* vs *kcorrection*. Note the k-corrections also act as colour-transformations between filters at low-redshift.
 
 By setting `Generate K-Correction Plots` to `True` a plot for each K-correction dataset will be generated. Set this to true if only a few k-corrections are to be calculated, i.e. when you are testing/debugging the simulation - otherwise the k-correction generation will take forever!
 
@@ -281,7 +280,7 @@ Here the simulation is run using the settings found in the settings file (cadenc
 1.  **Simulating the Universe** - placing SNe throughout the volume requested at random redshifts, with the relative-rate supplied and with the peak magnitude distributions given.
 2.  **Simulating the Survey** - simulates the survey with the setup supplied in the settings files with cadence of observation, limiting-magnitudes, survey volume, loss due to weather etc.
 
-The results of the simulation are place in a (large) date-time stamped yaml file in the output folder with a name similar to `simulation_results_20130425t053500.yaml`. The date-time appended to the filename will be the time the simulation was run so you can run many simulations without worrying about overwriting previous outputs. The settings used to run the simulation are so recorded in this file.
+The results of the simulation are place in a (large) date-time stamped yaml file in the output folder named something similar to `simulation_results_20130425t053500.yaml`. The date-time appended to the filename will be the time the simulation was run so you can run many simulations without worrying about overwriting previous outputs. The settings used to run the simulation are also recorded in this file.
 
 The `Plot Simulation Helper Plots` setting should only be set to *True* if you are trying to debug the code and work out how the input data is being manipulated to create the simulations.
 
@@ -302,43 +301,21 @@ Here is an example of the output log file:
 
 [^cdbs]: http://www.stsci.edu/institute/software_hardware/stsdas/synphot
 
-# +++++++++++++++++++ NEW CONTENT ++++++++++++++++++
+## WARNINGS
 
-# qubits
+QUBITS can return many warnings, usually related the limitations of your spectral databases. Here are some:
 
-A python package and command-line tools to *Queen's University Belfast Imitation Transient Surveys*.
-
-## Installation
-
-The easiest way to install qubits us to use `pip`:
-
-```bash
-pip install qubits
-```
-
-Or you can clone this repo and install from a local version of the code:
-
-```bash
-git clone git@github.com:thespacedoctor/qubits.git
-cd qubits
-python setup.py install
-```
-
-## Development
-
-If you want to tinker with the code, then install in development mode. This means you can modify the code from your cloned repo:
-
-```bash
-git clone git@github.com:thespacedoctor/qubits.git
-cd qubits
-python setup.py develop
-```
-
-[Pull requests](https://github.com/thespacedoctor/qubits/pulls) are welcomed!
+-   **'does not have a defined binset in the wavecat table. The waveset of the spectrum will be used instead.'**: This is a pysynphot message and not a QUBITS log. Don't worry.
+-   **' failed with this error: Spectrum and bandpass are disjoint'**: This generally means the spectrum quoted doesn't cover the wavelength range of the band-pass and therefore a magnitude can't be synthesised.
+-   **'Spectrum and bandpass do not fully overlap. You may use force=[extrap|taper] to force this Observation anyway.'**: As above but the spectral wavelength range does partially cover the band-pass
+-   **'could not find the magnitude from spectrum /\*\*\*/t+601.00.spec using the filter sdss,g - failed with this error: Integrated flux is <= 0'**: This generally means the spectrum quoted doesn't entirely cover the wavelength range of the band-pass and therefore a magnitude can't be synthesised.
+-   **'the k-correction file z0pt30.yaml contains less than 3 datapoints to convert from g restframe to z observed frame for the SNOne model - polynomial shall not be generated'**: The was not enough temporal/wavelength coverage to generate k-corrections for the quoted rest/observed frame filter-set at this redshift
 
 ## Issues
 
 Please report any issues [here](https://github.com/thespacedoctor/qubits/issues).
+
+[Pull requests](https://github.com/thespacedoctor/qubits/pulls) are welcomed!
 
 ## License
 

@@ -12,7 +12,7 @@ Program Settings:
     Plot Simulation Helper Plots: False  #  ONLY PLOT IF DEBUGGING
     # STAGE 4 - COMPILING RESULTS
     Compile and Plot Results: False
-    Simulation Results File Used for Plots: simulation_results_XXXXXXX.yaml
+    Simulation Results File Used for Plots: simulation_results_XXXXXX.yaml
 
 ## SIMULATED SURVEY CONSTRAINTS ##
 Extra Survey Constraints:
@@ -20,7 +20,7 @@ Extra Survey Constraints:
     Observable for at least ? number of days: 75 # Set this to 1 for this setting to be distregarded
 Lower Redshift Limit: 0.00 ## Usually set to 0.0s
 Upper Redshift Limit: 1.0
-Redshift Resolution: 0.05 ## Higher resolution (lower number) means the simulations are more accuate but the code shall take long to run, especially for the k-correction database generation.
+Redshift Resolution: 0.1 ## Higher resolution (lower number) means the simulations are more accuate but the code shall take long to run, especially for the k-correction database generation.
 Sky Area of the Survey (square degrees): 70
 Limiting Magnitudes:
     g : 23.0
@@ -52,7 +52,7 @@ Survey Cadence:
 ## K-CORRECTION GENERATION ##
 Rest Frame Filter for K-corrections: g # This is the filter that the k-corrections are anchored to. The simulations will convert from this observed band magnitude to the rest frame magnitudes to calculate the k-correction.
 K-correction temporal resolution (days): 1.0 # Only increase the resolution here if you have many spectra in your database and k-corrections are taking too long to generate.
-Order of polynomial used to fits k-corrections: 5 # Check the k-correction polynomial plots and tweak this value as needed.
+Order of polynomial used to fits k-corrections: 7 # Check the k-correction polynomial plots and tweak this value as needed.
 Minimum number of datapoints used to generate k-correction curve: 3 # If the are not enough spectra or too many spectra have been redshifted out of the range of the observed frame band-pass, then there are few points to generate a polynomial k-correction lightcurve. 3 is probably the barely-passable minimum.
 
 ## SIMULATED UNIVERSE CONSTRAINTS ##
