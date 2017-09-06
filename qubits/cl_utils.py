@@ -198,7 +198,7 @@ def main(arguments=None):
 
         print "The k-crrection database has been generate here: %(pathToOutputDirectory)sk_corrections" % locals()
         if programSettings['Generate KCorrection Plots']:
-            print "The k-crrection polynomial plots can be found in %(pathToOutputPlotDirectory)s" % locals()
+            print "The k-correction polynomial plots can also be found in %(pathToOutputDirectory)sk_corrections" % locals()
 
     if programSettings['Run the Simulation']:
         # CREATE THE OBSERVABLE UNIVERSE!

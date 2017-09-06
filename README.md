@@ -2,13 +2,13 @@
 
 ## Abstract:
 
-QUBITS is a python package and command-line tool used to simulate various flavours of astronomical transient surveys. The simulations are designed to be easy to use and tailor without having to hack any code, and many of simulation parameters can be found in one settings file.
+QUBITS is a python package and command-line tool used to simulate various flavours of astronomical transient surveys. The simulations are designed to be easy to use and tailor without having to hack any code, and many of the simulation parameters can be found in one settings file.
 
 Although recoded from scratch, the [second chapter of my thesis](qubits/assets/dry_thesis_ch2.pdf) describes most of the details used to build these transient survey simulations.
 
 ## Installation and Setting Up Your Environment
 
-QUBITS relies heavily on [`pysynphot`](http://pysynphot.readthedocs.io/en/latest/index.html) which is no longer supports a PyPI distribution. Therefore the easiest way to get QUBITS running is to install [Anaconda](https://docs.continuum.io/anaconda/install/) and then use the [STScI's AstroConda channel to install their Standard Software Stack](https://astroconda.readthedocs.io/en/latest/installation.html#configure-conda-to-use-the-astroconda-channel) (which includes pysynphot). Once this stack is installed, create/activate a conda environment that includes the stack and run:
+QUBITS relies heavily on [`pysynphot`](http://pysynphot.readthedocs.io/en/latest/index.html) which no longer supports a PyPI distribution. Therefore the easiest way to get QUBITS running is to install [Anaconda](https://docs.continuum.io/anaconda/install/) and then use the [STScI's AstroConda channel to install their Standard Software Stack](https://astroconda.readthedocs.io/en/latest/installation.html#configure-conda-to-use-the-astroconda-channel) (which includes pysynphot). Once this stack is installed, create/activate a conda environment that includes the stack and run:
 
     pip install qubits
 
@@ -32,19 +32,13 @@ Note that the data files required by *pysynphot*, and hence QUBITS, are distrib
 
 [PYSYN_CDBS 36852357776]: https://farm5.staticflickr.com/4374/36852357776_03eeaaf8a2_o.png title="PYSYN_CDBS" width=600px
 
-Finally, you need to make sure the `PYSYN_CDBS` environment variable is set so *pysynphot* knows where these data live. Add the following to your `.bashrc` file and don't forget to open a new terminal window before you being to use QUBITS:
+Finally, you need to make sure the `PYSYN_CDBS` environment variable is set so *pysynphot* knows where these data live. Add the following to your `.bashrc` file and don't forget to open a new terminal window before you begin to use QUBITS:
 
 ```bash
 export PYSYN_CDBS=/path/to/cdbs/
 ```
 
-Also make sure you have the `PYSYN_CDBS`[^cdbs] path set in your path.
-
-        setenv iraf "/usr/local/scisoft/packages/iraf/iraf"
-        setenv IRAFARCH "macintel"
-        setenv PYSYN_CDBS "/Volumes/hdd/project_archive/work_archive/reference/synphot_data"
-
-I haven't tested this on other machines so let me know what goes wrong with the installation!
+I haven't tested this on many other machines so let me know what goes wrong with the installation!
 
 ## Usage
 
@@ -237,13 +231,13 @@ At the top of this settings file you turn the various stages of the simulation b
             Compile and Plot Results: True
             Simulation Results File Used for Plots: simulation_results_20130919t131758.yaml
 
-When you first use the simulations it's best to set all stages of the simulation to *False*, then incrementally run the code through each stage. You will always run the code with the `qubits run` command with following syntax:
+When you first use the simulations it's best to set all stages of the simulation to *False*, then incrementally run the code through each stage. You will always run the code with the `qubits run` command with the following syntax:
 
 ```bash
 qubits run -s <pathToSettingsFile> -o <pathToOutputDirectory> -d <pathToSpectralDatabase>
 ```
 
-So to run QUBITS with our template workspace we setup in the quick start workspace we setup above, we shall run:
+So to run QUBITS with our template workspace we setup in the quick start workspace above, we run:
 
 ```bash
 qubits run -s ~/Desktop/qubits_workspace/qubits_settings.yaml -o ~/Desktop/qubits_workspace/qubits_output -d ~/Desktop/qubits_workspace/qubits_spectral_database
@@ -253,9 +247,9 @@ Below you will find details of each build stage of the simulation - read the set
 
 ### 1. Extracting the Lightcurves from Spectra
 
-This stage is will help the user visualise the lightcurves that can be generated from their spectral database (at $z=0$). Lightcurve plots are created in the *plots* folder in the output directory. Please note QUBITS' ability to generate decent lightcurves relies heavily on the quality of your spectral database; it needs good wavelength coverage to be able to synthesize the photometry and good temporal coverage to build an entire lightcurve. The extracted lightcurves are stored as python objects in the a file called *transient_light_curves.yaml* in `<pathToOutputDirectory>`.
+This stage generates the `z=0` lightcurves. Lightcurve plots are created in the *plots* folder in the output directory. Please note QUBITS' ability to generate decent lightcurves relies heavily on the quality of your spectral database; it needs good wavelength coverage to be able to synthesize the photometry and good temporal coverage to build an entire lightcurve. The extracted lightcurves are stored as python objects in the a file called *transient_light_curves.yaml* in `<pathToOutputDirectory>`.
 
-Once you've generated the lightcurves, have a look at the lightcurve plots (some may be blank if temporal/wavelength coverage was deemed too poor to create a lightcurve for the given band-pass at $z=0$). You may want to tweak some lightcurve parameters in the settings file and rebuild the lightcurve plots. Once you're happy move onto the next stage.
+Once you've generated the lightcurves, have a look at the lightcurve plots (some may be blank if temporal/wavelength coverage was deemed too poor to create a lightcurve for the given band-pass at `z=0`). You may want to tweak some lightcurve parameters in the settings file and rebuild the lightcurve plots. Once you're happy move onto the next stage.
 
 ![example lightcurve](qubits/assets/SNOne_-_i-band.png)
 

@@ -52,7 +52,7 @@ Survey Cadence:
 ## K-CORRECTION GENERATION ##
 Rest Frame Filter for K-corrections: g # This is the filter that the k-corrections are anchored to. The simulations will convert from this observed band magnitude to the rest frame magnitudes to calculate the k-correction.
 K-correction temporal resolution (days): 1.0 # Only increase the resolution here if you have many spectra in your database and k-corrections are taking too long to generate.
-Order of polynomial used to fits k-corrections: 7 # Check the k-correction polynomial plots and tweak this value as needed.
+Order of polynomial used to fits k-corrections: 10 # Check the k-correction polynomial plots and tweak this value as needed.
 Minimum number of datapoints used to generate k-correction curve: 3 # If the are not enough spectra or too many spectra have been redshifted out of the range of the observed frame band-pass, then there are few points to generate a polynomial k-correction lightcurve. 3 is probably the barely-passable minimum.
 
 ## SIMULATED UNIVERSE CONSTRAINTS ##
