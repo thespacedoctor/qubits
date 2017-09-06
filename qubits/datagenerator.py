@@ -97,12 +97,17 @@ def generate_model_lightcurves(
             title = "%s - %s-band" % (model, ffilter)
             # EXTRACT LIGHTCURVES FROM SPECTRA
 
+            if ffilter in ["g", "r", "i", "z"]:
+                obsmode = "sdss,%s" % (ffilter,)
+            else:
+                obsmode = ffilter
+
             magnitudes, times = extract_lightcurve(
                 log,
                 spectrumFiles,
                 userExplosionDay=explosionDaysFromSettings[model],
                 extendLightCurveTail=extendLightCurveTail[model],
-                obsmode="sdss,%s" % (ffilter,)
+                obsmode=obsmode
             )
 
             filterDict = {}
@@ -176,7 +181,7 @@ def generate_model_lightcurves(
                 extractedLightCurveDict[model][ffilter][k] = v
 
     yamlDict = extractedLightCurveDict
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'w')
     yaml.dump(yamlDict, stream, default_flow_style=False)
     stream.close()
@@ -269,7 +274,7 @@ def plot_filter_transmissions(log, filterList):
 # CREATED : March 24, 2013
 # AUTHOR : dryx
 # def calcphot(log, spectrum, filter):
-def calcphot(log, wavelengthArray, fluxArray, obsmode):
+def calcphot(log, wavelengthArray, fluxArray, obsmode, extrapolate=False):
     """
     *Run calcphot on single spectrum and filter.*
 
@@ -278,6 +283,7 @@ def calcphot(log, wavelengthArray, fluxArray, obsmode):
         - ``wavelengthArray`` -- the array containing the wavelength range of the spectrum
         - ``fluxArray`` -- the array contain the respective spectrum flux (as function of wavelength)
         - ``obsmode`` -- the observation mode (generally a filter system and filter type, e.g. "sdss,g")
+        - ``extrapolate`` -- extrapolate spectra in database to cover the requested band-pass. Default *False*.
 
     **Return:**
         - None
@@ -288,12 +294,17 @@ def calcphot(log, wavelengthArray, fluxArray, obsmode):
     import pysynphot as syn
     ## LOCAL APPLICATION ##
 
+    if extrapolate:
+        force = "extrapolate"
+    else:
+        force = None
+
     ################ > VARIABLE SETTINGS ######
     # Read in a spectrum from a file
     sp = syn.ArraySpectrum(
         wave=wavelengthArray, flux=fluxArray, waveunits='angstrom', fluxunits='flam')
     bp = syn.ObsBandpass(obsmode)
-    obs = syn.Observation(sp, bp)
+    obs = syn.Observation(sp, bp, force=force)
     abMag = obs.effstim('abmag')
 
     return abMag
@@ -513,7 +524,7 @@ def extract_lightcurve(
 
     log.debug('finding magnitudes and times from spectrum : %s' % (thisFile,))
     log.debug('magnitudes, times: %s, %s' % (magnitudes, times))
-    print magnitudes, times
+
     return magnitudes, times
 
 
@@ -623,13 +634,13 @@ def generate_kcorrection_listing_database(
     mul = 1000
     div = 1000.
 
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
 
     # REMOVE OLD DATABASE
     try:
-        shutil.rmtree(pathToOutputDirectory + "k_corrections")
+        shutil.rmtree(pathToOutputDirectory + "/k_corrections")
     except:
         pass
 
@@ -689,7 +700,7 @@ def generate_single_kcorrection_listing(
 
     ################ >ACTION(S) ################
     # GET THE PEAK MAGNITUDE DETAILS FROM YAML FILE
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     filterData = generatedLCs[model]
@@ -716,12 +727,13 @@ def generate_single_kcorrection_listing(
     ################ >ACTION(S) ################
     # CREATE THE REQUIRED DIRECTORIES
     filters = ["g", "i", "r", "z"]
+
     for thisFilter in filters:
         strRed = "%0.2f" % (redshift,)
         try:
             log.debug("attempting to create directories")
             dataDir = pathToOutputDirectory + \
-                "k_corrections/%s/%s" % (model, thisFilter)
+                "/k_corrections/%s/%s" % (model, thisFilter)
             os.makedirs(dataDir)
         except Exception as e:
             log.debug(
@@ -763,11 +775,15 @@ def generate_single_kcorrection_listing(
             try:
                 log.debug("attempting to determine the rest %s-magnitude" %
                           (restFrameFilter,))
+                if restFrameFilter in ["g", "r", "i", "z"]:
+                    obsmode = "sdss,%s" % (restFrameFilter,)
+                else:
+                    obsmode = restFrameFilter
                 gRest = calcphot(
                     log,
                     wavelengthArray=wavelengthArray,
                     fluxArray=fluxArray,
-                    obsmode="sdss,%s" % (restFrameFilter,)
+                    obsmode=obsmode
                 )
             except Exception as e:
                 if "Integrated flux is <= 0" in str(e):
@@ -788,9 +804,13 @@ def generate_single_kcorrection_listing(
 
             for thisFilter in filters:
                 strRed = "%0.2f" % (redshift,)
+                spRest.convert('photnu')
                 spObs = spRest.redshift(redshift)
+                spObs.convert('flam')
+                spRest.convert('flam')
+
                 dataDir = pathToOutputDirectory + \
-                    "k_corrections/%s/%s" % (model, thisFilter)
+                    "/k_corrections/%s/%s" % (model, thisFilter)
                 try:
                     log.debug(
                         "attempting to open the yaml file to append k-correction data")
@@ -806,11 +826,15 @@ def generate_single_kcorrection_listing(
                     log.debug(
                         "attempting to determine the magnitude of the object using calcphot - redshift, filter, model %s, %s, %s" %
                         (strRed, thisFilter, model))
+                    if thisFilter in ["g", "r", "i", "z"]:
+                        obsmode = "sdss,%s" % (thisFilter,)
+                    else:
+                        obsmode = thisFilter
                     filterObs = calcphot(
                         log,
                         wavelengthArray=spObs.wave,
                         fluxArray=spObs.flux,
-                        obsmode="sdss,%s" % (thisFilter,)
+                        obsmode=obsmode
                     )
                 except Exception as e:
                     if "Integrated flux is <= 0" in str(e):
@@ -885,7 +909,7 @@ def generate_single_kcorrection_polynomial(
 
     ################ >ACTION(S) ################
     strRed = "%0.2f" % (redshift,)
-    dataDir = pathToOutputDirectory + "k_corrections/%s/%s" % (model, ffilter)
+    dataDir = pathToOutputDirectory + "/k_corrections/%s/%s" % (model, ffilter)
     pathToYaml = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
     fileName = pathToYaml
     stream = file(fileName, 'r')
@@ -895,6 +919,10 @@ def generate_single_kcorrection_polynomial(
 
     kCor = []
     time = []
+
+    if not yamlList:
+        return
+
     try:
         log.debug(
             "attempting to generate a k-correction polynomial plot from the file: %s" %
@@ -951,8 +979,8 @@ def generate_single_kcorrection_polynomial(
             orginalDataDictionary=dataDict,
             pathToOutputPlotsFolder=dataDir + "/",
             xRange=[xMin, xMax],
-            xAxisLimits=False,
-            yAxisLimits=False,
+            xAxisLimits=[xMin + 100, xMax - 100],
+            yAxisLimits=[-5, 5],
             yAxisInvert=False,
             prependNum=False)
 
@@ -1011,7 +1039,7 @@ def generate_kcorrection_polynomial_database(
     mul = 1000
     div = 1000.
 
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()

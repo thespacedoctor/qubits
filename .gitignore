@@ -3,7 +3,7 @@
 *.sublime-project
 *.sublime-workspace
 .DS_Store
-README_local.md
+**/tests/output/*
 .svn
 _git*
 *.orig
@@ -11,6 +11,7 @@ _git*
 .noseids
 cover/
 html_test_coverage_report/
+_ignore_*
 
 # Compiled python modules.
 *.pyc
@@ -21,3 +22,13 @@ html_test_coverage_report/
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
+/build
+
+## Apache logs
+logs/*.log
+/logs/log.html
+
+path_to_settings.yaml
+blog-post.md
+blog-post.rst
+build

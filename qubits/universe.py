@@ -357,13 +357,13 @@ def generate_numpy_polynomial_lightcurves(
 
     ################ >ACTION(S) ################
     # EXTRACT THE MODEL LIGHTCURVE POLYNOMIALS
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     yamlContent = yaml.load(stream)
     generatedLCs = yamlContent
     stream.close()
 
-    log.critical('fileName: %s' % (fileName,))
+    log.info('fileName: %s' % (fileName,))
     log.debug('generatedLCs: %s' % (generatedLCs,))
 
     rawLightCurveDict = {}
@@ -375,9 +375,9 @@ def generate_numpy_polynomial_lightcurves(
             plotDict = {}
 
             if modelData["poly"] is None:
-                log.error(
-                    'cound not plot the raw lightcurve for the %s object in rest frame %s-band' %
-                    (modelData, ffilter))
+                log.warning(
+                    'cound not plot the raw lightcurve for the %s object in rest frame %s-band - probably insufficient spectral coverage' %
+                    (model, ffilter))
                 rawLightCurveDict[thisModel][ffilter]['poly'] = None
                 rawLightCurveDict[thisModel][ffilter][
                     'Explosion Day Relative to Peak'] = None
@@ -508,9 +508,9 @@ def build_kcorrection_array(
     ## LOCAL APPLICATION ##
 
     ################ >ACTION(S) ################
-    dataDir = pathToOutputDirectory + "k_corrections/"
+    dataDir = pathToOutputDirectory + "/k_corrections/"
     filters = ['g', 'r', 'i', 'z']
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()
@@ -593,7 +593,7 @@ def convert_lightcurves_to_observered_frame(
 
     ################ >ACTION(S) ################
     filters = ['g', 'r', 'i', 'z']
-    fileName = pathToOutputDirectory + "transient_light_curves.yaml"
+    fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
     generatedLCs = yaml.load(stream)
     models = generatedLCs.keys()
@@ -624,7 +624,7 @@ def convert_lightcurves_to_observered_frame(
             restFrameFilter]['Explosion Day Relative to Peak']
         endOfLightcurveDay = snLightCurves[thisModel][
             'End of lightcurve relative to peak']
-        log.warning(
+        log.info(
             'explosionDay, endOfLightcurveDay for absolute Light Curve: %s, %s' %
             (explosionDay, endOfLightcurveDay))
         absLightCurve = rawLightCurveDict[thisModel][

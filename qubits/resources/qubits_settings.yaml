@@ -1,0 +1,102 @@
+version: 1
+
+## PROGRAM EXECUTION SETTINGS ##
+Program Settings:
+    # STAGE 1 - LIGHTCURVES
+    Extract Lightcurves from Spectra: False
+    # STAGE 2 - KCORRECTION DATABASE
+    Generate KCorrection Database: False
+    Generate KCorrection Plots: False  # ONLY SET TO TRUE IF ONLY A FEW KCORRECTIONS ARE TO BE CALCULATED
+    # STAGE 3 - RUNNING SIMULATION
+    Run the Simulation: False
+    Plot Simulation Helper Plots: False  #  ONLY PLOT IF DEBUGGING
+    # STAGE 4 - COMPILING RESULTS
+    Compile and Plot Results: False
+    Simulation Results File Used for Plots: simulation_results_XXXXXX.yaml
+
+## SIMULATED SURVEY CONSTRAINTS ##
+Extra Survey Constraints:
+    Faint-Limit of Peak Magnitude: 21.50 # The lower-limit of the apparent peak magnitude so that the transient can be distinguished from other flavours of transients. Set this to 99.9 for this setting to be disregarded.
+    Observable for at least ? number of days: 75 # Set this to 1 for this setting to be distregarded
+Lower Redshift Limit: 0.00 ## Usually set to 0.0s
+Upper Redshift Limit: 1.0
+Redshift Resolution: 0.1 ## Higher resolution (lower number) means the simulations are more accuate but the code shall take long to run, especially for the k-correction database generation.
+Sky Area of the Survey (square degrees): 70
+Limiting Magnitudes:
+    g : 23.0
+    r : 23.0
+    i : 23.0
+    z : 22.4
+Survey Cadence:
+    # YEAR MINUS FRACTION LOST DUE TO OBJECTS BEING LOCATED BEHIND THE SUN
+    Observable Fraction of Year: 0.5
+    Fraction of Year Lost to Weather etc: 0.4
+    Filters:
+        - band: g
+          day of year of first scheduled observation: 1
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: r
+          day of year of first scheduled observation: 1
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: i
+          day of year of first scheduled observation: 2
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+        - band: z
+          day of year of first scheduled observation: 3
+          repeat every ? days: 3
+          Fraction of Lunar Month Lost to Moon: 0.27
+
+## K-CORRECTION GENERATION ##
+Rest Frame Filter for K-corrections: g # This is the filter that the k-corrections are anchored to. The simulations will convert from this observed band magnitude to the rest frame magnitudes to calculate the k-correction.
+K-correction temporal resolution (days): 1.0 # Only increase the resolution here if you have many spectra in your database and k-corrections are taking too long to generate.
+Order of polynomial used to fits k-corrections: 10 # Check the k-correction polynomial plots and tweak this value as needed.
+Minimum number of datapoints used to generate k-correction curve: 3 # If the are not enough spectra or too many spectra have been redshifted out of the range of the observed frame band-pass, then there are few points to generate a polynomial k-correction lightcurve. 3 is probably the barely-passable minimum.
+
+## SIMULATED UNIVERSE CONSTRAINTS ##
+CCSN Progenitor Population Fraction of IMF: 0.007
+Transient to CCSN Ratio: 10e-5
+Simulation Sample: 200 # Number of transients to include in simulations. More = more accurate but sims take longer to run. 100 good for testing & 10,000 good for science.
+Extinctions:
+    constant or random: constant # Feature not yet implemented - leave as `constant`
+    constant E(b-v): 0.023 # 0.023 is the mean for the PS1-MD fields
+    host: # Parameter not yet implemented
+    galactic: # Parameter not yet implemented
+Relative Rate Set to Use: SLSNe
+Relative SN Rates:
+    # MAKE SURE TRANSIENT NAME CORRESPOND TO FOLDER NAMES CONTAINING THIER SPECTRAL DATA-SETS
+    SLSNe:
+        SNOne: 0.5 # make sure transient names correspond to folder names containing thier spectral data-sets
+        SNTwo: 0.5
+SN Absolute Peak-Magnitude Distributions:
+    magnitude:
+        SNOne: -21.25
+        SNTwo: -21.50
+    sigma:
+        SNOne: 0.25
+        SNTwo: 0.15
+
+## LIGHTCURVE GENERATION & CONSTRAINTS
+Lightcurves:
+    SNOne:
+        End of lightcurve relative to peak: 300 # Constrain the end of the lightcurve so polynomial fits don't go awal
+    SNTwo:
+        End of lightcurve relative to peak: 220
+Order of polynomial used to fits lightcurves: 6 # Check the extracted lightcurve plots and tweak this value as needed.
+# Often it is useful to set a an explosion day (relative to the timescale used in naming the files in the spectral database).
+# This helps constrain the polynomials of the light- and K-correction- curves generated in the simulations.
+# SET TO `False` TO DISREGARD THIS SETTING
+Explosion Days:
+    SNOne: -50
+    SNTwo: -50
+# You can also extend the tail of the lightcurve to better constrain the polynomial. Set to `True` or `False`
+Extend lightcurve tail?:
+    SNOne: True
+    SNTwo: True
+
+## LOGGING
+Level of logging required: WARNING # DEBUG, INFO, WARNING, ERROR or CRITICAL
+
+
