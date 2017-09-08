@@ -522,7 +522,7 @@ def build_kcorrection_array(
         for model in models:
             for ffilter in filters:
                 filterDir = dataDir + model + "/" + ffilter
-                strRed = "%0.2f" % (redshift,)
+                strRed = "%0.3f" % (redshift,)
                 fileName = filterDir + "/z" + \
                     str(strRed).replace(".", "pt") + "_poly.yaml"
                 try:

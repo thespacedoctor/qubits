@@ -366,9 +366,8 @@ def plotLightCurves(
             polyStringMd += """%s*time^{%s} """ % (poly[i], order - i)
         polyStringMd += "\\\\)"
 
-        ax.plot(x, y, '.', label='%s' % (curve[2],))
-        i = np.arange(int(min(x)), int(max(x)), 1)
-        ax.plot(i, pOrder(i), label='polynomial fit')
+        xp = np.arange(int(min(x)), int(max(x)), 0.2)
+        ax.plot(x, y, '.', xp, pOrder(xp), '--')
 
     title = curve[5]
     # Shink current axis by 20%
@@ -441,14 +440,13 @@ def extract_lightcurve(
         wavelengthArray, fluxArray = extract_spectra_from_file(log, thisFile)
         try:
             log.debug("attempting to find the magnitude from spectrum")
-            magnitudes.append(
-                calcphot(
-                    log,
-                    wavelengthArray=wavelengthArray,
-                    fluxArray=fluxArray,
-                    obsmode=obsmode
-                )
+            thisMag = calcphot(
+                log,
+                wavelengthArray=wavelengthArray,
+                fluxArray=fluxArray,
+                obsmode=obsmode
             )
+            magnitudes.append(thisMag)
             times.append(thisTime)
         except Exception as e:
             log.warning(
@@ -469,19 +467,18 @@ def extract_lightcurve(
         secondLastTime = sortedTime[-2]
         secondLastMag = magnitudes[times.index(secondLastTime)]
 
-        minMag = max(magnitudes)
-        iterations = 4
-        magDrop = 4
+        iterations = 2.
+        magDrop = 6.
 
-        if userExplosionDay is not None:
+        if (userExplosionDay is not None and userExplosionDay is not False):
             x2 = firstTime
             x1 = userExplosionDay
             y2 = firstMag
-            y1 = minMag + magDrop
+            y1 = firstMag + magDrop
 
             m = (y1 - y2) / (x1 - x2)
             c = y1 - m * x1
-            upperTimeLimit = (minMag - c) / m
+            upperTimeLimit = (firstMag - c) / m
 
             thisRange = upperTimeLimit - userExplosionDay
             delta = 0
@@ -495,8 +492,8 @@ def extract_lightcurve(
                 delta = magDrop / iterations
                 log.debug('magDrop, delta : %s, %s' % (magDropNow, delta,))
                 times.append(t)
-                magnitudes.append(minMag + magDropNow)
-                log.debug('new mag: %s' % (minMag + magDropNow,))
+                magnitudes.append(firstMag + magDropNow)
+                log.debug('new mag: %s' % (firstMag + magDropNow,))
 
         if extendLightCurveTail:
             x2 = secondLastTime
@@ -564,8 +561,9 @@ def find_peak_magnitude(
     magnitudeList = []
 
     # wavelengthArray, fluxArray, minWl, maxWl = extract_spectra_from_file(log, thisFile)
-    for time in range(start, end, 1):
-        thisTime = time - 20.
+    for time in range(start * 5, end * 5, 1):
+        time = time / 5.
+        thisTime = time
         flatPoly = np.poly1d(poly)
         magnitude = flatPoly(thisTime)
         timeList.append(thisTime)
@@ -580,6 +578,7 @@ def find_peak_magnitude(
 
     peakMag = float(magnitudeArray[magIndexMin])
     peakTime = float(timeList[magIndexMin])
+
     explosionMag = float(magnitudeArray[timeIndexMin])
     explosionDay = float(timeList[timeIndexMin])
 
@@ -622,6 +621,7 @@ def generate_kcorrection_listing_database(
         - None
     """
     ################ > IMPORTS ################
+
     ## STANDARD LIB ##
     import re
     import os
@@ -631,8 +631,8 @@ def generate_kcorrection_listing_database(
     import yaml
     ## LOCAL APPLICATION ##
 
-    mul = 1000
-    div = 1000.
+    mul = 10000
+    div = 10000.
 
     fileName = pathToOutputDirectory + "/transient_light_curves.yaml"
     stream = file(fileName, 'r')
@@ -657,7 +657,7 @@ def generate_kcorrection_listing_database(
                 model=model,
                 redshift=redshift,
                 restFrameFilter=restFrameFilter,
-                temporalResolution=4.0)
+                temporalResolution=temporalResolution)
     return
 
 
@@ -729,7 +729,7 @@ def generate_single_kcorrection_listing(
     filters = ["g", "i", "r", "z"]
 
     for thisFilter in filters:
-        strRed = "%0.2f" % (redshift,)
+        strRed = "%0.3f" % (redshift,)
         try:
             log.debug("attempting to create directories")
             dataDir = pathToOutputDirectory + \
@@ -803,7 +803,7 @@ def generate_single_kcorrection_listing(
                 pass
 
             for thisFilter in filters:
-                strRed = "%0.2f" % (redshift,)
+                strRed = "%0.3f" % (redshift,)
                 spRest.convert('photnu')
                 spObs = spRest.redshift(redshift)
                 spObs.convert('flam')
@@ -908,7 +908,7 @@ def generate_single_kcorrection_polynomial(
     import dryxPython.plotting as dp
 
     ################ >ACTION(S) ################
-    strRed = "%0.2f" % (redshift,)
+    strRed = "%0.3f" % (redshift,)
     dataDir = pathToOutputDirectory + "/k_corrections/%s/%s" % (model, ffilter)
     pathToYaml = dataDir + "/z" + str(strRed).replace(".", "pt") + ".yaml"
     fileName = pathToYaml
