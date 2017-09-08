@@ -30,7 +30,7 @@ Note that the data files required by *pysynphot*, and hence QUBITS, are distrib
 
 ![PYSYN_CDBS][pysyn_cdbs 36852357776]
 
-[PYSYN_CDBS 36852357776]: https://farm5.staticflickr.com/4374/36852357776_03eeaaf8a2_o.png title="PYSYN_CDBS" width=600px
+[PYSYN_CDBS 36852357776]: https://farm5.staticflickr.com/4374/36852357776_03eeaaf8a2_o.png
 
 Finally, you need to make sure the `PYSYN_CDBS` environment variable is set so *pysynphot* knows where these data live. Add the following to your `.bashrc` file and don't forget to open a new terminal window before you begin to use QUBITS:
 
@@ -78,7 +78,7 @@ creates a template workspace on your desktop with:
 
 ![qubits template workspace][qubits template workspace 36868827172]
 
-[qubits template workspace 36868827172]: https://farm5.staticflickr.com/4403/36868827172_3eaec29a82_o.png title="qubits template workspace" width=600px
+[qubits template workspace 36868827172]: https://farm5.staticflickr.com/4403/36868827172_3eaec29a82_o.png
 
 Once you familiarise yourself with running QUBITS you can move this workspace elsewhere and tailor the spectral database and settings file to your needs.
 
