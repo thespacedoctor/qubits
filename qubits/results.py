@@ -549,6 +549,7 @@ def determine_sn_rate(
     anchorVolume = da.convert_redshift_to_distance(redshiftResolution)[
         'dl_mpc']**3
     #log.info('anchorVolume %s' % (anchorVolume,))
+    xRange = [lowerRedshiftLimit, upperRedshiftLimit, redshiftResolution]
 
     multiplier = int(1 / redshiftResolution)
     redshiftResolution = int(redshiftResolution * multiplier)
@@ -661,13 +662,14 @@ def determine_sn_rate(
         shortCampaignRateCurve = False
 
     if pleasePlot:
+
         imageLink = dp.plot_polynomial(
             log,
             title='PS1-transient Survey - Precentage of transient Detected',
             polynomialDict=polynomialDict,
             orginalDataDictionary=orginalDataDictionary,
             pathToOutputPlotsFolder=pathToOutputPlotFolder,
-            xRange=[0.01, 1., 0.01],
+            xRange=xRange,
             xlabel=False,
             ylabel=False,
             xAxisLimits=False,
@@ -696,7 +698,7 @@ def determine_sn_rate(
         polynomialDict=polynomialDict,
         orginalDataDictionary=orginalDataDictionary,
         pathToOutputPlotsFolder=pathToOutputPlotFolder,
-        xRange=[0.01, 1., 0.01],
+        xRange=xRange,
         xlabel=False,
         ylabel=False,
         xAxisLimits=False,
