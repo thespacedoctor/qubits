@@ -972,7 +972,7 @@ def generate_single_kcorrection_polynomial(
     title = "k_%s%s at z = %s" % (restFrameFilter, ffilter, redshift)
 
     if plot:
-        fileName = dp.plot_polynomial(
+        fileName = plot_polynomial(
             log,
             title=title,
             polynomialDict=polyDict,
