@@ -413,7 +413,7 @@ def generate_numpy_polynomial_lightcurves(
             plotDict[model] = polyLightCurve
 
             if plot:
-                dp.plot_polynomial(
+                plot_polynomial(
                     log,
                     title="00 raw lightcurve for %s, filter %s" % (
                         model, ffilter),
@@ -634,7 +634,7 @@ def convert_lightcurves_to_observered_frame(
         exampleDictionary['SN %02d @ z = %04.3f' %
                           (item, redshiftArray[item])] = absLightCurve
     if plot:
-        dp.plot_polynomial(
+        plot_polynomial(
             log,
             title="Absoulte Magnitude Lightcurves - random sample",
             polynomialDict=exampleDictionary,
@@ -688,7 +688,7 @@ def convert_lightcurves_to_observered_frame(
                           (item, redshiftArray[item])] = apparentLightCurve
         #log.info('absLightCurveDictionary %s' % (absLightCurveDictionary,))
     if plot:
-        dp.plot_polynomial(
+        plot_polynomial(
             log,
             title="Pre-KCorrection Apparent Magnitude Lightcurves - random sample",
             polynomialDict=exampleDictionary,
@@ -730,7 +730,7 @@ def convert_lightcurves_to_observered_frame(
                 plotLcDict[ffilter] = kcorLightCurve
             lcDict[ffilter] = kcorLightCurve
             if plot:
-                dp.plot_polynomial(
+                plot_polynomial(
                     log,
                     title="K(un)corrected Apparent Magnitude Lightcurves - SN Number %s" % (
                         i),
@@ -789,7 +789,7 @@ def convert_lightcurves_to_observered_frame(
                 galExtPoly = None
             lcDict[ffilter] = galExtPoly
         if plot:
-            dp.plot_polynomial(
+            plot_polynomial(
                 log,
                 title="Galactic Extinction Corrected Lightcurves - SN Number %s" % (
                     item),
@@ -854,7 +854,7 @@ def convert_lightcurves_to_observered_frame(
                 floatPeakMagDict[ffilter] = None
 
         if plot:
-            dp.plot_polynomial(
+            plot_polynomial(
                 log,
                 title="Observed Lightcurves - SN Number %s" % (item, ),
                 polynomialDict=lcPolyDict,

@@ -462,7 +462,7 @@ def plot_sn_discovery_ratio_map(log,
     maxInList = max(redshifts) * 1.1
 
     ################ >ACTION(S) ################
-    imageLink = dp.plot_polar(
+    imageLink = plot_polar(
         log,
         title="Redshift Map of transients Simulated within the Survey Volume",
         dataDictionary=dataDictionary,
@@ -663,7 +663,7 @@ def determine_sn_rate(
 
     if pleasePlot:
 
-        imageLink = dp.plot_polynomial(
+        imageLink = plot_polynomial(
             log,
             title='PS1-transient Survey - Precentage of transient Detected',
             polynomialDict=polynomialDict,
@@ -692,7 +692,7 @@ def determine_sn_rate(
     polynomialDict = {"transient Rate": transientRateCurve}
     orginalDataDictionary = {"transient Rate": [
         shellRedshiftArray, shelltransientRateDensityArray]}
-    imageLink = dp.plot_polynomial(
+    imageLink = plot_polynomial(
         log,
         title='PS1 MDF transient Rate Density',
         polynomialDict=polynomialDict,
@@ -734,7 +734,7 @@ def determine_sn_rate(
     maxInList = max(redshifts) * 1.1
 
     if pleasePlot:
-        imageLink = dp.plot_polynomial(
+        imageLink = plot_polynomial(
             log,
             title='PS1-transient Survey - Relative Detected Rates',
             polynomialDict=polynomialDict,

@@ -248,7 +248,7 @@ def determine_if_sne_are_discoverable(
 
         dataDictionary = {'Discoverable': hitArray,
                           'Undiscoverable': missArray}
-        dp.plot_polar(
+        plot_polar(
             log,
             title="Discoverable SN Redshift Distribution",
             dataDictionary=dataDictionary,
