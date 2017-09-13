@@ -1015,7 +1015,7 @@ def generate_kcorrection_polynomial_database(
 
     **Key Arguments:**
         - ``log`` -- logger
-        - ``restFrameFilter`` -- the observed frame filter with which to calculate k-crrections with
+        - ``restFrameFilter`` -- the observed frame filter with which to calculate k-corrections with
         - ``pathToOutputDirectory`` -- path to the output directory (provided by the user)
         - ``kCorPolyOrder`` -- the order of the polynomials to fit
         - ``kCorMinimumDataPoints`` -- Minimum number of datapoints used to generate k-correction curve

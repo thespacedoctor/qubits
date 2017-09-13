@@ -17,7 +17,7 @@ Program Settings:
 ## SIMULATED SURVEY CONSTRAINTS ##
 Extra Survey Constraints:
     Faint-Limit of Peak Magnitude: 21.50 # The lower-limit of the apparent peak magnitude so that the transient can be distinguished from other flavours of transients. Set this to 99.9 for this setting to be disregarded.
-    Observable for at least ? number of days: 75 # Set this to 1 for this setting to be distregarded
+    Observable for at least ? number of days: 75 # Set this to 0 for this setting to be disregarded
 Lower Redshift Limit: 0.00 ## Usually set to 0.0s
 Upper Redshift Limit: 1.0
 Redshift Resolution: 0.1 ## Higher resolution (lower number) means the simulations are more accuate but the code shall take long to run, especially for the k-correction database generation.
