@@ -196,7 +196,7 @@ def main(arguments=None):
             redshiftUpper=upperRedshiftLimit + redshiftResolution,
             plot=programSettings['Generate KCorrection Plots'])
 
-        print "The k-crrection database has been generate here: %(pathToOutputDirectory)sk_corrections" % locals()
+        print "The k-correction database has been generated here: %(pathToOutputDirectory)sk_corrections" % locals()
         if programSettings['Generate KCorrection Plots']:
             print "The k-correction polynomial plots can also be found in %(pathToOutputDirectory)sk_corrections" % locals()
 

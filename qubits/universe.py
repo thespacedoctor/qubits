@@ -30,6 +30,8 @@
 # CREATED : April 12, 2013
 # AUTHOR : DRYX
 
+from commonutils import *
+
 
 def random_redshift_array(
         log,
@@ -571,7 +573,7 @@ def convert_lightcurves_to_observered_frame(
         - ``kCorrectionArray`` -- array of k-corrections,
         - ``hostExtinctionArray`` --  array of random host extinctions,
         - ``galacticExtinctionArray`` --  array of random galactic extinctions,
-        - ``restFrameFilter`` -- the observed frame filter with which to calculate k-crrections with
+        - ``restFrameFilter`` -- the observed frame filter with which to calculate k-corrections with
         - ``pathToOutputDirectory`` -- path to the output directory (provided by the user)
         - ``pathToOutputPlotDirectory`` -- path to the output plot directory
         - ``polyOrder`` -- order of the polynomial used to fit the lightcurve
