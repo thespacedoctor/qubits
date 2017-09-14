@@ -876,7 +876,7 @@ The *%s*-band liming magnitudes of this simulated survey are:
         settings_log += """| %s | %s |\n""" % (k, v,)
     settings_log += """
 
-A total of **%s** transients where simulated in the survey, within a **redshift-range of %s-%s**. A constant galactic extinction of `E(B-V) = %s` is used (the mean extinction of the 10 PS1 Medimum Deep Fields). The MDFs are visible for a fraction of %s of the survey year and the typical fraction of survey time lost to weather of %s is accounted for. Here are the relative rates and peak magnitude distributions of the SN used in the survey:
+A total of **%s** transients where simulated in the survey, within a **redshift-range of %s-%s**. A constant galactic extinction of `E(B-V) = %s` is used, it's assumed that any given field in the sky is visible for %s of the survey year and the typical fraction of survey time lost to weather of %s is accounted for. Here are the relative rates and peak magnitude distributions of the SN used in the survey:
 
 | SN Type | Relative Rate | Peak Magnitude | Sigma Peak |
 |:---|:---|:---|:---|
