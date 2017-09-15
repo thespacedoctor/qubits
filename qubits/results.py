@@ -18,7 +18,8 @@
 """
 ################# GLOBAL IMPORTS ####################
 from commonutils import *
-
+from astrocalc.distances import converter
+import math
 
 ###################################################################
 # CLASSES                                                         #
@@ -30,6 +31,8 @@ from commonutils import *
 # LAST MODIFIED : April 18, 2013
 # CREATED : April 18, 2013
 # AUTHOR : DRYX
+
+
 def import_results(log, pathToYamlFile):
     """
     *Import the results of the simulation (the filename is an argument of this models)*
@@ -861,6 +864,51 @@ def log_the_survey_settings(
     campaignLengthLimit = extraSurveyConstraints[
         "Observable for at least ? number of days"]
 
+    # CALCULATE THE SURVEY VOLUME
+    c = converter(log=log)
+    dists = c.redshift_to_distance(
+        z=float(upperRedshiftLimit),
+        WM=0.3,
+        WV=0.7,
+        H0=70.0
+    )
+    dl_mpc = dists["dl_mpc"]
+    sphereOuter = (4. / 3.) * math.pi * dl_mpc**3
+
+    if float(lowerRedshiftLimit) == 0.:
+        surveyVolume = sphereOuter
+    else:
+        dists = c.redshift_to_distance(
+            z=float(lowerRedshiftLimit),
+            WM=0.3,
+            WV=0.7,
+            H0=70.0
+        )
+        dl_mpc = dists["dl_mpc"]
+        sphereInner = (4. / 3.) * math.pi * dl_mpc**3
+        surveyVolume = sphereOuter - sphereInner
+    # NOW SCALE TO SKY-AREA
+    surveyVolume = surveyVolume * surveyArea / 41253
+    surveyVolume = surveyVolume / (1000.)**3
+    if surveyVolume < 1:
+        surveyVolume = "%(surveyVolume)0.4f" % locals()
+    elif surveyVolume < 100:
+        surveyVolume = "%(surveyVolume)0.2f" % locals()
+    else:
+        surveyVolume = "%(surveyVolume)0.1f" % locals()
+
+    # CALCULATE OVERALL DETECTION FRACTIONS
+    discoveryFraction, tooFaintFraction, shortCampaignFraction = calculate_fraction_of_sn_discovered(
+        log, surveyCadenceSettings, snSurveyDiscoveryTimes, redshifts, peakAppMagList, snCampaignLengthList, extraSurveyConstraints, lowerRedshiftLimit, upperRedshiftLimit)
+
+    discoveryFraction = discoveryFraction * 100.
+    if discoveryFraction < 1:
+        discoveryFraction = "%(discoveryFraction)0.4f" % locals()
+    elif discoveryFraction < 10:
+        discoveryFraction = "%(discoveryFraction)0.2f" % locals()
+    else:
+        discoveryFraction = "%(discoveryFraction)0.1f" % locals()
+
     # log.info('yamlContent %s' % (yamlContent,))
     stream.close()
 
@@ -876,11 +924,11 @@ The *%s*-band liming magnitudes of this simulated survey are:
         settings_log += """| %s | %s |\n""" % (k, v,)
     settings_log += """
 
-A total of **%s** transients where simulated in the survey, within a **redshift-range of %s-%s**. A constant galactic extinction of `E(B-V) = %s` is used, it's assumed that any given field in the sky is visible for %s of the survey year and the typical fraction of survey time lost to weather of %s is accounted for. Here are the relative rates and peak magnitude distributions of the SN used in the survey:
+A total of **%s** transients where simulated in the survey, within a **redshift-range of %s-%s** and **survey footprint of %s deg<sup>2</sup>** (a **total volume of %s Gpc<sup>-3</sup> yr<sup>-1</sup>**). **%s%% of these simulated transients had solid 'discoveries'**.  A constant galactic extinction of `E(B-V) = %s` is used, it's assumed that any given field in the sky is visible for %s of the survey year and the typical fraction of survey time lost to weather of %s is accounted for. Here are the relative rates and peak magnitude distributions of the SN used in the survey:
 
 | SN Type | Relative Rate | Peak Magnitude | Sigma Peak |
 |:---|:---|:---|:---|
-""" % (sampleNumber, lowerRedshiftLimit, upperRedshiftLimit, extinctionConstant, observableFraction, weatherLossFraction,)
+""" % (sampleNumber, lowerRedshiftLimit, upperRedshiftLimit, surveyArea, surveyVolume, discoveryFraction, extinctionConstant, observableFraction, weatherLossFraction,)
     for k, v in peakMagnitudeDistributions['magnitude'].iteritems():
         settings_log += """| %s | %s | %s | %s |\n""" % (
             k, relativeSNRates[k], v, peakMagnitudeDistributions['sigma'][k])

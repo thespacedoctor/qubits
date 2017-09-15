@@ -14,6 +14,7 @@ install_requires = [
     'qubits',
     'fundamentals',
     'pysynphot',
+    'astrocalc'
 ]
 
 # READ THE DOCS SERVERS
