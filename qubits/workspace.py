@@ -67,7 +67,7 @@ class workspace():
         **Return:**
             - ``None``
         """
-        self.log.info('starting the ``setup`` method')
+        self.log.debug('starting the ``setup`` method')
 
         # RECURSIVELY CREATE MISSING DIRECTORIES
         if not os.path.exists(self.pathToWorkspace):
@@ -119,7 +119,7 @@ class workspace():
         writeFile.write(thisData)
         writeFile.close()
 
-        self.log.info('completed the ``setup`` method')
+        self.log.debug('completed the ``setup`` method')
         return None
 
     # xt-class-method
