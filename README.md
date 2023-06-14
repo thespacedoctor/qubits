@@ -1,4 +1,10 @@
+
+
 # Queen's University Belfast Imitation Transient Surveys (QUBITS)
+
+[![](https://zenodo.org/badge/12975788.svg)](https://zenodo.org/badge/latestdoi/12975788) 
+
+
 
 ## Abstract:
 
@@ -320,3 +326,19 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+## How to cite qubits
+
+If you use `qubits` in your work, please cite using the following BibTeX entry: 
+
+```bibtex
+@software{Young_qubits,
+    author = {Young, David R.},
+    doi = {10.5281/zenodo.8037739},
+    license = {GPL-3.0-only},
+    title = {{qubits}},
+    url = {https://github.com/thespacedoctor/qubits}
+}
+```
+ 
