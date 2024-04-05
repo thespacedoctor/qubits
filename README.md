@@ -331,12 +331,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 If you use `qubits` in your work, please cite using the following BibTeX entry: 
 
 ```bibtex
-@software{Young_qubits,
+@software{Young_QUBITS,
     author = {Young, David R.},
-    doi = {10.5281/zenodo.8037739},
+    doi = {10.5281/zenodo.8037738},
     license = {GPL-3.0-only},
-    title = {{qubits}},
-    url = {https://github.com/thespacedoctor/qubits}
+    title = {{QUBITS. Queen's University Belfast Imitation Transient Surveys}},
+    url = {https://zenodo.org/doi/10.5281/zenodo.8037738}
 }
 ```
  
