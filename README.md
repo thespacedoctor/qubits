@@ -2,9 +2,7 @@
 
 # Queen's University Belfast Imitation Transient Surveys (QUBITS)
 
-[![](https://zenodo.org/badge/12975788.svg)](https://zenodo.org/badge/latestdoi/12975788) 
-
-
+[![](https://zenodo.org/badge/DOI/10.5281/zenodo.8037738.svg)](https://zenodo.org/doi/10.5281/zenodo.8037738) 
 
 ## Abstract:
 
